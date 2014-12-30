@@ -1,0 +1,30 @@
+#ifndef LOCATIONINFO
+#define LOCATIONINFO
+
+#include "Locality.h"
+#include "County.h"
+#include "Shire.h"
+#include "Deanery.h"
+
+class LocationInfo
+{
+    DECLARE_PROPERTY(QUuid, Id)
+    DECLARE_PROPERTY_GREF(LocalizedName, Name)
+    DECLARE_PROPERTY_GREF(Locality, Comune)
+    DECLARE_PROPERTY_GREF(Shire, ShireInfo)
+    DECLARE_PROPERTY_GREF(Deanery, DeaneryInfo)
+    DECLARE_PROPERTY(QDate, InventoryDate)
+    DECLARE_PROPERTY(QString, OldStatus)
+
+    public:
+        LocationInfo();
+        LocationInfo(const LocationInfo& li);
+        virtual ~LocationInfo();
+
+        LocationInfo& operator=(const LocationInfo& li);
+        bool operator==(const LocationInfo& li)const;
+        bool operator!=(const LocationInfo& li)const;
+};
+
+#endif // LOCATIONINFO
+
