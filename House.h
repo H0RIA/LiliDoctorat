@@ -12,21 +12,18 @@
 
 class House
 {
-    DECLARE_PROPERTY(QUuid, Id)
-    DECLARE_PROPERTY(QString, Name)
-    DECLARE_PROPERTY(QString, Description)
-    DECLARE_PROPERTY(QUuid, LocationId)
-    DECLARE_PROPERTY(QString, HouseDating)
-    DECLARE_PROPERTY_GREF(HouseFunction, Functionality)
-    DECLARE_PROPERTY_GREF(HousePositioning, Positioning)
+    DECLARE_PROPERTY(QUuid, Id)                                 // Done
+    DECLARE_PROPERTY(QString, Name)                             // Done
+    DECLARE_PROPERTY(QString, Description)                      // Done
+    DECLARE_PROPERTY(QUuid, LocationId)                         // Done
+    DECLARE_PROPERTY(QString, HouseDating)                      // Done
+    DECLARE_PROPERTY(QUuid, HouseFunctionId)                    // Done
+    DECLARE_PROPERTY(QUuid, HousePositioningId)                 // HousePositioning - Done
 
-    DECLARE_SINGLETON_OBJECT(PriestTenure)
-    //DECLARE_PROPERTY_GREF(QList<PriestTenure>, Priests)
-    DECLARE_SINGLETON_OBJECT(TaxInfo)
-//    DECLARE_PROPERTY_GREF(QList<TaxInfo>, Taxes)
-    DECLARE_PROPERTY_GREF(BuildingInfo, BuildInfo)
-    DECLARE_SINGLETON_OBJECT(ImageInfo)
-//    DECLARE_PROPERTY_GREF(QList<ImageInfo>, Images)
+    DECLARE_SINGLETON_OBJECT(PriestTenure, PriestTenures)       // Done
+    DECLARE_SINGLETON_OBJECT(TaxInfo, Taxes)                    // Done
+    DECLARE_PROPERTY(QUuid, BuildInfoId)                        // BuildingInfo - Done
+    DECLARE_SINGLETON_OBJECT(ImageInfo, Images)                 // Done
 
     public:
         House();

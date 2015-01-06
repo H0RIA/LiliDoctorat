@@ -20,11 +20,13 @@ class OutHouses
 
 class HousePositioning
 {
+    DECLARE_PROPERTY(QUuid, Id)
     DECLARE_PROPERTY_GREF(QString, FromChurch)
     DECLARE_PROPERTY_GREF(QString, FromRoad)
     DECLARE_PROPERTY_GREF(QString, FromGarden)
     DECLARE_PROPERTY_GREF(QString, Declivity)
-    DECLARE_PROPERTY_GREF(OutHouses, Outhouses)
+    DECLARE_PROPERTY(OutHouses, Outhouses)
+//    DECLARE_PROPERTY_GREF(OutHouses, Outhouses)
 
     public:
         HousePositioning();

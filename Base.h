@@ -211,13 +211,17 @@
 
 #endif // !DECLARE_AS_SINGLETON
 
+#ifndef DECLARE_SINGLETON_OBJECT_EX
+#define DECLARE_SINGLETON_OBJECT_EX(type)   DECLARE_SINGLETON_OBJECT(type, type)
+#endif // DECLARE_SINGLETON_OBJECT_EX
+
 #ifndef DECLARE_SINGLETON_OBJECT
-#define DECLARE_SINGLETON_OBJECT(type) \
+#define DECLARE_SINGLETON_OBJECT(type, name) \
     public:\
         inline type* create##type(){\
             type* data = new type();\
             if(data != nullptr){\
-                COLLECTION_MEMBER_NAME(type).append(data);\
+                MEMBER_NAME(name).append(data);\
             }\
             return data;\
         }\
@@ -225,30 +229,30 @@
             if(pData == nullptr)\
                 return false;\
 \
-            if(COLLECTION_MEMBER_NAME(type).contains(pData))\
+            if(MEMBER_NAME(name).contains(pData))\
                 return true;\
             \
-            COLLECTION_MEMBER_NAME(type).append(pData);\
+            MEMBER_NAME(name).append(pData);\
     \
             return true;\
         }\
-        inline void clear##type##List(){\
-            while(!COLLECTION_MEMBER_NAME(type).isEmpty()){\
-                type* data = COLLECTION_MEMBER_NAME(type).front();\
+        inline void clear##name(){\
+            while(!MEMBER_NAME(name).isEmpty()){\
+                type* data = MEMBER_NAME(name).front();\
                 if(data != nullptr)\
                     delete data;\
-                COLLECTION_MEMBER_NAME(type).removeFirst();\
+                MEMBER_NAME(name).removeFirst();\
             }\
         }\
         inline void rem##type(type* object){\
-            if(object == nullptr || COLLECTION_MEMBER_NAME(type).isEmpty())\
+            if(object == nullptr || MEMBER_NAME(name).isEmpty())\
                 return;\
-            COLLECTION_MEMBER_NAME(type).removeAll(object);\
+            MEMBER_NAME(name).removeAll(object);\
         }\
         inline void rem##type(const QUuid& objectId){\
             if(objectId.isNull())\
                 return;\
-            for(auto currentObject : COLLECTION_MEMBER_NAME(type)){\
+            for(auto currentObject : MEMBER_NAME(name)){\
                 if(currentObject != nullptr){\
                     if(currentObject->Id() == objectId){\
                         rem##type(currentObject);\
@@ -263,7 +267,7 @@
             if(objectId.isNull())\
                 return result;\
 \
-            for(auto currentObject : COLLECTION_MEMBER_NAME(type)){\
+            for(auto currentObject : MEMBER_NAME(name)){\
                 if(currentObject != nullptr){\
                     if(currentObject->Id() == objectId){\
                         result = currentObject;\
@@ -273,14 +277,14 @@
             }\
             return result;\
         }\
-        inline QList<type*>& get##type##List(){\
-            return COLLECTION_MEMBER_NAME(type);\
+        inline QList<type*>& get##name(){\
+            return MEMBER_NAME(name);\
         }\
-        inline const QList<type*>& get##type##List()const{\
-            return COLLECTION_MEMBER_NAME(type);\
+        inline const QList<type*>& get##name()const{\
+            return MEMBER_NAME(name);\
         }\
     protected:\
-    QList<type*>    COLLECTION_MEMBER_NAME(type);\
+    QList<type*>    MEMBER_NAME(name);\
 
 #endif // !DECLARE_SINGLETON_OBJECT
 

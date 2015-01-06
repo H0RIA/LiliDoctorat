@@ -17,9 +17,9 @@ HouseManager::instance()
 HouseManager::~HouseManager()
 {
     // TODO ???
-    while(!m_House_list.isEmpty()){
-        House* currentHouse = m_House_list.front();
-        m_House_list.pop_front();
+    while(!m_Houses.isEmpty()){
+        House* currentHouse = m_Houses.front();
+        m_Houses.pop_front();
         if(currentHouse != nullptr)
             delete currentHouse;
     }

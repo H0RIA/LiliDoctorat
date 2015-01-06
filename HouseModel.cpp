@@ -13,7 +13,7 @@ HouseModel::rowCount(const QModelIndex &parent)const
 {
     Q_UNUSED(parent);
 
-    return m_pManager->getHouseList().count();
+    return m_pManager->getHouses().count();
 }
 
 int
@@ -34,7 +34,7 @@ HouseModel::data(const QModelIndex &index, int role)const
 
     switch(role){
     case Qt::DisplayRole:
-        house = m_pManager->getHouseList().at(rowIndex);
+        house = m_pManager->getHouses().at(rowIndex);
         if(house != nullptr){
             switch(colIndex){
             case HouseModelColumn::Dating:
@@ -50,9 +50,9 @@ HouseModel::data(const QModelIndex &index, int role)const
                 return house->Name();
                 break;
             case HouseModelColumn::Thumbnail:
-                if(!house->getImageInfoList().empty()){
-                    if(house->getImageInfoList().front() != nullptr){
-                        return house->getImageInfoList().front()->Path();
+                if(!house->getImages().empty()){
+                    if(house->getImages().front() != nullptr){
+                        return house->getImages().front()->Path();
 //                        if(house->getImageInfoList().front()->getPixmap() != nullptr){
 //                            return (qptrdiff)house->getImageInfoList().front()->getPixmap();
 //                        }

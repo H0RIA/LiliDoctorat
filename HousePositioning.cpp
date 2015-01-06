@@ -54,7 +54,8 @@ OutHouses::operator!=(const OutHouses& oh)const
 
 
 HousePositioning::HousePositioning()
-    :   m_FromChurch(),
+    :   m_Id(QUuid::createUuid()),
+        m_FromChurch(),
         m_FromRoad(),
         m_FromGarden(),
         m_Declivity(),
@@ -62,7 +63,8 @@ HousePositioning::HousePositioning()
 {}
 
 HousePositioning::HousePositioning(const HousePositioning& hp)
-    :   m_FromChurch(hp.FromChurch()),
+    :   m_Id(hp.Id()),
+        m_FromChurch(hp.FromChurch()),
         m_FromRoad(hp.FromRoad()),
         m_FromGarden(hp.FromGarden()),
         m_Declivity(hp.Declivity()),
@@ -74,6 +76,7 @@ HousePositioning::~HousePositioning(){}
 HousePositioning&
 HousePositioning::operator=(const HousePositioning& hp)
 {
+    m_Id = hp.Id();
     m_FromChurch = hp.FromChurch();
     m_FromRoad = hp.FromRoad();
     m_FromGarden = hp.FromGarden();
@@ -86,14 +89,7 @@ HousePositioning::operator=(const HousePositioning& hp)
 bool
 HousePositioning::operator==(const HousePositioning& hp)const
 {
-    if(m_FromChurch == hp.FromChurch()
-        && m_FromRoad == hp.FromRoad()
-        && m_FromGarden == hp.FromGarden()
-        && m_Declivity == hp.Declivity()
-        && m_Outhouses == hp.Outhouses())
-        return true;
-
-    return false;
+    return m_Id == hp.Id();
 }
 
 bool

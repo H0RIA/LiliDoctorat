@@ -5,22 +5,23 @@
 
 class BuildingInfo
 {
-    DECLARE_PROPERTY(QString, Shape)
-    DECLARE_PROPERTY(QString, RoomPlacement)
-    DECLARE_PROPERTY(int, RoomCount)
-    DECLARE_PROPERTY(int, FrontFloorCount)
-    DECLARE_PROPERTY(int, BackFloorCount)
-    DECLARE_PROPERTY(QString, FrontBay)
-    DECLARE_PROPERTY(QString, SideBay)
-    DECLARE_PROPERTY(QDate, BuildDate)
-    DECLARE_PROPERTY(QString, ArchitecturalStyle)
-    DECLARE_PROPERTY(QString, Doors)
-    DECLARE_PROPERTY(QString, Windows)
-    DECLARE_PROPERTY_GREF(QStringList, Notes)
-    DECLARE_PROPERTY(QString, BasementVault)
-    DECLARE_PROPERTY(QString, Roof)
-    DECLARE_PROPERTY(QString, Ceiling)
-    DECLARE_PROPERTY(QString, Pinion)
+    DECLARE_PROPERTY(QUuid, Id)                         // Done
+    DECLARE_PROPERTY(QString, Shape)                    // Done
+    DECLARE_PROPERTY(QString, RoomPlacement)            // Done
+    DECLARE_PROPERTY(int, RoomCount)                    // Done
+    DECLARE_PROPERTY(int, FrontFloorCount)              // Done
+    DECLARE_PROPERTY(int, BackFloorCount)               // Done
+    DECLARE_PROPERTY(QString, FrontBay)                 // Done
+    DECLARE_PROPERTY(QString, SideBay)                  // Done
+    DECLARE_PROPERTY(QDate, BuildDate)                  // Done
+    DECLARE_PROPERTY(QString, ArchitecturalStyle)       // Done
+    DECLARE_PROPERTY(QString, Doors)                    // Done
+    DECLARE_PROPERTY(QString, Windows)                  // Done
+    DECLARE_PROPERTY_GREF(QStringList, Notes)           // Done
+    DECLARE_PROPERTY(QString, BasementVault)            // Done
+    DECLARE_PROPERTY(QString, Roof)                     // Done
+    DECLARE_PROPERTY(QString, Ceiling)                  // Done
+    DECLARE_PROPERTY(QString, Pinion)                   // Done
 
     public:
         BuildingInfo();

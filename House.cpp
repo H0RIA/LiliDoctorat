@@ -6,12 +6,12 @@ House::House()
         m_Description(),
         m_LocationId(),
         m_HouseDating(),
-        m_Functionality(),
-        m_Positioning(),
-        m_PriestTenure_list(),
-        m_TaxInfo_list(),
-        m_BuildInfo(),
-        m_ImageInfo_list()
+        m_HouseFunctionId(),
+        m_HousePositioningId(),
+        m_PriestTenures(),
+        m_Taxes(),
+        m_BuildInfoId(),
+        m_Images()
 {}
 
 House::House(const House& house)
@@ -20,12 +20,12 @@ House::House(const House& house)
         m_Description(house.Description()),
         m_LocationId(house.LocationId()),
         m_HouseDating(house.HouseDating()),
-        m_Functionality(house.Functionality()),
-        m_Positioning(house.Positioning()),
-        m_PriestTenure_list(house.getPriestTenureList()),
-        m_TaxInfo_list(house.getTaxInfoList()),
-        m_BuildInfo(house.BuildInfo()),
-        m_ImageInfo_list(house.getImageInfoList())
+        m_HouseFunctionId(house.HouseFunctionId()),
+        m_HousePositioningId(house.HousePositioningId()),
+        m_PriestTenures(house.getPriestTenures()),
+        m_Taxes(house.getTaxes()),
+        m_BuildInfoId(house.BuildInfoId()),
+        m_Images(house.getImages())
 {}
 
 House::~House(){}
@@ -38,12 +38,12 @@ House::operator=(const House& house)
     m_Description = house.Description();
     m_LocationId = house.LocationId();
     m_HouseDating = house.HouseDating();
-    m_Functionality = house.Functionality();
-    m_Positioning = house.Positioning();
-    m_PriestTenure_list = house.getPriestTenureList();
-    m_TaxInfo_list = house.getTaxInfoList();
-    m_BuildInfo = house.BuildInfo();
-    m_ImageInfo_list = house.getImageInfoList();
+    m_HouseFunctionId = house.HouseFunctionId();
+    m_HousePositioningId = house.HousePositioningId();
+    m_PriestTenures = house.getPriestTenures();
+    m_Taxes = house.getTaxes();
+    m_BuildInfoId = house.BuildInfoId();
+    m_Images = house.getImages();
 
     return *this;
 }
@@ -63,8 +63,8 @@ House::operator!=(const House& house)const
 //void
 //House::addImage(const ImageInfo& image)
 //{
-//    if(!m_ImageInfo_list.contains(image))
-//        m_ImageInfo_list.append(image);
+//    if(!m_Images.contains(image))
+//        m_Images.append(image);
 //}
 
 //void
@@ -73,6 +73,6 @@ House::operator!=(const House& house)const
 //    if(pImage == nullptr)
 //        return;
 
-//    if(!m_ImageInfo_list.contains(*pImage))
-//        m_ImageInfo_list.append(*pImage);
+//    if(!m_Images.contains(*pImage))
+//        m_Images.append(*pImage);
 //}

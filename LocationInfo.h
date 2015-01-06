@@ -10,9 +10,9 @@ class LocationInfo
 {
     DECLARE_PROPERTY(QUuid, Id)
     DECLARE_PROPERTY_GREF(LocalizedName, Name)
-    DECLARE_PROPERTY_GREF(Locality, Comune)
-    DECLARE_PROPERTY_GREF(Shire, ShireInfo)
-    DECLARE_PROPERTY_GREF(Deanery, DeaneryInfo)
+    DECLARE_PROPERTY(QUuid, Comune)    // Locality
+    DECLARE_PROPERTY(QUuid, ShireInfo) // Shire
+    DECLARE_PROPERTY(QUuid, DeaneryInfo) // Deanery
     DECLARE_PROPERTY(QDate, InventoryDate)
     DECLARE_PROPERTY(QString, OldStatus)
 

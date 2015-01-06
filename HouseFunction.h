@@ -13,6 +13,7 @@ enum class HouseLegalStatus : quint8
 
 class HouseFunction
 {
+    DECLARE_PROPERTY(QUuid, Id)
     DECLARE_PROPERTY(QString, Original)
     DECLARE_PROPERTY(QString, Current)
     DECLARE_PROPERTY(HouseLegalStatus, LegalStatus)
