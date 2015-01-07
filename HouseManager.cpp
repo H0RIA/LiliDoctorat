@@ -71,10 +71,22 @@ HouseManager::addDefaultData()
     Locality* loc = createLocality();
     if(loc != nullptr){
         LocalizedName locName;
-        locName[DBManager::instance()->findLanguage(QString("Romanian"))->Id()] = "Sat Test";
-        locName[DBManager::instance()->findLanguage(QString("German"))->Id()] = "Test Dorf";
-        locName[DBManager::instance()->findLanguage(QString("Hungarian"))->Id()] = "Test Falu";
-        locName[DBManager::instance()->findLanguage(QString("Saxon"))->Id()] = "Test Dorfen";
+        Language* lang = DBManager::instance()->findLanguage(QString("Romanian"));
+        if(lang != nullptr)
+            locName[lang->Id()] = "Sat Test";
+
+        lang = DBManager::instance()->findLanguage(QString("German"));
+        if(lang != nullptr)
+            locName[lang->Id()] = "Test Dorf";
+
+        lang = DBManager::instance()->findLanguage(QString("Hungarian"));
+        if(lang != nullptr)
+            locName[lang->Id()] = "Test Falu";
+
+        lang = DBManager::instance()->findLanguage(QString("Saxon"));
+        if(lang != nullptr)
+            locName[lang->Id()] = "Test Dorfen";
+
         loc->setName(locName);
         if(county != nullptr){
             loc->setCounty(county->Id());
