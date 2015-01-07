@@ -13,9 +13,9 @@ County::County(const County& county)
 County::~County(){}
 
 void
-County::setName(const QString& name, Language lang)
+County::setName(const QString& name, const QUuid& langId)
 {
-    m_Name[lang] = name;
+    m_Name[langId] = name;
 }
 
 County&

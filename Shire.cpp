@@ -13,9 +13,9 @@ Shire::Shire(const Shire& shire)
 Shire::~Shire(){}
 
 void
-Shire::setName(const QString& name, Language lang)
+Shire::setName(const QString& name, const QUuid& langId)
 {
-    m_Name[lang] = name;
+    m_Name[langId] = name;
 }
 
 Shire&

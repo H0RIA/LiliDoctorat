@@ -13,7 +13,7 @@ class County
         County(const County& county);
         virtual ~County();
 
-        void setName(const QString& name, Language lang = Language::Romanian);
+        void setName(const QString& name, const QUuid& langId = QUuid());
 
         County& operator=(const County& county);
         bool operator==(const County& county)const;

@@ -13,7 +13,7 @@ class Deanery
         Deanery(const Deanery& deanery);
         virtual ~Deanery();
 
-        void setName(const QString& name, Language lang = Language::Romanian);
+        void setName(const QString& name, const QUuid& langId = QUuid());
 
         Deanery& operator=(const Deanery& deanery);
         bool operator==(const Deanery& deanery)const;

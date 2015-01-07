@@ -21,6 +21,9 @@ class HouseManager
 
         House* findHouse(const QString& someText);
 
+        void reloadFromDatabase();
+        void saveToDatabase();
+
     private:
         HouseManager();
         HouseManager(const HouseManager& hm);

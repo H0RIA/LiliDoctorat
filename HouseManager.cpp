@@ -1,3 +1,4 @@
+#include "DBManager.h"
 #include "HouseManager.h"
 
 HouseManager* HouseManager::m_pInstance = nullptr;
@@ -23,6 +24,18 @@ HouseManager::~HouseManager()
         if(currentHouse != nullptr)
             delete currentHouse;
     }
+}
+
+void
+HouseManager::reloadFromDatabase()
+{
+    // TODO
+}
+
+void
+HouseManager::saveToDatabase()
+{
+    // TODO
 }
 
 HouseManager::HouseManager()
@@ -58,10 +71,10 @@ HouseManager::addDefaultData()
     Locality* loc = createLocality();
     if(loc != nullptr){
         LocalizedName locName;
-        locName[Language::Romanian] = "Sat Test";
-        locName[Language::German] = "Test Dorf";
-        locName[Language::Hungarian] = "Test Falu";
-        locName[Language::Saxon] = "Test Dorfen";
+        locName[DBManager::instance()->findLanguage(QString("Romanian"))->Id()] = "Sat Test";
+        locName[DBManager::instance()->findLanguage(QString("German"))->Id()] = "Test Dorf";
+        locName[DBManager::instance()->findLanguage(QString("Hungarian"))->Id()] = "Test Falu";
+        locName[DBManager::instance()->findLanguage(QString("Saxon"))->Id()] = "Test Dorfen";
         loc->setName(locName);
         if(county != nullptr){
             loc->setCounty(county->Id());

@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui svg network
+QT       += core gui svg network sql
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -29,7 +29,9 @@ SOURCES += main.cpp\
     Deanery.cpp \
     CentralWindow.cpp \
     HouseModel.cpp \
-    ThumbnailDelegate.cpp
+    ThumbnailDelegate.cpp \
+    DBManager.cpp \
+    Language.cpp
 
 HEADERS  += MainWindow.h \
     Base.h \
@@ -48,4 +50,6 @@ HEADERS  += MainWindow.h \
     Shire.h \
     Deanery.h \
     HouseModel.h \
-    ThumbnailDelegate.h
+    ThumbnailDelegate.h \
+    DBManager.h \
+    Language.h

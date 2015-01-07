@@ -13,7 +13,7 @@ class Shire
         Shire(const Shire& shire);
         virtual ~Shire();
 
-        void setName(const QString& name, Language lang = Language::Romanian);
+        void setName(const QString& name, const QUuid& langId = QUuid());
 
         Shire& operator=(const Shire& shire);
         bool operator==(const Shire& shire)const;

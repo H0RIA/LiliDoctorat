@@ -95,6 +95,9 @@
 #include <QLineEdit>
 #include <QResizeEvent>
 
+#include <QSqlDatabase>
+#include <QSqlRecord>
+
 //#if (CURRENT_WEBVERSION == WEBVERSION_CHROMIUM)
 //    #include <QtWebEngineWidgets/QtWebEngineWidgets>
 //#else
@@ -301,13 +304,7 @@
 
 #endif // !IMPLEMENT_SINGLETON
 
-enum class Language : quint8{
-    Romanian,
-    Hungarian,
-    German,
-    Saxon
-};
-
-typedef std::map<Language, QString> LocalizedName;
+//typedef std::map<Language, QString> LocalizedName;
+typedef std::map<QUuid /*LanguageId*/, QString> LocalizedName;
 
 #endif // BASE_H

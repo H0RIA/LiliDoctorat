@@ -13,9 +13,9 @@ Deanery::Deanery(const Deanery& deanery)
 Deanery::~Deanery(){}
 
 void
-Deanery::setName(const QString& name, Language lang)
+Deanery::setName(const QString& name, const QUuid& langId)
 {
-    m_Name[lang] = name;
+    m_Name[langId] = name;
 }
 
 Deanery&
