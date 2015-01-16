@@ -32,7 +32,11 @@ SOURCES += main.cpp\
     ThumbnailDelegate.cpp \
     DBManager.cpp \
     Language.cpp \
-    WndEditHouse.cpp
+    WndEditHouse.cpp \
+    WndConfig.cpp \
+    WndHouse_TabBuilding.cpp \
+    WndHouse_TabFunction.cpp \
+    WndHouse_TabPositioning.cpp
 
 HEADERS  += MainWindow.h \
     Base.h \
@@ -54,7 +58,11 @@ HEADERS  += MainWindow.h \
     ThumbnailDelegate.h \
     DBManager.h \
     Language.h \
-    WndEditHouse.h
+    WndEditHouse.h \
+    WndConfig.h \
+    WndHouse_TabBuilding.h \
+    WndHouse_TabPositioning.h \
+    WndHouse_TabFunction.h
 
 FORMS += \
     WndEditHouse.ui

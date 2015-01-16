@@ -33,6 +33,8 @@ class House
         House& operator=(const House& house);
         bool operator==(const House& house)const;
         bool operator!=(const House& house)const;
+
+        bool saveToDB();
 };
 
 #endif // HOUSE

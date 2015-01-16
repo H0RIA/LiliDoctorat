@@ -492,7 +492,7 @@
         <string>Tab 1</string>
        </attribute>
       </widget>
-      <widget class="QWidget" name="tabTerain">
+      <widget class="QWidget" name="tabFunction">
        <attribute name="title">
         <string>Tab 2</string>
        </attribute>

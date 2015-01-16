@@ -1,7 +1,7 @@
 #ifndef WNDEDITHOUSE_H
 #define WNDEDITHOUSE_H
 
-#include "Base.h"
+#include "HouseManager.h"
 
 namespace Ui {
     class WndEditHouse;
@@ -17,6 +17,8 @@ class WndEditHouse : public QDialog
 
     protected:
         void loadHouseInfo();
+        void onSave();
+        void onCancel();
 
     private slots:
         void on_btnNextImage_clicked();
@@ -24,6 +26,7 @@ class WndEditHouse : public QDialog
 
     protected:
         QUuid m_HouseId;
+        House* m_pHouse;
 
     private:
         Ui::WndEditHouse *ui;

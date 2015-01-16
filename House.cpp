@@ -60,6 +60,16 @@ House::operator!=(const House& house)const
     return !(this->operator ==(house));
 }
 
+bool
+House::saveToDB()
+{
+    bool result = false;
+
+    // TODO
+
+    return result;
+}
+
 //void
 //House::addImage(const ImageInfo& image)
 //{

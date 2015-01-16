@@ -98,3 +98,29 @@ HousePositioning::operator!=(const HousePositioning& hp)const
     return !(this->operator ==(hp));
 }
 
+bool
+HousePositioning::loadFromDB(const QUuid& id)
+{
+    bool result = false;
+
+    if(id.isNull())
+        return result;
+
+    // TODO
+
+    return result;
+}
+
+bool
+HousePositioning::saveToDB()const
+{
+    bool result = false;
+
+    if(Id().isNull()){
+        // Create new entry => Insert in SQL
+    }else{
+        // Save changes => Update in SQL
+    }
+
+    return result;
+}

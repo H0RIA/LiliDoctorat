@@ -39,3 +39,25 @@ HouseFunction::operator!=(const HouseFunction& hf)const
     return !(this->operator ==(hf));
 }
 
+bool
+HouseFunction::saveToDB()
+{
+    bool result = false;
+
+    // TODO
+
+    return result;
+}
+
+bool
+HouseFunction::loadFromDB(const QUuid& id)
+{
+    bool result = false;
+
+    if(id.isNull())
+        return result;
+
+    // TODO
+
+    return result;
+}

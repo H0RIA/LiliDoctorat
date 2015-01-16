@@ -26,6 +26,9 @@ class HouseFunction
         HouseFunction& operator=(const HouseFunction& hf);
         bool operator==(const HouseFunction& hf)const;
         bool operator!=(const HouseFunction& hf)const;
+
+        bool saveToDB();
+        bool loadFromDB(const QUuid& id);
 };
 
 #endif // HOUSEFUNCTION

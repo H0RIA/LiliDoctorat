@@ -36,6 +36,9 @@ class HousePositioning
         HousePositioning& operator=(const HousePositioning& hp);
         bool operator==(const HousePositioning& hp)const;
         bool operator!=(const HousePositioning& hp)const;
+
+        bool loadFromDB(const QUuid& id);
+        bool saveToDB()const;
 };
 
 #endif // HOUSEPOSITIONING
