@@ -12,13 +12,20 @@ class DBManager
         virtual ~DBManager();
 
         Language* findLanguage(const QString& name);
-//        const Language* findLanguage(const QString& name)const;
+
+        void clearData();
+        void loadData();
+        void saveData();
+
+        void loadLanguages();
+        void saveLanguages();
 
     protected:
         DBManager();
         DBManager(const DBManager& dbm);
 
         DBManager& operator=(const DBManager& dbm);
+
 
     protected:
         QSqlDatabase* m_pDatabase;

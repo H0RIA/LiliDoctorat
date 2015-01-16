@@ -1,16 +1,21 @@
 #include "Language.h"
 
+QUuid Language::LANGUAGE_ROMANIAN = QUuid();
+QUuid Language::LANGUAGE_GERMAN = QUuid();
+QUuid Language::LANGUAGE_SAXON = QUuid();
+QUuid Language::LANGUAGE_HUNGARIAN = QUuid();
+
 Language::Language()
     :   m_Id(QUuid::createUuid()),
         m_Name()
 {
 }
 
-Language::Language(const QString& name)
-    :   m_Id(QUuid::createUuid()),
-        m_Name(name)
-{
-}
+//Language::Language(const QString& name)
+//    :   m_Id(QUuid::createUuid()),
+//        m_Name(name)
+//{
+//}
 
 Language::Language(const Language& lang)
     :   m_Id(lang.Id()),

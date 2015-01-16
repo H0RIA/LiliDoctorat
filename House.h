@@ -13,7 +13,7 @@
 class House
 {
     DECLARE_PROPERTY(QUuid, Id)                                 // Done
-    DECLARE_PROPERTY(QString, Name)                             // Done
+    DECLARE_PROPERTY(LocalizedName, Name)                       // Done
     DECLARE_PROPERTY(QString, Description)                      // Done
     DECLARE_PROPERTY(QUuid, LocationId)                         // Done
     DECLARE_PROPERTY(QString, HouseDating)                      // Done

@@ -31,7 +31,8 @@ SOURCES += main.cpp\
     HouseModel.cpp \
     ThumbnailDelegate.cpp \
     DBManager.cpp \
-    Language.cpp
+    Language.cpp \
+    WndEditHouse.cpp
 
 HEADERS  += MainWindow.h \
     Base.h \
@@ -52,4 +53,8 @@ HEADERS  += MainWindow.h \
     HouseModel.h \
     ThumbnailDelegate.h \
     DBManager.h \
-    Language.h
+    Language.h \
+    WndEditHouse.h
+
+FORMS += \
+    WndEditHouse.ui

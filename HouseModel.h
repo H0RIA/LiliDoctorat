@@ -19,6 +19,8 @@ class HouseModel : public QAbstractTableModel
     public:
         HouseModel(QObject* parent = nullptr);
         virtual ~HouseModel();
+
+        HouseManager* getHouseManager();
 //        QModelIndex index(int row, int column, const QModelIndex &parent = QModelIndex()) const override;
 //        QModelIndex parent(const QModelIndex &child) const override;
 

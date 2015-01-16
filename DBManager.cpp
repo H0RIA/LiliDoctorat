@@ -57,6 +57,52 @@ DBManager::findLanguage(const QString& name)
 //    return lang;
 //}
 
+void
+DBManager::clearData()
+{
+    clearLanguages();
+}
+
+void
+DBManager::loadData()
+{
+    loadLanguages();
+}
+
+void
+DBManager::saveData()
+{
+    saveLanguages();
+}
+
+void
+DBManager::loadLanguages()
+{
+    if(m_pDatabase == nullptr)
+        return;
+
+    if(!m_pDatabase->isOpen() || m_pDatabase->isOpenError())
+        return;
+
+    QSqlQuery query(*m_pDatabase);
+    if(query.exec("Select * From Languages")){
+
+    }
+
+    // TODO
+    Language::LANGUAGE_ROMANIAN = QUuid::createUuid();
+    Language::LANGUAGE_GERMAN = QUuid::createUuid();
+    Language::LANGUAGE_SAXON = QUuid::createUuid();
+    Language::LANGUAGE_HUNGARIAN = QUuid::createUuid();
+
+}
+
+void
+DBManager::saveLanguages()
+{
+    // TODO
+}
+
 DBManager::DBManager()
     :   m_pDatabase(nullptr)
 {
@@ -74,12 +120,16 @@ DBManager::DBManager()
                                  "to build it."), QMessageBox::Cancel);
         return;
     }
+
+    loadData();
 }
 
 DBManager::DBManager(const DBManager& dbm)
     :   m_pDatabase(nullptr)
 {
     Q_UNUSED(dbm);
+
+    loadData();
 }
 
 DBManager&

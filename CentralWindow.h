@@ -12,6 +12,9 @@ class CentralWindow : public QWidget
         CentralWindow(QWidget* parent = nullptr);
         virtual ~CentralWindow();
 
+    protected slots:
+        void onDoubleClicked(const QModelIndex& index);
+
     protected:
         QTableView m_View;
         HouseManager* m_pManager;

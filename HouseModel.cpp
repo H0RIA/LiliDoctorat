@@ -1,3 +1,4 @@
+#include "Language.h"
 #include "HouseModel.h"
 
 HouseModel::HouseModel(QObject* parent)
@@ -7,6 +8,12 @@ HouseModel::HouseModel(QObject* parent)
 }
 
 HouseModel::~HouseModel(){}
+
+HouseManager*
+HouseModel::getHouseManager()
+{
+    return m_pManager;
+}
 
 int
 HouseModel::rowCount(const QModelIndex &parent)const
@@ -47,7 +54,7 @@ HouseModel::data(const QModelIndex &index, int role)const
                 return house->Id();
                 break;
             case HouseModelColumn::Name:
-                return house->Name();
+                return house->Name()[Language::LANGUAGE_GERMAN];
                 break;
             case HouseModelColumn::Thumbnail:
                 if(!house->getImages().empty()){

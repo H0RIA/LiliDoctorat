@@ -97,6 +97,12 @@
 
 #include <QSqlDatabase>
 #include <QSqlRecord>
+#include <QSqlError>
+#include <QSqlQuery>
+#include <QSqlTableModel>
+#include <QSqlResult>
+#include <QSqlField>
+#include <QSqlQueryModel>
 
 //#if (CURRENT_WEBVERSION == WEBVERSION_CHROMIUM)
 //    #include <QtWebEngineWidgets/QtWebEngineWidgets>

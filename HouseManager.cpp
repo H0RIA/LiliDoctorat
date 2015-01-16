@@ -115,7 +115,10 @@ HouseManager::addDefaultData()
     House* house = createHouse();
     if(house != nullptr){
         house->addImageInfo(ii);
-        house->setName("Test house");
+        LocalizedName name;
+        name[Language::LANGUAGE_ROMANIAN] = "Casa test";
+        name[Language::LANGUAGE_GERMAN] = "Das test casa";
+        house->setName(name);
         house->setDescription("Test house for Lili");
         house->setHouseDating("Datare inexistenta");
     }
