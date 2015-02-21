@@ -3,6 +3,8 @@
 
 #include "Language.h"
 
+#define DEFAULT_SQLITE_PATH "./LCP.sqlite"
+
 class DBManager
 {
     DECLARE_SINGLETON_OBJECT(Language, Languages)
@@ -21,11 +23,13 @@ class DBManager
         void saveLanguages();
 
     protected:
+        bool createDatabase();
+        bool createTables();
+
         DBManager();
         DBManager(const DBManager& dbm);
 
         DBManager& operator=(const DBManager& dbm);
-
 
     protected:
         QSqlDatabase* m_pDatabase;
