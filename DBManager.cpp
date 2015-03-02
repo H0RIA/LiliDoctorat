@@ -109,6 +109,7 @@ DBManager::createDatabase()
     if(m_pDatabase != nullptr)
         return false;
 
+    m_pDatabase = new QSqlDatabase();
     *m_pDatabase = QSqlDatabase::addDatabase("QSQLITE");
     QString path = QDir::toNativeSeparators(DEFAULT_SQLITE_PATH);
     m_pDatabase->setDatabaseName(path);
@@ -137,8 +138,12 @@ Id varchar(50) primary key,\
 IdLocale varchar(50),\
 LocalizedName varchar(255),\
 IdCounty varchar(50))";
-        bool tempResult = query.exec(strQuery);
-        result = !result ? false : tempResult;
+        RunQuery(query, strQuery, result);
+//        bool tempResult = query.exec(strQuery);
+//        if(!tempResult){
+//            qDebug() << query.lastError().text();
+//        }
+//        result = !result ? false : tempResult;
     }
 
     // Create the language table
@@ -147,8 +152,9 @@ IdCounty varchar(50))";
         QString strQuery = "Create table Language (\
 Id varchar(50) primary key,\
 Name varchar(255))";
-        bool tempResult = query.exec(strQuery);
-        result = !result ? false : tempResult;
+        RunQuery(query, strQuery, result);
+//        bool tempResult = query.exec(strQuery);
+//        result = !result ? false : tempResult;
     }
 
     // Create the Priest table
@@ -158,8 +164,9 @@ Name varchar(255))";
 Id varchar(50) primary key,\
 FirstName varchar(255),\
 LastName varchar(255))";
-        bool tempResult = query.exec(strQuery);
-        result = !result ? false : tempResult;
+        RunQuery(query, strQuery, result);
+//        bool tempResult = query.exec(strQuery);
+//        result = !result ? false : tempResult;
     }
 
     // Create the Shire table
@@ -169,8 +176,9 @@ LastName varchar(255))";
 Id varchar(50) primary key,\
 IdLocale varchar(50),\
 LocalizedName varchar(255))";
-        bool tempResult = query.exec(strQuery);
-        result = !result ? false : tempResult;
+        RunQuery(query, strQuery, result);
+//        bool tempResult = query.exec(strQuery);
+//        result = !result ? false : tempResult;
     }
 
     // Create the County table
@@ -180,8 +188,9 @@ LocalizedName varchar(255))";
 Id varchar(50) primary key,\
 IdLocale varchar(50),\
 LocalizedName varchar(255))";
-        bool tempResult = query.exec(strQuery);
-        result = !result ? false : tempResult;
+        RunQuery(query, strQuery, result);
+//        bool tempResult = query.exec(strQuery);
+//        result = !result ? false : tempResult;
     }
 
     // Create the TaxInfo table
@@ -192,8 +201,21 @@ Id varchar(50) primary key,\
 Name varchar(255),\
 Description text,\
 Formula text)";
-        bool tempResult = query.exec(strQuery);
-        result = !result ? false : tempResult;
+        RunQuery(query, strQuery, result);
+//        bool tempResult = query.exec(strQuery);
+//        result = !result ? false : tempResult;
+    }
+
+    // Create the Deanery table
+    {
+        QSqlQuery query;
+        QString strQuery = "Create table Deanery (\
+Id varchar(50) primary key,\
+IdLocale varchar(50),\
+LocalizedName varchar(255))";
+        RunQuery(query, strQuery, result);
+//        bool tempResult = query.exec(strQuery);
+//        result = !result ? false : tempResult;
     }
 
     // Create the ImageInfo table
@@ -204,8 +226,9 @@ Id varchar(50) primary key,\
 Path varchar(512),\
 Name varchar(50),\
 Details text)";
-        bool tempResult = query.exec(strQuery);
-        result = !result ? false : tempResult;
+        RunQuery(query, strQuery, result);
+//        bool tempResult = query.exec(strQuery);
+//        result = !result ? false : tempResult;
     }
 
     // Create the LocationInfo table
@@ -216,11 +239,16 @@ Id varchar(50) primary key,\
 IdLocale varchar(50),\
 LocalizedName varchar(255),\
 IdComune varchar(50),\
+IdShire varchar(50),\
 IdDeanery varchar(50),\
 InventoryDate date,\
-OldStatus text)";
-        bool tempResult = query.exec(strQuery);
-        result = !result ? false : tempResult;
+OldStatus text,\
+FOREIGN KEY(IdComune) REFERENCES Locality(Id),\
+FOREIGN KEY(IdShire) REFERENCES Shire(Id),\
+FOREIGN KEY(IdDeanery) REFERENCES Deanery(Id))";
+        RunQuery(query, strQuery, result);
+//        bool tempResult = query.exec(strQuery);
+//        result = !result ? false : tempResult;
     }
 
     // Create the HousePositioning table
@@ -232,8 +260,9 @@ FromChurch text,\
 FromRoad text,\
 FromGarden text,\
 Declivity text)";
-        bool tempResult = query.exec(strQuery);
-        result = !result ? false : tempResult;
+        RunQuery(query, strQuery, result);
+//        bool tempResult = query.exec(strQuery);
+//        result = !result ? false : tempResult;
     }
 
     // Create the HouseFunction table
@@ -244,8 +273,9 @@ Id varchar(50) primary key,\
 Original text,\
 Current text,\
 LegalStatus int)";
-        bool tempResult = query.exec(strQuery);
-        result = !result ? false : tempResult;
+        RunQuery(query, strQuery, result);
+//        bool tempResult = query.exec(strQuery);
+//        result = !result ? false : tempResult;
     }
 
     // Create the BuildingInfo table
@@ -268,8 +298,9 @@ BasementVault text,\
 Roof text,\
 Ceiling text,\
 Pinion text)";
-        bool tempResult = query.exec(strQuery);
-        result = !result ? false : tempResult;
+        RunQuery(query, strQuery, result);
+//        bool tempResult = query.exec(strQuery);
+//        result = !result ? false : tempResult;
     }
 
     // Create the House table
@@ -284,9 +315,14 @@ IdLocation varchar(50),\
 HouseDating text,\
 IdBuildingInfo varchar(50),\
 IdHouseFunction varchar(50),\
-IdHousePositioning varchar(50))";
-        bool tempResult = query.exec(strQuery);
-        result = !result ? false : tempResult;
+IdHousePositioning varchar(50),\
+FOREIGN KEY(IdLocation) REFERENCES LocationInfo(Id),\
+FOREIGN KEY(IdBuildingInfo) REFERENCES BuildingInfo(Id),\
+FOREIGN KEY(IdHouseFunction) REFERENCES HouseFunction(Id),\
+FOREIGN KEY(IdHousePositioning) REFERENCES HousePositioning(Id))";
+        RunQuery(query, strQuery, result);
+//        bool tempResult = query.exec(strQuery);
+//        result = !result ? false : tempResult;
     }
 
     // Create the HousePriests table
@@ -294,9 +330,12 @@ IdHousePositioning varchar(50))";
         QSqlQuery query;
         QString strQuery = "Create table HousePriests (\
 IdHouse varchar(50),\
-IdPriest varchar(50))";
-        bool tempResult = query.exec(strQuery);
-        result = !result ? false : tempResult;
+IdPriest varchar(50),\
+FOREIGN KEY(IdHouse) REFERENCES House(Id),\
+FOREIGN KEY(IdPriest) REFERENCES Priest(Id))";
+        RunQuery(query, strQuery, result);
+//        bool tempResult = query.exec(strQuery);
+//        result = !result ? false : tempResult;
     }
 
     // Create the HouseTaxes table
@@ -304,9 +343,12 @@ IdPriest varchar(50))";
         QSqlQuery query;
         QString strQuery = "Create table HouseTaxes (\
 IdHouse varchar(50),\
-IdTax varchar(50))";
-        bool tempResult = query.exec(strQuery);
-        result = !result ? false : tempResult;
+IdTax varchar(50),\
+FOREIGN KEY(IdHouse) REFERENCES House(Id),\
+FOREIGN KEY(IdTax) REFERENCES TaxInfo(Id))";
+        RunQuery(query, strQuery, result);
+//        bool tempResult = query.exec(strQuery);
+//        result = !result ? false : tempResult;
     }
 
     // Create the HouseImages table
@@ -314,9 +356,12 @@ IdTax varchar(50))";
         QSqlQuery query;
         QString strQuery = "Create table HouseImages (\
 IdHouse varchar(50),\
-IdImage varchar(50))";
-        bool tempResult = query.exec(strQuery);
-        result = !result ? false : tempResult;
+IdImage varchar(50),\
+FOREIGN KEY(IdHouse) REFERENCES House(Id),\
+FOREIGN KEY(IdImage) REFERENCES ImageInfo(Id))";
+        RunQuery(query, strQuery, result);
+//        bool tempResult = query.exec(strQuery);
+//        result = !result ? false : tempResult;
     }
 
     return result;

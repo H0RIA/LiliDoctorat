@@ -314,4 +314,13 @@
 //typedef std::map<Language, QString> LocalizedName;
 typedef std::map<QUuid /*LanguageId*/, QString> LocalizedName;
 
+inline void RunQuery(QSqlQuery& query, const QString& strQuery, bool& output)
+{
+    bool tempResult = query.exec(strQuery);
+    if(!tempResult)
+        qDebug() << query.lastError().text();
+
+    output = !output ? false : tempResult; \
+}
+
 #endif // BASE_H
