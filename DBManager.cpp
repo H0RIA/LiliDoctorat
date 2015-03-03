@@ -143,10 +143,8 @@ DBManager::createTables()
     bool result = true;
 
     // First we enable foreign keys
-    {
-        QString strQuery = "PRAGMA foreign_keys = ON;";
-        RunQuery(strQuery, result);
-    }
+    QString strQuery = "PRAGMA foreign_keys = ON;";
+    RunQuery(strQuery, result);
 
     // Create the locality table
     if(!Locality::TableExists())
@@ -201,32 +199,20 @@ DBManager::createTables()
         result = !result ? false : House::CreateTable();
 
     // Create the HousePriests table
-    {
-        QString strQuery = "Create table HousePriests (\
-IdHouse varchar(50),\
-IdPriest varchar(50),\
-FOREIGN KEY(IdHouse) REFERENCES House(Id),\
-FOREIGN KEY(IdPriest) REFERENCES Priest(Id))";
+    if(! ::TableExists("HousePriests")){
+        strQuery = "Create table HousePriests (IdHouse varchar(50), IdPriest varchar(50), FOREIGN KEY(IdHouse) REFERENCES House(Id),FOREIGN KEY(IdPriest) REFERENCES Priest(Id))";
         RunQuery(strQuery, result);
     }
 
     // Create the HouseTaxes table
-    {
-        QString strQuery = "Create table HouseTaxes (\
-IdHouse varchar(50),\
-IdTax varchar(50),\
-FOREIGN KEY(IdHouse) REFERENCES House(Id),\
-FOREIGN KEY(IdTax) REFERENCES TaxInfo(Id))";
+    if(! ::TableExists("HouseTaxes")){
+        strQuery = "Create table HouseTaxes (IdHouse varchar(50),IdTax varchar(50),FOREIGN KEY(IdHouse) REFERENCES House(Id),FOREIGN KEY(IdTax) REFERENCES TaxInfo(Id))";
         RunQuery(strQuery, result);
     }
 
     // Create the HouseImages table
-    {
-        QString strQuery = "Create table HouseImages (\
-IdHouse varchar(50),\
-IdImage varchar(50),\
-FOREIGN KEY(IdHouse) REFERENCES House(Id),\
-FOREIGN KEY(IdImage) REFERENCES ImageInfo(Id))";
+    if(! ::TableExists("HouseImages")){
+        strQuery = "Create table HouseImages (IdHouse varchar(50),IdImage varchar(50),FOREIGN KEY(IdHouse) REFERENCES House(Id),FOREIGN KEY(IdImage) REFERENCES ImageInfo(Id))";
         RunQuery(strQuery, result);
     }
 

@@ -325,7 +325,8 @@ inline void RunQuery(const QString& strQuery, bool& output)
 }
 
 inline bool TableExists(const QString& tableName){
-    QSqlQuery query(QString("SELECT DoesExist = Count(name) FROM sqlite_master WHERE type='table' AND name='%1'").arg(tableName));
+    QString strQuery = QString("SELECT Count(name) As DoesExist FROM sqlite_master WHERE type='table' AND name='%1'").arg(tableName);
+    QSqlQuery query(strQuery);
     int fieldNo = query.record().indexOf("DoesExist");
     while(query.next()){
         int doesExist = query.value(fieldNo).toInt();
