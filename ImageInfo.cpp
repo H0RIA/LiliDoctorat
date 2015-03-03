@@ -1,5 +1,12 @@
 #include "ImageInfo.h"
 
+QString ImageInfo::STR_CREATE_TABLE = "Create table ImageInfo (\
+Id varchar(50) primary key,\
+Path varchar(512),\
+Name varchar(50),\
+Details text)";
+QString ImageInfo::STR_TABLE_NAME = "ImageInfo";
+
 ImageInfo::ImageInfo()
     :   m_Id(QUuid::createUuid()),
         m_Path(),
@@ -71,4 +78,19 @@ bool
 ImageInfo::operator!=(const ImageInfo& ii)const
 {
     return !(this->operator ==(ii));
+}
+
+bool
+ImageInfo::CreateTable()
+{
+    bool result = true;
+    RunQuery(ImageInfo::STR_CREATE_TABLE, result);
+
+    return result;
+}
+
+bool
+ImageInfo::TableExists()
+{
+    return ::TableExists(ImageInfo::STR_TABLE_NAME);
 }

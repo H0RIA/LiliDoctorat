@@ -1,5 +1,24 @@
 #include "BuildingInfo.h"
 
+QString BuildingInfo::STR_CREATE_TABLE = "Create table BuildingInfo (\
+Id varchar(50) primary key,\
+Shape text,\
+RoomPlacement text,\
+RoomCount int,\
+FrontFloorCount int,\
+BackFloorCount int,\
+FrontBay text,\
+SideBay text,\
+BuildDate date,\
+ArchitecturalStyle text,\
+Doors text,\
+Windows text,\
+BasementVault text,\
+Roof text,\
+Ceiling text,\
+Pinion text)";
+QString BuildingInfo::STR_TABLE_NAME = "BuildingInfo";
+
 BuildingInfo::BuildingInfo()
     :   m_Id(QUuid::createUuid()),
         m_Shape(),
@@ -76,4 +95,19 @@ bool
 BuildingInfo::operator!=(const BuildingInfo& bi)const
 {
     return !(this->operator ==(bi));
+}
+
+bool
+BuildingInfo::CreateTable()
+{
+    bool result = true;
+    RunQuery(BuildingInfo::STR_CREATE_TABLE, result);
+
+    return result;
+}
+
+bool
+BuildingInfo::TableExists()
+{
+    return ::TableExists(BuildingInfo::STR_TABLE_NAME);
 }

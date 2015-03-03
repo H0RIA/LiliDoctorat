@@ -17,6 +17,10 @@ class LocationInfo
     DECLARE_PROPERTY(QString, OldStatus)
 
     public:
+        static QString STR_CREATE_TABLE;
+        static QString STR_TABLE_NAME;
+
+    public:
         LocationInfo();
         LocationInfo(const LocationInfo& li);
         virtual ~LocationInfo();
@@ -24,6 +28,9 @@ class LocationInfo
         LocationInfo& operator=(const LocationInfo& li);
         bool operator==(const LocationInfo& li)const;
         bool operator!=(const LocationInfo& li)const;
+
+        static bool CreateTable();
+        static bool TableExists();
 };
 
 #endif // LOCATIONINFO

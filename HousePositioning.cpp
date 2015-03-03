@@ -52,6 +52,13 @@ OutHouses::operator!=(const OutHouses& oh)const
     return !(this->operator ==(oh));
 }
 
+QString HousePositioning::STR_CREATE_TABLE = "Create table HousePositioning (\
+Id varchar(50) primary key,\
+FromChurch text,\
+FromRoad text,\
+FromGarden text,\
+Declivity text)";
+QString HousePositioning::STR_TABLE_NAME = "HousePositioning";
 
 HousePositioning::HousePositioning()
     :   m_Id(QUuid::createUuid()),
@@ -123,4 +130,19 @@ HousePositioning::saveToDB()const
     }
 
     return result;
+}
+
+bool
+HousePositioning::CreateTable()
+{
+    bool result = true;
+    RunQuery(HousePositioning::STR_CREATE_TABLE, result);
+
+    return result;
+}
+
+bool
+HousePositioning::TableExists()
+{
+    return ::TableExists(HousePositioning::STR_TABLE_NAME);
 }

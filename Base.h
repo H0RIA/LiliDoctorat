@@ -314,13 +314,26 @@
 //typedef std::map<Language, QString> LocalizedName;
 typedef std::map<QUuid /*LanguageId*/, QString> LocalizedName;
 
-inline void RunQuery(QSqlQuery& query, const QString& strQuery, bool& output)
+inline void RunQuery(const QString& strQuery, bool& output)
 {
+    QSqlQuery query;
     bool tempResult = query.exec(strQuery);
     if(!tempResult)
         qDebug() << query.lastError().text();
 
     output = !output ? false : tempResult; \
+}
+
+inline bool TableExists(const QString& tableName){
+    QSqlQuery query(QString("SELECT DoesExist = Count(name) FROM sqlite_master WHERE type='table' AND name='%1'").arg(tableName));
+    int fieldNo = query.record().indexOf("DoesExist");
+    while(query.next()){
+        int doesExist = query.value(fieldNo).toInt();
+        if(doesExist == 1)
+            return true;
+    }
+
+    return false;
 }
 
 #endif // BASE_H

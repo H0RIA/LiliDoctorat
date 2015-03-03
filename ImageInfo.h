@@ -11,6 +11,10 @@ class ImageInfo
     DECLARE_PROPERTY(QString, Details)
 
     public:
+        static QString STR_CREATE_TABLE;
+        static QString STR_TABLE_NAME;
+
+    public:
         ImageInfo();
         ImageInfo(const ImageInfo& ii);
         virtual ~ImageInfo();
@@ -21,6 +25,9 @@ class ImageInfo
         ImageInfo& operator=(const ImageInfo& ii);
         bool operator==(const ImageInfo& ii)const;
         bool operator!=(const ImageInfo& ii)const;
+
+        static bool CreateTable();
+        static bool TableExists();
 
     protected:
         QPixmap* m_pImage;

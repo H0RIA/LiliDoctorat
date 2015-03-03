@@ -1,3 +1,15 @@
+#include "TaxInfo.h"
+#include "Locality.h"
+#include "Language.h"
+#include "PriestInfo.h"
+#include "Shire.h"
+#include "Deanery.h"
+#include "ImageInfo.h"
+#include "LocationInfo.h"
+#include "HousePositioning.h"
+#include "HouseFunction.h"
+#include "BuildingInfo.h"
+#include "House.h"
 #include "DBManager.h"
 
 DBManager* DBManager::m_pInstance = nullptr;
@@ -130,238 +142,92 @@ DBManager::createTables()
 
     bool result = true;
 
-    // Create the locality table
+    // First we enable foreign keys
     {
-        QSqlQuery query;
-        QString strQuery = "Create table Locality (\
-Id varchar(50) primary key,\
-IdLocale varchar(50),\
-LocalizedName varchar(255),\
-IdCounty varchar(50))";
-        RunQuery(query, strQuery, result);
-//        bool tempResult = query.exec(strQuery);
-//        if(!tempResult){
-//            qDebug() << query.lastError().text();
-//        }
-//        result = !result ? false : tempResult;
+        QString strQuery = "PRAGMA foreign_keys = ON;";
+        RunQuery(strQuery, result);
     }
+
+    // Create the locality table
+    if(!Locality::TableExists())
+        result = !result ? false : Locality::CreateTable();
 
     // Create the language table
-    {
-        QSqlQuery query;
-        QString strQuery = "Create table Language (\
-Id varchar(50) primary key,\
-Name varchar(255))";
-        RunQuery(query, strQuery, result);
-//        bool tempResult = query.exec(strQuery);
-//        result = !result ? false : tempResult;
-    }
+    if(!Language::TableExists())
+        result = !result ? false : Language::CreateTable();
 
     // Create the Priest table
-    {
-        QSqlQuery query;
-        QString strQuery = "Create table Priest (\
-Id varchar(50) primary key,\
-FirstName varchar(255),\
-LastName varchar(255))";
-        RunQuery(query, strQuery, result);
-//        bool tempResult = query.exec(strQuery);
-//        result = !result ? false : tempResult;
-    }
+    if(!PriestInfo::TableExists())
+        result = !result ? false : PriestInfo::CreateTable();
 
     // Create the Shire table
-    {
-        QSqlQuery query;
-        QString strQuery = "Create table Shire (\
-Id varchar(50) primary key,\
-IdLocale varchar(50),\
-LocalizedName varchar(255))";
-        RunQuery(query, strQuery, result);
-//        bool tempResult = query.exec(strQuery);
-//        result = !result ? false : tempResult;
-    }
+    if(!Shire::TableExists())
+        result = !result ? false : Shire::CreateTable();
 
     // Create the County table
-    {
-        QSqlQuery query;
-        QString strQuery = "Create table County (\
-Id varchar(50) primary key,\
-IdLocale varchar(50),\
-LocalizedName varchar(255))";
-        RunQuery(query, strQuery, result);
-//        bool tempResult = query.exec(strQuery);
-//        result = !result ? false : tempResult;
-    }
+    if(!County::TableExists())
+        result = !result ? false : County::CreateTable();
 
     // Create the TaxInfo table
-    {
-        QSqlQuery query;
-        QString strQuery = "Create table TaxInfo (\
-Id varchar(50) primary key,\
-Name varchar(255),\
-Description text,\
-Formula text)";
-        RunQuery(query, strQuery, result);
-//        bool tempResult = query.exec(strQuery);
-//        result = !result ? false : tempResult;
-    }
+    if(!TaxInfo::TableExists())
+        result = !result ? false : TaxInfo::CreateTable();
 
     // Create the Deanery table
-    {
-        QSqlQuery query;
-        QString strQuery = "Create table Deanery (\
-Id varchar(50) primary key,\
-IdLocale varchar(50),\
-LocalizedName varchar(255))";
-        RunQuery(query, strQuery, result);
-//        bool tempResult = query.exec(strQuery);
-//        result = !result ? false : tempResult;
-    }
+    if(!Deanery::TableExists())
+        result = !result ? false : Deanery::CreateTable();
 
     // Create the ImageInfo table
-    {
-        QSqlQuery query;
-        QString strQuery = "Create table ImageInfo (\
-Id varchar(50) primary key,\
-Path varchar(512),\
-Name varchar(50),\
-Details text)";
-        RunQuery(query, strQuery, result);
-//        bool tempResult = query.exec(strQuery);
-//        result = !result ? false : tempResult;
-    }
+    if(!ImageInfo::TableExists())
+        result = !result ? false : ImageInfo::CreateTable();
 
     // Create the LocationInfo table
-    {
-        QSqlQuery query;
-        QString strQuery = "Create table LocationInfo (\
-Id varchar(50) primary key,\
-IdLocale varchar(50),\
-LocalizedName varchar(255),\
-IdComune varchar(50),\
-IdShire varchar(50),\
-IdDeanery varchar(50),\
-InventoryDate date,\
-OldStatus text,\
-FOREIGN KEY(IdComune) REFERENCES Locality(Id),\
-FOREIGN KEY(IdShire) REFERENCES Shire(Id),\
-FOREIGN KEY(IdDeanery) REFERENCES Deanery(Id))";
-        RunQuery(query, strQuery, result);
-//        bool tempResult = query.exec(strQuery);
-//        result = !result ? false : tempResult;
-    }
+    if(!LocationInfo::TableExists())
+        result = !result ? false : LocationInfo::CreateTable();
 
     // Create the HousePositioning table
-    {
-        QSqlQuery query;
-        QString strQuery = "Create table HousePositioning (\
-Id varchar(50) primary key,\
-FromChurch text,\
-FromRoad text,\
-FromGarden text,\
-Declivity text)";
-        RunQuery(query, strQuery, result);
-//        bool tempResult = query.exec(strQuery);
-//        result = !result ? false : tempResult;
-    }
+    if(!HousePositioning::TableExists())
+        result = !result ? false : HousePositioning::CreateTable();
 
     // Create the HouseFunction table
-    {
-        QSqlQuery query;
-        QString strQuery = "Create table HouseFunction (\
-Id varchar(50) primary key,\
-Original text,\
-Current text,\
-LegalStatus int)";
-        RunQuery(query, strQuery, result);
-//        bool tempResult = query.exec(strQuery);
-//        result = !result ? false : tempResult;
-    }
+    if(!HouseFunction::TableExists())
+        result = !result ? false : HouseFunction::CreateTable();
 
     // Create the BuildingInfo table
-    {
-        QSqlQuery query;
-        QString strQuery = "Create table BuildingInfo (\
-Id varchar(50) primary key,\
-Shape text,\
-RoomPlacement text,\
-RoomCount int,\
-FrontFloorCount int,\
-BackFloorCount int,\
-FrontBay text,\
-SideBay text,\
-BuildDate date,\
-ArchitecturalStyle text,\
-Doors text,\
-Windows text,\
-BasementVault text,\
-Roof text,\
-Ceiling text,\
-Pinion text)";
-        RunQuery(query, strQuery, result);
-//        bool tempResult = query.exec(strQuery);
-//        result = !result ? false : tempResult;
-    }
+    if(!BuildingInfo::TableExists())
+        result = !result ? false : BuildingInfo::CreateTable();
 
     // Create the House table
-    {
-        QSqlQuery query;
-        QString strQuery = "Create table House (\
-Id varchar(50) primary key,\
-IdLocale varchar(50),\
-LocalizedName varchar(255),\
-Description text,\
-IdLocation varchar(50),\
-HouseDating text,\
-IdBuildingInfo varchar(50),\
-IdHouseFunction varchar(50),\
-IdHousePositioning varchar(50),\
-FOREIGN KEY(IdLocation) REFERENCES LocationInfo(Id),\
-FOREIGN KEY(IdBuildingInfo) REFERENCES BuildingInfo(Id),\
-FOREIGN KEY(IdHouseFunction) REFERENCES HouseFunction(Id),\
-FOREIGN KEY(IdHousePositioning) REFERENCES HousePositioning(Id))";
-        RunQuery(query, strQuery, result);
-//        bool tempResult = query.exec(strQuery);
-//        result = !result ? false : tempResult;
-    }
+    if(!House::TableExists())
+        result = !result ? false : House::CreateTable();
 
     // Create the HousePriests table
     {
-        QSqlQuery query;
         QString strQuery = "Create table HousePriests (\
 IdHouse varchar(50),\
 IdPriest varchar(50),\
 FOREIGN KEY(IdHouse) REFERENCES House(Id),\
 FOREIGN KEY(IdPriest) REFERENCES Priest(Id))";
-        RunQuery(query, strQuery, result);
-//        bool tempResult = query.exec(strQuery);
-//        result = !result ? false : tempResult;
+        RunQuery(strQuery, result);
     }
 
     // Create the HouseTaxes table
     {
-        QSqlQuery query;
         QString strQuery = "Create table HouseTaxes (\
 IdHouse varchar(50),\
 IdTax varchar(50),\
 FOREIGN KEY(IdHouse) REFERENCES House(Id),\
 FOREIGN KEY(IdTax) REFERENCES TaxInfo(Id))";
-        RunQuery(query, strQuery, result);
-//        bool tempResult = query.exec(strQuery);
-//        result = !result ? false : tempResult;
+        RunQuery(strQuery, result);
     }
 
     // Create the HouseImages table
     {
-        QSqlQuery query;
         QString strQuery = "Create table HouseImages (\
 IdHouse varchar(50),\
 IdImage varchar(50),\
 FOREIGN KEY(IdHouse) REFERENCES House(Id),\
 FOREIGN KEY(IdImage) REFERENCES ImageInfo(Id))";
-        RunQuery(query, strQuery, result);
-//        bool tempResult = query.exec(strQuery);
-//        result = !result ? false : tempResult;
+        RunQuery(strQuery, result);
     }
 
     return result;

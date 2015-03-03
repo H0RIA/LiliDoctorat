@@ -1,5 +1,11 @@
 #include "PriestInfo.h"
 
+QString PriestInfo::STR_CREATE_TABLE = "Create table Priest (\
+        Id varchar(50) primary key,\
+        FirstName varchar(255),\
+        LastName varchar(255))";
+QString PriestInfo::STR_TABLE_NAME = "Priest";
+
 PriestInfo::PriestInfo()
     :   m_Id(QUuid::createUuid()),
         m_FirstName(),
@@ -38,6 +44,21 @@ bool
 PriestInfo::operator!=(const PriestInfo& pi)const
 {
     return !(this->operator ==(pi));
+}
+
+bool
+PriestInfo::CreateTable()
+{
+    bool result = true;
+    RunQuery(PriestInfo::STR_CREATE_TABLE, result);
+
+    return result;
+}
+
+bool
+PriestInfo::TableExists()
+{
+    return ::TableExists(PriestInfo::STR_TABLE_NAME);
 }
 
 PriestTenure::PriestTenure()

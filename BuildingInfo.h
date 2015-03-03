@@ -24,6 +24,9 @@ class BuildingInfo
     DECLARE_PROPERTY(QString, Pinion)                   // Done
 
     public:
+        static QString STR_CREATE_TABLE;
+        static QString STR_TABLE_NAME;
+
         BuildingInfo();
         BuildingInfo(const BuildingInfo& bi);
         virtual ~BuildingInfo();
@@ -31,6 +34,9 @@ class BuildingInfo
         BuildingInfo& operator=(const BuildingInfo& bi);
         bool operator==(const BuildingInfo& bi)const;
         bool operator!=(const BuildingInfo& bi)const;
+
+        static bool CreateTable();
+        static bool TableExists();
 };
 
 #endif // BUILDINGINFO

@@ -1,5 +1,12 @@
 #include "HouseFunction.h"
 
+QString HouseFunction::STR_CREATE_TABLE = "Create table HouseFunction (\
+Id varchar(50) primary key,\
+Original text,\
+Current text,\
+LegalStatus int)";
+QString HouseFunction::STR_TABLE_NAME = "HouseFunction";
+
 HouseFunction::HouseFunction()
     :   m_Id(QUuid::createUuid()),
         m_Original(),
@@ -60,4 +67,19 @@ HouseFunction::loadFromDB(const QUuid& id)
     // TODO
 
     return result;
+}
+
+bool
+HouseFunction::CreateTable()
+{
+    bool result = true;
+    RunQuery(HouseFunction::STR_CREATE_TABLE, result);
+
+    return result;
+}
+
+bool
+HouseFunction::TableExists()
+{
+    return ::TableExists(HouseFunction::STR_TABLE_NAME);
 }

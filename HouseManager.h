@@ -16,6 +16,9 @@ class HouseManager
     DECLARE_SINGLETON_OBJECT(TaxInfo, Taxes)
 
     public:
+        static QString STR_CREATE_TABLE;
+
+    public:
         static HouseManager* instance();
         virtual ~HouseManager();
 

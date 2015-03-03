@@ -19,6 +19,10 @@ class HouseFunction
     DECLARE_PROPERTY(HouseLegalStatus, LegalStatus)
 
     public:
+        static QString STR_CREATE_TABLE;
+        static QString STR_TABLE_NAME;
+
+    public:
         HouseFunction();
         HouseFunction(const HouseFunction& hf);
         virtual ~HouseFunction();
@@ -29,6 +33,9 @@ class HouseFunction
 
         bool saveToDB();
         bool loadFromDB(const QUuid& id);
+
+        static bool CreateTable();
+        static bool TableExists();
 };
 
 #endif // HOUSEFUNCTION

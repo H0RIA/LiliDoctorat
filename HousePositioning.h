@@ -29,6 +29,10 @@ class HousePositioning
 //    DECLARE_PROPERTY_GREF(OutHouses, Outhouses)
 
     public:
+        static QString STR_CREATE_TABLE;
+        static QString STR_TABLE_NAME;
+
+    public:
         HousePositioning();
         HousePositioning(const HousePositioning& cp);
         virtual ~HousePositioning();
@@ -39,6 +43,9 @@ class HousePositioning
 
         bool loadFromDB(const QUuid& id);
         bool saveToDB()const;
+
+        static bool CreateTable();
+        static bool TableExists();
 };
 
 #endif // HOUSEPOSITIONING

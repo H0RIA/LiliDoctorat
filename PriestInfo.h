@@ -10,11 +10,18 @@ class PriestInfo
     DECLARE_PROPERTY(QString, LastName)
 
     public:
+        static QString STR_CREATE_TABLE;
+        static QString STR_TABLE_NAME;
+
+    public:
         DECLARE_DEF_METHODS(PriestInfo)
 
         PriestInfo& operator=(const PriestInfo& pi);
         bool operator==(const PriestInfo& pi)const;
         bool operator!=(const PriestInfo& pi)const;
+
+        static bool CreateTable();
+        static bool TableExists();
 };
 
 class PriestTenure
@@ -23,6 +30,10 @@ class PriestTenure
     DECLARE_PROPERTY_GREF(QUuid, PriestId)
     DECLARE_PROPERTY_GREF(QDate, Start)
     DECLARE_PROPERTY_GREF(QDate, End)
+
+    public:
+        static QString STR_CREATE_TABLE;
+        static QString STR_TABLE_NAME;
 
     public:
         PriestTenure();

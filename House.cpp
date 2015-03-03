@@ -1,5 +1,21 @@
 #include "House.h"
 
+QString House::STR_CREATE_TABLE = "Create table House (\
+Id varchar(50) primary key,\
+IdLocale varchar(50),\
+LocalizedName varchar(255),\
+Description text,\
+IdLocation varchar(50),\
+HouseDating text,\
+IdBuildingInfo varchar(50),\
+IdHouseFunction varchar(50),\
+IdHousePositioning varchar(50),\
+FOREIGN KEY(IdLocation) REFERENCES LocationInfo(Id),\
+FOREIGN KEY(IdBuildingInfo) REFERENCES BuildingInfo(Id),\
+FOREIGN KEY(IdHouseFunction) REFERENCES HouseFunction(Id),\
+FOREIGN KEY(IdHousePositioning) REFERENCES HousePositioning(Id))";
+QString House::STR_TABLE_NAME = "House";
+
 House::House()
     :   m_Id(QUuid::createUuid()),
         m_Name(),
@@ -86,3 +102,18 @@ House::saveToDB()
 //    if(!m_Images.contains(*pImage))
 //        m_Images.append(*pImage);
 //}
+
+bool
+House::CreateTable()
+{
+    bool result = true;
+    RunQuery(House::STR_CREATE_TABLE, result);
+
+    return result;
+}
+
+bool
+House::TableExists()
+{
+    return ::TableExists(House::STR_TABLE_NAME);
+}

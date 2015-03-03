@@ -5,6 +5,11 @@ QUuid Language::LANGUAGE_GERMAN = QUuid();
 QUuid Language::LANGUAGE_SAXON = QUuid();
 QUuid Language::LANGUAGE_HUNGARIAN = QUuid();
 
+QString Language::STR_CREATE_TABLE = "Create table Language (\
+Id varchar(50) primary key,\
+Name varchar(255))";
+QString Language::STR_TABLE_NAME = "Language";
+
 Language::Language()
     :   m_Id(QUuid::createUuid()),
         m_Name()
@@ -44,4 +49,19 @@ bool
 Language::operator!=(const Language& lang)const
 {
     return !(this->operator ==(lang));
+}
+
+bool
+Language::CreateTable()
+{
+    bool result = true;
+    RunQuery(Language::STR_CREATE_TABLE, result);
+
+    return result;
+}
+
+bool
+Language::TableExists()
+{
+    return ::TableExists(Language::STR_TABLE_NAME);
 }

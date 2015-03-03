@@ -1,5 +1,11 @@
 #include "Deanery.h"
 
+QString Deanery::STR_CREATE_TABLE = "Create table Deanery (\
+Id varchar(50) primary key,\
+IdLocale varchar(50),\
+LocalizedName varchar(255))";
+QString Deanery::STR_TABLE_NAME = "Deanery";
+
 Deanery::Deanery()
     :   m_Id(QUuid::createUuid()),
         m_Name()
@@ -42,3 +48,17 @@ Deanery::operator!=(const Deanery& deanery)const
     return !(this->operator ==(deanery));
 }
 
+bool
+Deanery::CreateTable()
+{
+    bool result = true;
+    RunQuery(Deanery::STR_CREATE_TABLE, result);
+
+    return result;
+}
+
+bool
+Deanery::TableExists()
+{
+    return ::TableExists(Deanery::STR_TABLE_NAME);
+}

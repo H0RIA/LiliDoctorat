@@ -26,6 +26,10 @@ class House
     DECLARE_SINGLETON_OBJECT(ImageInfo, Images)                 // Done
 
     public:
+        static QString STR_CREATE_TABLE;
+        static QString STR_TABLE_NAME;
+
+    public:
         House();
         House(const House& house);
         virtual ~House();
@@ -35,6 +39,9 @@ class House
         bool operator!=(const House& house)const;
 
         bool saveToDB();
+
+        static bool CreateTable();
+        static bool TableExists();
 };
 
 #endif // HOUSE
