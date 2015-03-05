@@ -66,3 +66,6 @@ HEADERS  += MainWindow.h \
 
 FORMS += \
     WndEditHouse.ui
+
+RESOURCES += \
+    resources.qrc

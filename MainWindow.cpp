@@ -50,34 +50,50 @@ MainWindow::createDockBar()
 
     m_ActionDockHouses = new QAction(m_DockTab);
     m_ActionDockHouses->setText("Houses");
+    QIcon iconHouse(":/images/icon-house.png");
+    m_ActionDockHouses->setIcon(iconHouse);
     m_DockTab->addAction(m_ActionDockHouses);
 
     m_ActionDockPriests = new QAction(m_DockTab);
+    QIcon iconPriest(":/images/icon-priest.png");
     m_ActionDockPriests->setText("Priests");
+    m_ActionDockPriests->setIcon(iconPriest);
     m_DockTab->addAction(m_ActionDockPriests);
 
     m_ActionDockLanguages = new QAction(m_DockTab);
+    QIcon iconLanguage(":/images/icon-language.png");
     m_ActionDockLanguages->setText("Languages");
+    m_ActionDockLanguages->setIcon(iconLanguage);
     m_DockTab->addAction(m_ActionDockLanguages);
 
     m_ActionDockCounties = new QAction(m_DockTab);
+    QIcon iconRegion(":/images/icon-region.png");
     m_ActionDockCounties->setText("Counties");
+    m_ActionDockCounties->setIcon(iconRegion);
     m_DockTab->addAction(m_ActionDockCounties);
 
     m_ActionDockDeaneries = new QAction(m_DockTab);
+    QIcon iconDeanery(":/images/icon-deanery.png");
     m_ActionDockDeaneries->setText("Deaneries");
+    m_ActionDockDeaneries->setIcon(iconDeanery);
     m_DockTab->addAction(m_ActionDockDeaneries);
 
     m_ActionDockLocalities = new QAction(m_DockTab);
+    QIcon iconLocality(":/images/icon-locality.png");
     m_ActionDockLocalities->setText("Localities");
+    m_ActionDockLocalities->setIcon(iconLocality);
     m_DockTab->addAction(m_ActionDockLocalities);
 
     m_ActionDockImages = new QAction(m_DockTab);
+    QIcon iconGallery(":/images/icon-gallery.png");
     m_ActionDockImages->setText("Images");
+    m_ActionDockImages->setIcon(iconGallery);
     m_DockTab->addAction(m_ActionDockImages);
 
     m_ActionDockTaxes = new QAction(m_DockTab);
-    m_ActionDockTaxes ->setText("Taxes");
+    QIcon iconTaxes(":/images/icon-money.png");
+    m_ActionDockTaxes->setText("Taxes");
+    m_ActionDockTaxes->setIcon(iconTaxes);
     m_DockTab->addAction(m_ActionDockTaxes);
 
     addToolBar(Qt::LeftToolBarArea, m_DockTab);

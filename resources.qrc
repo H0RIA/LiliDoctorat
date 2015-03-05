@@ -1,0 +1,13 @@
+<RCC>
+    <qresource prefix="/images">
+        <file alias="icon-deanery.png">images/deanery-icon.png</file>
+        <file alias="icon-gallery.png">images/gallery-icon.png</file>
+        <file alias="icon-house.png">images/House-icon.png</file>
+        <file alias="icon-locality.png">images/locality-icon.png</file>
+        <file>images/logo.jpg</file>
+        <file alias="icon-money.png">images/money-icon.png</file>
+        <file alias="icon-priest.png">images/priest-icon.png</file>
+        <file alias="icon-region.png">images/region-icon.png</file>
+        <file alias="icon-language.png">images/lang-icon.png</file>
+    </qresource>
+</RCC>
