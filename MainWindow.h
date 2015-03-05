@@ -13,11 +13,38 @@ class MainWindow : public QMainWindow
         ~MainWindow();
 
     protected:
+        void createDockBar();
+        void createMenus();
+        void createFileMenu();
+        void createEditMenu();
+        void createAboutMenu();
+
+        void createGlobalShortcuts();
+
+    protected:
         QToolBar* m_DockTab;
         QDockWidget* m_Filters;
         QDockWidget* m_Favorites;
         CentralWindow m_MainWidget;
         QMenuBar m_Menu;
+
+        QMenu* m_MenuFile;
+        QMenu* m_MenuEdit;
+        QMenu* m_MenuAbout;
+
+        QAction* m_ActionFileNew;
+        QAction* m_ActionFileSave;
+        QAction* m_ActionFileExit;
+        QAction* m_ActionAboutAbout;
+
+        QAction* m_ActionDockHouses;
+        QAction* m_ActionDockPriests;
+        QAction* m_ActionDockLanguages;
+        QAction* m_ActionDockCounties;
+        QAction* m_ActionDockDeaneries;
+        QAction* m_ActionDockLocalities;
+        QAction* m_ActionDockImages;
+        QAction* m_ActionDockTaxes;
 };
 
 #endif // MAINWINDOW_H
