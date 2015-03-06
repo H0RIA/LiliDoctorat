@@ -102,6 +102,7 @@
 #include <QSqlQuery>
 #include <QSqlTableModel>
 #include <QSqlResult>
+#include <QSqlDriver>
 #include <QSqlField>
 #include <QSqlQueryModel>
 
