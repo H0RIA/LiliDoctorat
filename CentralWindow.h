@@ -16,6 +16,7 @@ class CentralWindow : public QWidget
         void onDoubleClicked(const QModelIndex& index);
 
     protected:
+        QStackedWidget m_WidgetContainer;
         QTableView m_View;
         HouseManager* m_pManager;
 };

@@ -36,7 +36,15 @@ SOURCES += main.cpp\
     WndConfig.cpp \
     WndHouse_TabBuilding.cpp \
     WndHouse_TabFunction.cpp \
-    WndHouse_TabPositioning.cpp
+    WndHouse_TabPositioning.cpp \
+    WndCounties.cpp \
+    WndHouses.cpp \
+    WndPriests.cpp \
+    WndLanguages.cpp \
+    WndDeaneries.cpp \
+    WndLocalities.cpp \
+    wndimages.cpp \
+    WndTaxes.cpp
 
 HEADERS  += MainWindow.h \
     Base.h \
@@ -62,7 +70,15 @@ HEADERS  += MainWindow.h \
     WndConfig.h \
     WndHouse_TabBuilding.h \
     WndHouse_TabPositioning.h \
-    WndHouse_TabFunction.h
+    WndHouse_TabFunction.h \
+    WndHouses.h \
+    WndPriests.h \
+    WndLanguages.h \
+    WndCounties.h \
+    WndDeaneries.h \
+    WndLocalities.h \
+    WndImages.h \
+    WndTaxes.h
 
 FORMS += \
     WndEditHouse.ui
