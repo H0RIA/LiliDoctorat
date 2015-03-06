@@ -3,6 +3,7 @@
 LineEdit::LineEdit(QWidget* parent)
     :   QLineEdit(parent)
 {
+    setStyleSheet("LineEdit{background-color: lightYellow;} LineEdit:hover{border: 1px solid gray; background-color lightYellow;}");
 }
 
 LineEdit::~LineEdit()

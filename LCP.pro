@@ -88,8 +88,7 @@ HEADERS  += MainWindow.h \
     LineEdit.h \
     WndEditCounty.h
 
-FORMS += \
-    WndEditHouse.ui
+FORMS +=
 
 RESOURCES += \
     resources.qrc

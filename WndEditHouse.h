@@ -30,19 +30,19 @@ class WndEditHouse : public QDialog
 
         // Top left
         QLabel m_lblNumeRomanesc;
-        LineEdit m_edNumeRomanesc;
+        QLineEdit m_edNumeRomanesc;
 
         QLabel m_lblNumeGerman;
-        LineEdit m_edNumeGerman;
+        QLineEdit m_edNumeGerman;
 
         QLabel m_lblNumeSasesc;
-        LineEdit m_edNumeSasesc;
+        QLineEdit m_edNumeSasesc;
 
         QLabel m_lblNumeMaghiar;
-        LineEdit m_edNumeMaghiar;
+        QLineEdit m_edNumeMaghiar;
 
         QLabel m_lblOldStatus;
-        LineEdit m_edOldStatus;
+        QLineEdit m_edOldStatus;
 
         QLabel m_lblLocality;
         LineEdit m_edLocality;
@@ -54,7 +54,7 @@ class WndEditHouse : public QDialog
         LineEdit m_edCounty;
 
         QLabel m_lblDate;
-        LineEdit m_edDate;
+        QLineEdit m_edDate;
 
         // Top Right
         QLabel m_Image;
