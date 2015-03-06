@@ -8,6 +8,18 @@ class CentralWindow : public QWidget
 {
     Q_OBJECT
 
+    enum class WindowType : int
+    {
+        Houses = 0,
+        Priests,
+        Languages,
+        Counties,
+        Deaneries,
+        Localities,
+        Images,
+        Taxes
+    };
+
     public:
         CentralWindow(QWidget* parent = nullptr);
         virtual ~CentralWindow();
@@ -16,7 +28,12 @@ class CentralWindow : public QWidget
         void onDoubleClicked(const QModelIndex& index);
 
     protected:
+        void initializeData();
+
+    protected:
         QStackedWidget m_WidgetContainer;
+        QMap<WindowType, QWidget*> m_Windows;
+
         QTableView m_View;
         HouseManager* m_pManager;
 };

@@ -43,8 +43,8 @@ SOURCES += main.cpp\
     WndLanguages.cpp \
     WndDeaneries.cpp \
     WndLocalities.cpp \
-    wndimages.cpp \
-    WndTaxes.cpp
+    WndTaxes.cpp \
+    WndImages.cpp
 
 HEADERS  += MainWindow.h \
     Base.h \
