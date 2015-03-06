@@ -13,6 +13,9 @@ namespace UI
             WndHouses(QWidget* parent = nullptr);
             ~WndHouses();
 
+        public slots:
+            void onNewItem();
+
         protected:
             void initializeData();
 

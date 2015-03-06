@@ -11,4 +11,8 @@ WndDeaneries::~WndDeaneries()
 {
 }
 
-
+void
+WndDeaneries::onNewItem()
+{
+    // TODO
+}

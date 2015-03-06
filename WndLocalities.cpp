@@ -10,3 +10,9 @@ WndLocalities::WndLocalities(QWidget* parent)
 WndLocalities::~WndLocalities()
 {
 }
+
+void
+WndLocalities::onNewItem()
+{
+    // TODO
+}

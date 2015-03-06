@@ -13,6 +13,9 @@ namespace UI
             WndTaxes(QWidget* parent = nullptr);
             ~WndTaxes();
 
+        public slots:
+            void onNewItem();
+
         protected:
     };
 }

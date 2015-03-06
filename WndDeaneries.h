@@ -13,6 +13,9 @@ namespace UI
             WndDeaneries(QWidget* parent = nullptr);
             ~WndDeaneries();
 
+        public slots:
+            void onNewItem();
+
         protected:
     };
 }

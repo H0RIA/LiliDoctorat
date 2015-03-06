@@ -1,6 +1,7 @@
 #ifndef DBMANAGER
 #define DBMANAGER
 
+#include "TaxInfo.h"
 #include "Language.h"
 
 #define DEFAULT_SQLITE_PATH "./LCP.sqlite"
@@ -15,12 +16,20 @@ class DBManager
 
         Language* findLanguage(const QString& name);
 
+        QList<TaxInfo> findTaxByName(const QString& name);
+        QList<TaxInfo> findTaxByDescr(const QString& descr);
+        QList<TaxInfo> findTaxByFormula(const QString& formula);
+        QList<TaxInfo> findTax(const QString& data);
+
         void clearData();
         void loadData();
         void saveData();
 
         void loadLanguages();
         void saveLanguages();
+
+        void loadTaxes();
+        void saveTaxes()const;
 
     protected:
         bool createDatabase();
@@ -36,6 +45,7 @@ class DBManager
 
     private:
         static DBManager* m_pInstance;
+        QList<TaxInfo> m_Taxes;
 
 };
 

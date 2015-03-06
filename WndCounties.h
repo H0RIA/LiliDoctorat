@@ -13,6 +13,9 @@ namespace UI
             WndCounties(QWidget* parent = nullptr);
             ~WndCounties();
 
+        public slots:
+            void onNewItem();
+
         protected:
     };
 }

@@ -13,6 +13,9 @@ namespace UI
             WndImages(QWidget* parent = nullptr);
             ~WndImages();
 
+        public slots:
+            void onNewItem();
+
         protected:
     };
 }

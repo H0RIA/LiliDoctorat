@@ -25,6 +25,9 @@ class TaxInfo
 
         static bool CreateTable();
         static bool TableExists();
+        bool LoadFromDB();
+        bool SaveToDB()const;
+        bool ExistsInDB()const;
 };
 
 #endif // TAXINFO

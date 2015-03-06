@@ -13,6 +13,9 @@ namespace UI
             WndPriests(QWidget* parent = nullptr);
             ~WndPriests();
 
+        public slots:
+            void onNewItem();
+
         protected:
     };
 }

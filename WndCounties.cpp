@@ -11,3 +11,8 @@ WndCounties::~WndCounties()
 {
 }
 
+void
+WndCounties::onNewItem()
+{
+    // TODO
+}

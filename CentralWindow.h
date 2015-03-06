@@ -2,6 +2,14 @@
 #define CENTRALWINDOW
 
 #include "Base.h"
+#include "WndCounties.h"
+#include "WndDeaneries.h"
+#include "WndHouses.h"
+#include "WndImages.h"
+#include "WndLanguages.h"
+#include "WndLocalities.h"
+#include "WndPriests.h"
+#include "WndTaxes.h"
 #include "HouseManager.h"
 
 enum class WindowType : int
@@ -26,7 +34,7 @@ class CentralWindow : public QWidget
 
     public slots:
         void onDockSelectWindow(WindowType wndType);
-
+        void onNewItem();
 
     protected:
         void initializeData();
@@ -35,9 +43,42 @@ class CentralWindow : public QWidget
         QStackedWidget m_WidgetContainer;
         QMap<WindowType, QWidget*> m_Windows;
 
-//        QTableView m_View;
+        QList<QShortcut*> m_Shortcuts;
         HouseManager* m_pManager;
 };
+
+inline void callOnNewItem(WindowType type, QWidget* widget)
+{
+    switch(type)
+    {
+    case WindowType::Counties:
+        if(qobject_cast<UI::WndCounties*>(widget) != nullptr)
+            qobject_cast<UI::WndCounties*>(widget)->onNewItem();
+    case WindowType::Deaneries:
+        if(qobject_cast<UI::WndDeaneries*>(widget) != nullptr)
+            qobject_cast<UI::WndDeaneries*>(widget)->onNewItem();
+    case WindowType::Houses:
+        if(qobject_cast<UI::WndHouses*>(widget) != nullptr)
+            qobject_cast<UI::WndHouses*>(widget)->onNewItem();
+    case WindowType::Images:
+        if(qobject_cast<UI::WndImages*>(widget) != nullptr)
+            qobject_cast<UI::WndImages*>(widget)->onNewItem();
+    case WindowType::Languages:
+        if(qobject_cast<UI::WndLanguages*>(widget) != nullptr)
+            qobject_cast<UI::WndLanguages*>(widget)->onNewItem();
+    case WindowType::Localities:
+        if(qobject_cast<UI::WndLocalities*>(widget) != nullptr)
+            qobject_cast<UI::WndLocalities*>(widget)->onNewItem();
+    case WindowType::Priests:
+        if(qobject_cast<UI::WndPriests*>(widget) != nullptr)
+            qobject_cast<UI::WndPriests*>(widget)->onNewItem();
+    case WindowType::Taxes:
+        if(qobject_cast<UI::WndTaxes*>(widget) != nullptr)
+            qobject_cast<UI::WndTaxes*>(widget)->onNewItem();
+    default:
+        return;
+    }
+}
 
 #endif // CENTRALWINDOW
 

@@ -69,6 +69,72 @@ DBManager::findLanguage(const QString& name)
 //    return lang;
 //}
 
+QList<TaxInfo>
+DBManager::findTaxByName(const QString& name)
+{
+    QList<TaxInfo> result;
+
+    if(name.isEmpty())
+        return result;
+
+    foreach(const TaxInfo& tax, m_Taxes){
+        if(tax.Name().contains(name))
+            result.append(tax);
+    }
+
+    return result;
+}
+
+QList<TaxInfo>
+DBManager::findTaxByDescr(const QString& descr)
+{
+    QList<TaxInfo> result;
+
+    if(descr.isEmpty())
+        return result;
+
+    foreach(const TaxInfo& tax, m_Taxes){
+        if(tax.Description().contains(descr))
+            result.append(tax);
+    }
+
+    return result;
+}
+
+QList<TaxInfo>
+DBManager::findTaxByFormula(const QString& formula)
+{
+    QList<TaxInfo> result;
+
+    if(formula.isEmpty())
+        return result;
+
+    foreach(const TaxInfo& tax, m_Taxes){
+        if(tax.Formula().contains(formula))
+            result.append(tax);
+    }
+
+    return result;
+}
+
+QList<TaxInfo>
+DBManager::findTax(const QString& data)
+{
+    QList<TaxInfo> result;
+
+    if(data.isEmpty())
+        return result;
+
+    foreach(const TaxInfo& tax, m_Taxes){
+        if(tax.Name().contains(data)
+            || tax.Description().contains(data)
+            || tax.Formula().contains(data))
+            result.append(tax);
+    }
+
+    return result;
+}
+
 void
 DBManager::clearData()
 {
@@ -78,12 +144,14 @@ DBManager::clearData()
 void
 DBManager::loadData()
 {
+    loadTaxes();
     loadLanguages();
 }
 
 void
 DBManager::saveData()
 {
+    saveTaxes();
     saveLanguages();
 }
 
@@ -113,6 +181,29 @@ void
 DBManager::saveLanguages()
 {
     // TODO
+}
+
+void
+DBManager::loadTaxes()
+{
+    QString strQuery = "Select * From Taxes;";
+    QSqlQuery query(strQuery);
+    while(query.next()){
+        TaxInfo tax;
+        tax.setId(QUuid(query.value("Id").toString()));
+        tax.setName(query.value("Name").toString());
+        tax.setDescription(query.value("Description").toString());
+        tax.setFormula(query.value("Formula").toString());
+
+        m_Taxes.append(tax);
+    }
+}
+
+void
+DBManager::saveTaxes()const
+{
+    foreach(const TaxInfo& tax, m_Taxes)
+        tax.SaveToDB();
 }
 
 bool

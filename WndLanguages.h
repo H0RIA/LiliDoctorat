@@ -13,6 +13,9 @@ namespace UI
             WndLanguages(QWidget* parent = nullptr);
             ~WndLanguages();
 
+        public slots:
+            void onNewItem();
+
         protected:
     };
 }

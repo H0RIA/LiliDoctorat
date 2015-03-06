@@ -10,3 +10,9 @@ WndTaxes::WndTaxes(QWidget* parent)
 WndTaxes::~WndTaxes()
 {
 }
+
+void
+WndTaxes::onNewItem()
+{
+    // TODO
+}

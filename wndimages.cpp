@@ -11,3 +11,8 @@ WndImages::~WndImages()
 {
 }
 
+void
+WndImages::onNewItem()
+{
+    // TODO
+}

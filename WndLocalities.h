@@ -13,6 +13,9 @@ namespace UI
             WndLocalities(QWidget* parent = nullptr);
             ~WndLocalities();
 
+        public slots:
+            void onNewItem();
+
         protected:
     };
 }

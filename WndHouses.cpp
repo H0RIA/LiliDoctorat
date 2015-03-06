@@ -1,4 +1,5 @@
 #include "HouseModel.h"
+#include "ThumbnailDelegate.h"
 #include "WndEditHouse.h"
 #include "WndHouses.h"
 
@@ -13,6 +14,12 @@ WndHouses::WndHouses(QWidget* parent)
 
 WndHouses::~WndHouses()
 {
+}
+
+void
+WndHouses::onNewItem()
+{
+    // TODO
 }
 
 void

@@ -11,3 +11,8 @@ WndLanguages::~WndLanguages()
 {
 }
 
+void
+WndLanguages::onNewItem()
+{
+    // TODO
+}

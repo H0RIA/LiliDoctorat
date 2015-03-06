@@ -44,7 +44,8 @@ SOURCES += main.cpp\
     WndDeaneries.cpp \
     WndLocalities.cpp \
     WndTaxes.cpp \
-    WndImages.cpp
+    WndImages.cpp \
+    WndEditTax.cpp
 
 HEADERS  += MainWindow.h \
     Base.h \
@@ -78,7 +79,8 @@ HEADERS  += MainWindow.h \
     WndDeaneries.h \
     WndLocalities.h \
     WndImages.h \
-    WndTaxes.h
+    WndTaxes.h \
+    WndEditTax.h
 
 FORMS += \
     WndEditHouse.ui

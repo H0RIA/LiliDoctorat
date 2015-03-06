@@ -10,3 +10,9 @@ WndPriests::WndPriests(QWidget* parent)
 WndPriests::~WndPriests()
 {
 }
+
+void
+WndPriests::onNewItem()
+{
+    // TODO
+}

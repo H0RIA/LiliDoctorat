@@ -1,5 +1,4 @@
 #include "CentralWindow.h"
-#include "ThumbnailDelegate.h"
 #include "WndHouses.h"
 #include "WndPriests.h"
 #include "WndLanguages.h"
@@ -38,6 +37,14 @@ CentralWindow::onDockSelectWindow(WindowType wndType)
 }
 
 void
+CentralWindow::onNewItem()
+{
+    WindowType wndType = (WindowType)m_WidgetContainer.currentIndex();
+    if(m_Windows[wndType] != nullptr)
+        callOnNewItem(wndType, m_Windows[wndType]);
+}
+
+void
 CentralWindow::initializeData()
 {
     m_Windows[WindowType::Houses] = new UI::WndHouses();
@@ -65,4 +72,16 @@ CentralWindow::initializeData()
     m_WidgetContainer.addWidget(m_Windows[WindowType::Taxes]);
 
     m_WidgetContainer.setCurrentIndex((int)WindowType::Houses);
+
+    // Shortcut NEW ITEM
+    {
+        QShortcut* newItem = new QShortcut(this);
+        newItem->setContext(Qt::ApplicationShortcut);
+        newItem->setEnabled(true);
+        QKeySequence sequence(Qt::CTRL + Qt::Key_N);
+        newItem->setKey(sequence);
+        m_Shortcuts.push_back(newItem);
+
+        connect(newItem, SIGNAL(activated()), SLOT(onNewItem()));
+    }
 }
