@@ -98,6 +98,8 @@ WndEditHouse::initializeData()
     m_edOldStatus.setMinimumWidth(editWidth);
     m_edOldStatus.setMaximumWidth(editWidth);
 
+    connect(&m_edLocality, SIGNAL(doubleClick(QMouseEvent*)), SLOT(on_edLocality_doubleClicked(QMouseEvent*)));
+
     QHBoxLayout* layoutNumeRO = new QHBoxLayout();
     layoutNumeRO->setContentsMargins(0, 0, 0, 0);
     layoutNumeRO->setSpacing(0);
@@ -301,8 +303,10 @@ WndEditHouse::on_btnPrevImage_clicked()
 }
 
 void
-WndEditHouse::on_edLocality_doubleClicked()
+WndEditHouse::on_edLocality_doubleClicked(QMouseEvent* ev)
 {
+    Q_UNUSED(ev);
+
     WndFilterBase filterLocality(Locality::STR_TABLE_NAME, this);
     filterLocality.exec();
 

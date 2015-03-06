@@ -22,7 +22,7 @@ class WndEditHouse : public QDialog
     private slots:
         void on_btnNextImage_clicked();
         void on_btnPrevImage_clicked();
-        void on_edLocality_doubleClicked();
+        void on_edLocality_doubleClicked(QMouseEvent* ev);
 
     protected:
         QUuid m_HouseId;

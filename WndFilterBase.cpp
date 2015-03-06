@@ -54,9 +54,9 @@ WndFilterBase::onItemSelected(const QModelIndex& index)
 
 
     QModelIndex newIndex = m_View.model()->index(index.row(), idColumnIndex);
-    QVariant idVar = m_View.model()->data(newIndex);
+    m_SelectedId = QUuid(m_View.model()->data(newIndex).toString());
 
-    emit itemSelected(idVar.toUuid());
+    emit itemSelected(m_SelectedId);
 
     done(0);
 }
