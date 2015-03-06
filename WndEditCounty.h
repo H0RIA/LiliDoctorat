@@ -24,6 +24,8 @@ namespace UI
         signals:
 
         protected slots:
+            void onLanguageChanged();
+
             void onCancel();
             void onOK();
             void onApply();
@@ -31,6 +33,16 @@ namespace UI
         protected:
             bool m_NewItem;
             County m_County;
+
+            QLabel m_lblLanguage;
+            QComboBox m_cbLanguage;
+
+            QLabel m_lblName;
+            QLineEdit m_edName;
+
+            QPushButton m_btnCancel;
+            QPushButton m_btnOK;
+            QPushButton m_btnApply;
     };
 }
 

@@ -313,4 +313,6 @@ WndEditHouse::on_edLocality_doubleClicked(QMouseEvent* ev)
     QUuid idLocality = filterLocality.getSelectedId();
     if(idLocality.isNull())
         m_edLocality.clear();
+
+    // TODO
 }

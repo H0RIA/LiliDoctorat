@@ -18,8 +18,8 @@ WndTaxes::~WndTaxes()
 void
 WndTaxes::onNewItem()
 {
-    WndEditTax newTaxDlg(this);
-    newTaxDlg.exec();
+    WndEditTax newEditor(this);
+    newEditor.exec();
     QSqlTableModel* model = qobject_cast<QSqlTableModel*>(m_View.model());
     if(model != nullptr)
         model->select();
@@ -29,7 +29,7 @@ void
 WndTaxes::resetModel()
 {
     QSqlTableModel* model = new QSqlTableModel(this, QSqlDatabase::database());
-    model->setTable("TaxInfo");
+    model->setTable(TaxInfo::STR_TABLE_NAME);
     model->setEditStrategy(QSqlTableModel::OnManualSubmit);
     if(!model->select()){
         qDebug() << model->lastError().text();
