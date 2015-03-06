@@ -1,3 +1,4 @@
+#include "WndEditTax.h"
 #include "WndTaxes.h"
 
 using namespace UI;
@@ -14,5 +15,6 @@ WndTaxes::~WndTaxes()
 void
 WndTaxes::onNewItem()
 {
-    // TODO
+    WndEditTax newTaxDlg(this);
+    newTaxDlg.exec();
 }

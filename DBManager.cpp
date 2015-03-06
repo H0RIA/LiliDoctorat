@@ -135,6 +135,22 @@ DBManager::findTax(const QString& data)
     return result;
 }
 
+TaxInfo
+DBManager::findTax(const QUuid& id)
+{
+    TaxInfo tax;
+
+    if(id.isNull())
+        return tax;
+
+    foreach(const TaxInfo& taxInfo, m_Taxes){
+        if(taxInfo.Id() == id)
+            return taxInfo;
+    }
+
+    return tax;
+}
+
 void
 DBManager::clearData()
 {

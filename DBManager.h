@@ -20,6 +20,7 @@ class DBManager
         QList<TaxInfo> findTaxByDescr(const QString& descr);
         QList<TaxInfo> findTaxByFormula(const QString& formula);
         QList<TaxInfo> findTax(const QString& data);
+        TaxInfo findTax(const QUuid& id);
 
         void clearData();
         void loadData();

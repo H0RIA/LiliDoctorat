@@ -2,6 +2,7 @@
 #define WNDEDITTAX_H
 
 #include "Base.h"
+#include "TaxInfo.h"
 
 namespace UI
 {
@@ -17,12 +18,25 @@ namespace UI
         protected:
             void initializeData();
 
-            void loadFromDB(const QUuid& id = QUuid());
-            void saveToDB();
+            bool loadFromDB(const QUuid& id = QUuid());
+            bool saveToDB();
 
         protected:
             bool m_NewItem;
-            QUuid m_TaxId;
+            TaxInfo m_Tax;
+
+            QLabel m_lblName;
+            QLineEdit m_edName;
+
+            QLabel m_lblDescription;
+            QLineEdit m_edDescription;
+
+            QLabel m_lblFormula;
+            QTextEdit m_edFormula;
+
+            QPushButton m_btnCancel;
+            QPushButton m_btnOK;
+            QPushButton m_btnApply;
     };
 }
 
