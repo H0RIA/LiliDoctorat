@@ -21,6 +21,11 @@ namespace UI
             bool loadFromDB(const QUuid& id = QUuid());
             bool saveToDB();
 
+        protected slots:
+            void onCancel();
+            void onOK();
+            void onApply();
+
         protected:
             bool m_NewItem;
             TaxInfo m_Tax;

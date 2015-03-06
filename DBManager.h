@@ -32,6 +32,8 @@ class DBManager
         void loadTaxes();
         void saveTaxes()const;
 
+        QSqlDatabase* getDatabase();
+
     protected:
         bool createDatabase();
         bool createTables();

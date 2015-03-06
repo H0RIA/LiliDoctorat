@@ -202,7 +202,7 @@ DBManager::saveLanguages()
 void
 DBManager::loadTaxes()
 {
-    QString strQuery = "Select * From Taxes;";
+    QString strQuery = "Select * From TaxInfo;";
     QSqlQuery query(strQuery);
     while(query.next()){
         TaxInfo tax;
@@ -220,6 +220,12 @@ DBManager::saveTaxes()const
 {
     foreach(const TaxInfo& tax, m_Taxes)
         tax.SaveToDB();
+}
+
+QSqlDatabase*
+DBManager::getDatabase()
+{
+    return m_pDatabase;
 }
 
 bool

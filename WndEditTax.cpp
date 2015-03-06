@@ -47,6 +47,10 @@ WndEditTax::initializeData()
     m_btnApply.setText(tr("Apply"));
     m_btnOK.setText(tr("OK"));
 
+    connect(&m_btnApply, SIGNAL(clicked()), SLOT(onApply()));
+    connect(&m_btnCancel, SIGNAL(clicked()), SLOT(onCancel()));
+    connect(&m_btnOK, SIGNAL(clicked()), SLOT(onOK()));
+
     QHBoxLayout* btnLayout = new QHBoxLayout();
     btnLayout->setSpacing(0);
     btnLayout->setContentsMargins(0, 0, 0, 0);
@@ -162,4 +166,23 @@ WndEditTax::saveToDB()
     m_Tax.setFormula(m_edFormula.toPlainText());
 
     return m_Tax.SaveToDB();
+}
+
+void
+WndEditTax::onCancel()
+{
+    done(-1);
+}
+
+void
+WndEditTax::onOK()
+{
+    saveToDB();
+    done(0);
+}
+
+void
+WndEditTax::onApply()
+{
+    saveToDB();
 }
