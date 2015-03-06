@@ -1,14 +1,10 @@
 #include "WndFilterBase.h"
 
-struct ColInfo{
-    int _index;
-    QString _name;
-};
-
 WndFilterBase::WndFilterBase(QWidget *parent)
     :   QDialog(parent),
         m_TableName(),
-        m_View(this)
+        m_View(this),
+        m_SelectedId()
 {
     initializeData();
 }
@@ -16,13 +12,20 @@ WndFilterBase::WndFilterBase(QWidget *parent)
 WndFilterBase::WndFilterBase(const QString& table, QWidget *parent)
     :   QDialog(parent),
         m_TableName(table),
-        m_View(this)
+        m_View(this),
+        m_SelectedId()
 {
     initializeData();
 }
 
 WndFilterBase::~WndFilterBase()
 {
+}
+
+QUuid
+WndFilterBase::getSelectedId()const
+{
+    return m_SelectedId;
 }
 
 void
@@ -54,6 +57,8 @@ WndFilterBase::onItemSelected(const QModelIndex& index)
     QVariant idVar = m_View.model()->data(newIndex);
 
     emit itemSelected(idVar.toUuid());
+
+    done(0);
 }
 
 void
@@ -70,7 +75,7 @@ WndFilterBase::initializeData()
 
         if(!record.isEmpty()){
             for(int i = 0; i < record.count(); i++)
-                model->setHeaderData(i, Qt::Horizontal, QObject::tr(record.fieldName(i)));
+                model->setHeaderData(i, Qt::Horizontal, record.fieldName(i));
         }
 
         m_View.setModel(model);

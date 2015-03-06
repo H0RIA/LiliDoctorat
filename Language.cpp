@@ -1,9 +1,9 @@
 #include "Language.h"
 
-QUuid Language::LANGUAGE_ROMANIAN = QUuid();
-QUuid Language::LANGUAGE_GERMAN = QUuid();
-QUuid Language::LANGUAGE_SAXON = QUuid();
-QUuid Language::LANGUAGE_HUNGARIAN = QUuid();
+QUuid Language::LANGUAGE_ROMANIAN = QUuid("{A808E920-C40E-11E4-8830-0800200C9A66}");
+QUuid Language::LANGUAGE_GERMAN = QUuid("{A2DF58D0-C40E-11E4-8830-0800200C9A66}");
+QUuid Language::LANGUAGE_SAXON = QUuid("{ABA522B0-C40E-11E4-8830-0800200C9A66}");
+QUuid Language::LANGUAGE_HUNGARIAN = QUuid("{B0FAF320-C40E-11E4-8830-0800200C9A66}");
 
 QString Language::STR_CREATE_TABLE = "Create table Language (\
 Id varchar(50) primary key,\

@@ -12,6 +12,8 @@ class WndFilterBase : public QDialog
         explicit WndFilterBase(const QString& table, QWidget *parent = 0);
         ~WndFilterBase();
 
+        QUuid getSelectedId()const;
+
     signals:
         void itemSelected(const QUuid& id);
 
@@ -24,6 +26,7 @@ class WndFilterBase : public QDialog
     protected:
         QString m_TableName;
         QTableView m_View;
+        QUuid m_SelectedId;
 };
 
 #endif // WNDFILTERBASE_H
