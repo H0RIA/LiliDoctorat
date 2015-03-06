@@ -1,4 +1,5 @@
 #include "MainWindow.h"
+#include "CentralWindow.h"
 
 MainWindow::MainWindow(QWidget *parent)
     :   QMainWindow(parent),
@@ -31,6 +32,8 @@ MainWindow::MainWindow(QWidget *parent)
     createGlobalShortcuts();
 
     setCentralWidget(&m_MainWidget);
+
+    connect(this, SIGNAL(dockSelectWindow(WindowType)), &m_MainWidget, SLOT(onDockSelectWindow(WindowType)));
 }
 
 MainWindow::~MainWindow()
@@ -49,51 +52,76 @@ MainWindow::createDockBar()
     m_DockTab->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
 
     m_ActionDockHouses = new QAction(m_DockTab);
+    m_ActionDockHouses->setCheckable(true);
+    m_ActionDockHouses->setData((int)WindowType::Houses);
     m_ActionDockHouses->setText("Houses");
     QIcon iconHouse(":/images/icon-house.png");
     m_ActionDockHouses->setIcon(iconHouse);
+    m_ActionDockHouses->setChecked(true);
+    connect(m_ActionDockHouses, SIGNAL(triggered(bool)), SLOT(onDockItemTriggered(bool)));
     m_DockTab->addAction(m_ActionDockHouses);
 
     m_ActionDockPriests = new QAction(m_DockTab);
+    m_ActionDockPriests->setCheckable(true);
+    m_ActionDockPriests->setData((int)WindowType::Priests);
     QIcon iconPriest(":/images/icon-priest.png");
     m_ActionDockPriests->setText("Priests");
     m_ActionDockPriests->setIcon(iconPriest);
+    connect(m_ActionDockPriests, SIGNAL(triggered(bool)), SLOT(onDockItemTriggered(bool)));
     m_DockTab->addAction(m_ActionDockPriests);
 
     m_ActionDockLanguages = new QAction(m_DockTab);
+    m_ActionDockLanguages->setCheckable(true);
+    m_ActionDockLanguages->setData((int)WindowType::Languages);
     QIcon iconLanguage(":/images/icon-language.png");
     m_ActionDockLanguages->setText("Languages");
     m_ActionDockLanguages->setIcon(iconLanguage);
+    connect(m_ActionDockLanguages, SIGNAL(triggered(bool)), SLOT(onDockItemTriggered(bool)));
     m_DockTab->addAction(m_ActionDockLanguages);
 
     m_ActionDockCounties = new QAction(m_DockTab);
+    m_ActionDockCounties->setCheckable(true);
+    m_ActionDockCounties->setData((int)WindowType::Counties);
     QIcon iconRegion(":/images/icon-region.png");
     m_ActionDockCounties->setText("Counties");
     m_ActionDockCounties->setIcon(iconRegion);
+    connect(m_ActionDockCounties, SIGNAL(triggered(bool)), SLOT(onDockItemTriggered(bool)));
     m_DockTab->addAction(m_ActionDockCounties);
 
     m_ActionDockDeaneries = new QAction(m_DockTab);
+    m_ActionDockDeaneries->setCheckable(true);
+    m_ActionDockDeaneries->setData((int)WindowType::Deaneries);
     QIcon iconDeanery(":/images/icon-deanery.png");
     m_ActionDockDeaneries->setText("Deaneries");
     m_ActionDockDeaneries->setIcon(iconDeanery);
+    connect(m_ActionDockDeaneries, SIGNAL(triggered(bool)), SLOT(onDockItemTriggered(bool)));
     m_DockTab->addAction(m_ActionDockDeaneries);
 
     m_ActionDockLocalities = new QAction(m_DockTab);
+    m_ActionDockLocalities->setCheckable(true);
+    m_ActionDockLocalities->setData((int)WindowType::Localities);
     QIcon iconLocality(":/images/icon-locality.png");
     m_ActionDockLocalities->setText("Localities");
     m_ActionDockLocalities->setIcon(iconLocality);
+    connect(m_ActionDockLocalities, SIGNAL(triggered(bool)), SLOT(onDockItemTriggered(bool)));
     m_DockTab->addAction(m_ActionDockLocalities);
 
     m_ActionDockImages = new QAction(m_DockTab);
+    m_ActionDockImages->setCheckable(true);
+    m_ActionDockImages->setData((int)WindowType::Images);
     QIcon iconGallery(":/images/icon-gallery.png");
     m_ActionDockImages->setText("Images");
     m_ActionDockImages->setIcon(iconGallery);
+    connect(m_ActionDockImages, SIGNAL(triggered(bool)), SLOT(onDockItemTriggered(bool)));
     m_DockTab->addAction(m_ActionDockImages);
 
     m_ActionDockTaxes = new QAction(m_DockTab);
+    m_ActionDockTaxes->setCheckable(true);
+    m_ActionDockTaxes->setData((int)WindowType::Taxes);
     QIcon iconTaxes(":/images/icon-money.png");
     m_ActionDockTaxes->setText("Taxes");
     m_ActionDockTaxes->setIcon(iconTaxes);
+    connect(m_ActionDockTaxes, SIGNAL(triggered(bool)), SLOT(onDockItemTriggered(bool)));
     m_DockTab->addAction(m_ActionDockTaxes);
 
     addToolBar(Qt::LeftToolBarArea, m_DockTab);
@@ -150,7 +178,56 @@ MainWindow::createAboutMenu()
 }
 
 void
+MainWindow::onDockItemTriggered(bool checked)
+{
+    QAction* action = qobject_cast<QAction*>(sender());
+    if(action == nullptr)
+        return;
+
+    if(checked == false){
+        action->blockSignals(true);
+        action->setChecked(true);
+        action->blockSignals(false);
+        return;
+    }
+
+    WindowType wndType = (WindowType)(action->data().toInt());
+
+    uncheckAllDockItems((WindowType)wndType);
+
+    emit dockSelectWindow(wndType);
+}
+
+void
 MainWindow::createGlobalShortcuts()
 {
     // TODO
+}
+
+void
+MainWindow::uncheckAllDockItems(WindowType wndException)
+{
+    if(wndException != WindowType::Houses)
+        m_ActionDockHouses->setChecked(false);
+
+    if(wndException != WindowType::Priests)
+        m_ActionDockPriests->setChecked(false);
+
+    if(wndException != WindowType::Languages)
+        m_ActionDockLanguages->setChecked(false);
+
+    if(wndException != WindowType::Counties)
+        m_ActionDockCounties->setChecked(false);
+
+    if(wndException != WindowType::Deaneries)
+        m_ActionDockDeaneries->setChecked(false);
+
+    if(wndException != WindowType::Localities)
+        m_ActionDockLocalities->setChecked(false);
+
+    if(wndException != WindowType::Images)
+        m_ActionDockImages->setChecked(false);
+
+    if(wndException != WindowType::Taxes)
+        m_ActionDockTaxes->setChecked(false);
 }

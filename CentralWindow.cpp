@@ -1,5 +1,4 @@
 #include "CentralWindow.h"
-#include "WndEditHouse.h"
 #include "ThumbnailDelegate.h"
 #include "WndHouses.h"
 #include "WndPriests.h"
@@ -9,13 +8,12 @@
 #include "WndLocalities.h"
 #include "WndImages.h"
 #include "WndTaxes.h"
-#include "HouseModel.h"
+
 
 CentralWindow::CentralWindow(QWidget* parent)
     :   QWidget(parent),
         m_WidgetContainer(this),
         m_Windows(),
-        m_View(this),
         m_pManager(HouseManager::instance())
 {
     QHBoxLayout* mainLayout = new QHBoxLayout();
@@ -24,38 +22,19 @@ CentralWindow::CentralWindow(QWidget* parent)
 
     mainLayout->addWidget(&m_WidgetContainer);
 
-//    HouseModel* model = new HouseModel();
-//    m_View.setItemDelegateForColumn((int)HouseModelColumn::Thumbnail, new ThumbnailDelegate());
-//    m_View.setModel(model);
-//    m_View.verticalHeader()->hide();
-//    m_View.setSelectionBehavior(QAbstractItemView::SelectRows);
-//    m_View.setEditTriggers(QAbstractItemView::NoEditTriggers);
-//    m_View.setSelectionMode(QAbstractItemView::SingleSelection);
-//    m_View.horizontalHeader()->setStretchLastSection(false);
-
     setLayout(mainLayout);
 
-//    connect(&m_View, SIGNAL(doubleClicked(QModelIndex)), SLOT(onDoubleClicked(QModelIndex)));
+    initializeData();
 }
 
 CentralWindow::~CentralWindow()
 {
 }
 
-
 void
-CentralWindow::onDoubleClicked(const QModelIndex& index)
+CentralWindow::onDockSelectWindow(WindowType wndType)
 {
-    if(!index.isValid())
-        return;
-
-    int row = index.row();
-    House* ptrHouse = qobject_cast<HouseModel*>(m_View.model())->getHouseManager()->getHouses().at(row);
-    if(ptrHouse != nullptr)
-    {
-        WndEditHouse dialog(this, ptrHouse->Id());
-        dialog.exec();
-    }
+    m_WidgetContainer.setCurrentIndex((int)wndType);
 }
 
 void

@@ -21,6 +21,15 @@ class MainWindow : public QMainWindow
 
         void createGlobalShortcuts();
 
+    protected slots:
+        void onDockItemTriggered(bool checked = false);
+
+    protected:
+        void uncheckAllDockItems(WindowType wndException);
+
+    signals:
+        void dockSelectWindow(WindowType wndType);
+
     protected:
         QToolBar* m_DockTab;
         QDockWidget* m_Filters;

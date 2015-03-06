@@ -4,28 +4,29 @@
 #include "Base.h"
 #include "HouseManager.h"
 
+enum class WindowType : int
+{
+    Houses = 0,
+    Priests,
+    Languages,
+    Counties,
+    Deaneries,
+    Localities,
+    Images,
+    Taxes
+};
+
 class CentralWindow : public QWidget
 {
     Q_OBJECT
-
-    enum class WindowType : int
-    {
-        Houses = 0,
-        Priests,
-        Languages,
-        Counties,
-        Deaneries,
-        Localities,
-        Images,
-        Taxes
-    };
 
     public:
         CentralWindow(QWidget* parent = nullptr);
         virtual ~CentralWindow();
 
-    protected slots:
-        void onDoubleClicked(const QModelIndex& index);
+    public slots:
+        void onDockSelectWindow(WindowType wndType);
+
 
     protected:
         void initializeData();
@@ -34,7 +35,7 @@ class CentralWindow : public QWidget
         QStackedWidget m_WidgetContainer;
         QMap<WindowType, QWidget*> m_Windows;
 
-        QTableView m_View;
+//        QTableView m_View;
         HouseManager* m_pManager;
 };
 

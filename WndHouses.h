@@ -14,6 +14,13 @@ namespace UI
             ~WndHouses();
 
         protected:
+            void initializeData();
+
+        protected slots:
+            void onDoubleClicked(const QModelIndex& index);
+
+        protected:
+            QTableView m_View;
     };
 }
 
