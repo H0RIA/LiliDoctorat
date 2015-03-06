@@ -47,7 +47,8 @@ SOURCES += main.cpp\
     WndImages.cpp \
     WndEditTax.cpp \
     WndFilterBase.cpp \
-    LineEdit.cpp
+    LineEdit.cpp \
+    WndEditCounty.cpp
 
 HEADERS  += MainWindow.h \
     Base.h \
@@ -84,7 +85,8 @@ HEADERS  += MainWindow.h \
     WndTaxes.h \
     WndEditTax.h \
     WndFilterBase.h \
-    LineEdit.h
+    LineEdit.h \
+    WndEditCounty.h
 
 FORMS += \
     WndEditHouse.ui

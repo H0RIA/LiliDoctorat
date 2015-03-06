@@ -68,7 +68,7 @@ TaxInfo::LoadFromDB()
     if(m_Id.isNull())
         return false;
 
-    QSqlQuery query(QString("Select * From TaxInfo Where Id = '%1'").arg(m_Id.toString()));
+    QSqlQuery query(QString("Select * From %1 Where Id = '%2'").arg(TaxInfo::STR_TABLE_NAME).arg(m_Id.toString()));
     if(query.exec()){
         QSqlRecord record = query.record();
 
@@ -92,12 +92,12 @@ TaxInfo::SaveToDB()const
     QString strQuery;
     if(!ExistsInDB()){
         // We must insert the new data
-        strQuery = QString("Insert into TaxInfo (Id, Name, Description, Formula) Values('%1', '%2', '%3', '%4')")
-                .arg(m_Id.toString()).arg(m_Name).arg(m_Description).arg(m_Formula);
+        strQuery = QString("Insert into %1 (Id, Name, Description, Formula) Values('%2', '%3', '%4', '%5')")
+                .arg(TaxInfo::STR_TABLE_NAME).arg(m_Id.toString()).arg(m_Name).arg(m_Description).arg(m_Formula);
     }else{
         // We must update the old data
-        strQuery = QString("Update TaxInfo Set Name = '%1', Description = '%2', Formula = '%3') Where Id = '%4'")
-                .arg(m_Name).arg(m_Description).arg(m_Formula).arg(m_Id.toString());
+        strQuery = QString("Update %1 Set Name = '%2', Description = '%3', Formula = '%4') Where Id = '%5'")
+                .arg(TaxInfo::STR_TABLE_NAME).arg(m_Name).arg(m_Description).arg(m_Formula).arg(m_Id.toString());
     }
 
     if(!query.exec(strQuery)){
@@ -114,9 +114,9 @@ TaxInfo::ExistsInDB()const
     if(m_Id.isNull())
         return false;
 
-    QSqlQuery query(QString("Select Count(*) As TaxExists From TaxInfo Where Id = '%1'").arg(m_Id.toString()));
+    QSqlQuery query(QString("Select Count(*) As EntryExists From %1 Where Id = '%2'").arg(TaxInfo::STR_TABLE_NAME).arg(m_Id.toString()));
     while(query.next()){
-        int size = query.value("TaxExists").toInt();
+        int size = query.value("EntryExists").toInt();
         if(size == 1)
             return true;
     }
