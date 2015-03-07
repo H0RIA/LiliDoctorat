@@ -5,7 +5,6 @@
 #include "WndHouse_TabBuilding.h"
 #include "WndHouse_TabFunction.h"
 #include "WndHouse_TabPositioning.h"
-#include "ui_WndEditHouse.h"
 
 WndEditHouse::WndEditHouse(QWidget *parent, const QUuid& houseId)
     :   QDialog(parent),
