@@ -30,7 +30,7 @@ WndTaxes::resetModel()
 {
     QSqlTableModel* model = new QSqlTableModel(this, QSqlDatabase::database());
     model->setTable(TaxInfo::STR_TABLE_NAME);
-    model->setEditStrategy(QSqlTableModel::OnManualSubmit);
+    model->setEditStrategy(QSqlTableModel::OnRowChange);
     if(!model->select()){
         qDebug() << model->lastError().text();
     }else{

@@ -68,8 +68,6 @@ WndEditDeanery::initializeData()
     btnLayout->addWidget(&m_btnApply);
     btnLayout->addStretch();
 
-    // TODO
-
     int labelWidth = 80;
     int editWidth = 180;
 
