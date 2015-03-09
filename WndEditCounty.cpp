@@ -88,6 +88,7 @@ WndEditCounty::initializeData()
         qDebug() << model->lastError().text();
     }else{
         m_cbLanguage.setModel(model);
+        m_cbLanguage.setModelColumn(1);
     }
 
     QHBoxLayout* layoutLanguage = new QHBoxLayout();

@@ -2,7 +2,7 @@
 #include "Locality.h"
 #include "Language.h"
 #include "PriestInfo.h"
-#include "Shire.h"
+#include "Comune.h"
 #include "Deanery.h"
 #include "ImageInfo.h"
 #include "LocationInfo.h"
@@ -271,9 +271,9 @@ DBManager::createTables()
     if(!PriestInfo::TableExists())
         result = !result ? false : PriestInfo::CreateTable();
 
-    // Create the Shire table
-    if(!Shire::TableExists())
-        result = !result ? false : Shire::CreateTable();
+    // Create the Comune table
+    if(!Comune::TableExists())
+        result = !result ? false : Comune::CreateTable();
 
     // Create the County table
     if(!County::TableExists())

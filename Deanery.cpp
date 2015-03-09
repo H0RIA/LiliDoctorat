@@ -2,33 +2,39 @@
 
 QString Deanery::STR_CREATE_TABLE = "Create table Deanery (\
 Id varchar(50) primary key,\
-IdLocale varchar(50),\
-LocalizedName varchar(255))";
+NameRO varchar(255),\
+NameDE varchar(255),\
+NameSX varchar(255),\
+NameHU varchar(255)\
+)";
 QString Deanery::STR_TABLE_NAME = "Deanery";
 
 Deanery::Deanery()
     :   m_Id(QUuid::createUuid()),
-        m_Name()
+        m_NameRO(),
+        m_NameDE(),
+        m_NameSX(),
+        m_NameHU()
 {}
 
 Deanery::Deanery(const Deanery& deanery)
     :   m_Id(deanery.Id()),
-        m_Name(deanery.Name())
+        m_NameRO(deanery.NameRO()),
+        m_NameDE(deanery.NameDE()),
+        m_NameSX(deanery.NameSX()),
+        m_NameHU(deanery.NameHU())
 {}
 
 Deanery::~Deanery(){}
-
-void
-Deanery::setName(const QString& name, const QUuid& langId)
-{
-    m_Name[langId] = name;
-}
 
 Deanery&
 Deanery::operator=(const Deanery& deanery)
 {
     m_Id = deanery.Id();
-    m_Name = deanery.Name();
+    m_NameRO = deanery.NameRO();
+    m_NameDE = deanery.NameDE();
+    m_NameSX = deanery.NameSX();
+    m_NameHU = deanery.NameHU();
 
     return *this;
 }

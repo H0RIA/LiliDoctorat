@@ -2,23 +2,24 @@
 
 QString LocationInfo::STR_CREATE_TABLE = "Create table LocationInfo (\
 Id varchar(50) primary key,\
-IdLocale varchar(50),\
-LocalizedName varchar(255),\
-IdComune varchar(50),\
-IdShire varchar(50),\
+NameRO varchar(255),\
+NameDE varchar(255),\
+NameSX varchar(255),\
+NameHU varchar(255),\
+IdLocality varchar(50),\
 IdDeanery varchar(50),\
 InventoryDate date,\
 OldStatus text,\
-FOREIGN KEY(IdComune) REFERENCES Locality(Id),\
-FOREIGN KEY(IdShire) REFERENCES Shire(Id),\
+FOREIGN KEY(IdLocality) REFERENCES Locality(Id),\
 FOREIGN KEY(IdDeanery) REFERENCES Deanery(Id))";
 QString LocationInfo::STR_TABLE_NAME = "LocationInfo";
 
 LocationInfo::LocationInfo()
     :   m_Id(QUuid::createUuid()),
-        m_Name(),
-        m_Comune(),
-        m_ShireInfo(),
+        m_NameRO(),
+        m_NameDE(),
+        m_NameSX(),
+        m_NameHU(),
         m_DeaneryInfo(),
         m_InventoryDate(),
         m_OldStatus()
@@ -26,9 +27,10 @@ LocationInfo::LocationInfo()
 
 LocationInfo::LocationInfo(const LocationInfo& li)
     :   m_Id(li.Id()),
-        m_Name(li.Name()),
-        m_Comune(li.Comune()),
-        m_ShireInfo(li.ShireInfo()),
+        m_NameRO(li.NameRO()),
+        m_NameDE(li.NameDE()),
+        m_NameSX(li.NameSX()),
+        m_NameHU(li.NameHU()),
         m_DeaneryInfo(li.DeaneryInfo()),
         m_InventoryDate(li.InventoryDate()),
         m_OldStatus(li.OldStatus())
@@ -40,9 +42,10 @@ LocationInfo&
 LocationInfo::operator=(const LocationInfo& li)
 {
     m_Id = li.Id();
-    m_Name = li.Name();
-    m_Comune = li.Comune();
-    m_ShireInfo = li.ShireInfo();
+    m_NameRO = li.NameRO();
+    m_NameDE = li.NameDE();
+    m_NameSX = li.NameSX();
+    m_NameHU = li.NameHU();
     m_DeaneryInfo = li.DeaneryInfo();
     m_InventoryDate = li.InventoryDate();
     m_OldStatus = li.OldStatus();

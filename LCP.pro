@@ -25,7 +25,6 @@ SOURCES += main.cpp\
     LocationInfo.cpp \
     Locality.cpp \
     County.cpp \
-    Shire.cpp \
     Deanery.cpp \
     CentralWindow.cpp \
     HouseModel.cpp \
@@ -48,7 +47,8 @@ SOURCES += main.cpp\
     WndEditTax.cpp \
     WndFilterBase.cpp \
     LineEdit.cpp \
-    WndEditCounty.cpp
+    WndEditCounty.cpp \
+    Comune.cpp
 
 HEADERS  += MainWindow.h \
     Base.h \
@@ -64,7 +64,6 @@ HEADERS  += MainWindow.h \
     LocationInfo.h \
     Locality.h \
     County.h \
-    Shire.h \
     Deanery.h \
     HouseModel.h \
     ThumbnailDelegate.h \
@@ -86,7 +85,8 @@ HEADERS  += MainWindow.h \
     WndEditTax.h \
     WndFilterBase.h \
     LineEdit.h \
-    WndEditCounty.h
+    WndEditCounty.h \
+    Comune.h
 
 FORMS +=
 

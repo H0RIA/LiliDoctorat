@@ -2,8 +2,10 @@
 
 QString House::STR_CREATE_TABLE = "Create table House (\
 Id varchar(50) primary key,\
-IdLocale varchar(50),\
-LocalizedName varchar(255),\
+NameRO varchar(255),\
+NameDE varchar(255),\
+NameSX varchar(255),\
+NameHU varchar(255),\
 Description text,\
 IdLocation varchar(50),\
 HouseDating text,\
@@ -18,7 +20,10 @@ QString House::STR_TABLE_NAME = "House";
 
 House::House()
     :   m_Id(QUuid::createUuid()),
-        m_Name(),
+        m_NameRO(),
+        m_NameDE(),
+        m_NameSX(),
+        m_NameHU(),
         m_Description(),
         m_LocationId(),
         m_HouseDating(),
@@ -32,7 +37,10 @@ House::House()
 
 House::House(const House& house)
     :   m_Id(house.Id()),
-        m_Name(house.Name()),
+        m_NameRO(house.NameRO()),
+        m_NameDE(house.NameDE()),
+        m_NameSX(house.NameSX()),
+        m_NameHU(house.NameHU()),
         m_Description(house.Description()),
         m_LocationId(house.LocationId()),
         m_HouseDating(house.HouseDating()),
@@ -50,7 +58,10 @@ House&
 House::operator=(const House& house)
 {
     m_Id = house.Id();
-    m_Name = house.Name();
+    m_NameRO = house.NameRO();
+    m_NameDE = house.NameDE();
+    m_NameSX = house.NameSX();
+    m_NameHU = house.NameHU();
     m_Description = house.Description();
     m_LocationId = house.LocationId();
     m_HouseDating = house.HouseDating();

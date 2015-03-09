@@ -56,6 +56,10 @@ Language::CreateTable()
 {
     bool result = true;
     RunQuery(Language::STR_CREATE_TABLE, result);
+    RunQuery("Insert into Language (Id, Name) Values ('{A808E920-C40E-11E4-8830-0800200C9A66}', 'Romana')", result);
+    RunQuery("Insert into Language (Id, Name) Values ('{A2DF58D0-C40E-11E4-8830-0800200C9A66}', 'Deutsch')", result);
+    RunQuery("Insert into Language (Id, Name) Values ('{ABA522B0-C40E-11E4-8830-0800200C9A66}', 'Saxon')", result);
+    RunQuery("Insert into Language (Id, Name) Values ('{B0FAF320-C40E-11E4-8830-0800200C9A66}', 'Magyar')", result);
 
     return result;
 }

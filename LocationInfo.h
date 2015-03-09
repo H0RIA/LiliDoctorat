@@ -3,15 +3,17 @@
 
 #include "Locality.h"
 #include "County.h"
-#include "Shire.h"
+#include "Comune.h"
 #include "Deanery.h"
 
 class LocationInfo
 {
     DECLARE_PROPERTY(QUuid, Id)
-    DECLARE_PROPERTY_GREF(LocalizedName, Name)
-    DECLARE_PROPERTY(QUuid, Comune)    // Locality
-    DECLARE_PROPERTY(QUuid, ShireInfo) // Shire
+    DECLARE_PROPERTY_GREF(QString, NameRO)
+    DECLARE_PROPERTY_GREF(QString, NameDE)
+    DECLARE_PROPERTY_GREF(QString, NameSX)
+    DECLARE_PROPERTY_GREF(QString, NameHU)
+    DECLARE_PROPERTY(QUuid, Locality)    // Locality
     DECLARE_PROPERTY(QUuid, DeaneryInfo) // Deanery
     DECLARE_PROPERTY(QDate, InventoryDate)
     DECLARE_PROPERTY(QString, OldStatus)

@@ -1,9 +1,9 @@
-#ifndef DEANERY
-#define DEANERY
+#ifndef COMUNE
+#define COMUNE
 
 #include "Base.h"
 
-class Deanery
+class Comune
 {
     DECLARE_PROPERTY(QUuid, Id)
     DECLARE_PROPERTY_GREF(QString, NameRO)
@@ -16,17 +16,17 @@ class Deanery
         static QString STR_TABLE_NAME;
 
     public:
-        Deanery();
-        Deanery(const Deanery& deanery);
-        virtual ~Deanery();
+        Comune();
+        Comune(const Comune& comune);
+        virtual ~Comune();
 
-        Deanery& operator=(const Deanery& deanery);
-        bool operator==(const Deanery& deanery)const;
-        bool operator!=(const Deanery& deanery)const;
+        Comune& operator=(const Comune& comune);
+        bool operator==(const Comune& comune)const;
+        bool operator!=(const Comune& comune)const;
 
         static bool CreateTable();
         static bool TableExists();
 };
 
-#endif // DEANERY
+#endif // COMUNE
 

@@ -53,8 +53,17 @@ HouseModel::data(const QModelIndex &index, int role)const
             case HouseModelColumn::Id:
                 return house->Id();
                 break;
-            case HouseModelColumn::Name:
-                return house->Name()[Language::LANGUAGE_GERMAN];
+            case HouseModelColumn::NameRO:
+                return house->NameRO();
+                break;
+            case HouseModelColumn::NameDE:
+                return house->NameDE();
+                break;
+            case HouseModelColumn::NameSX:
+                return house->NameSX();
+                break;
+            case HouseModelColumn::NameHU:
+                return house->NameHU();
                 break;
             case HouseModelColumn::Thumbnail:
                 if(!house->getImages().empty()){
@@ -91,8 +100,17 @@ HouseModel::headerData(int section, Qt::Orientation orientation, int role)const
         case HouseModelColumn::Id:
             return QObject::tr("Id");
             break;
-        case HouseModelColumn::Name:
-            return QObject::tr("Name");
+        case HouseModelColumn::NameRO:
+            return QObject::tr("Name RO");
+            break;
+        case HouseModelColumn::NameDE:
+            return QObject::tr("Name DE");
+            break;
+        case HouseModelColumn::NameSX:
+            return QObject::tr("Name SX");
+            break;
+        case HouseModelColumn::NameHU:
+            return QObject::tr("Name HU");
             break;
         case HouseModelColumn::Thumbnail:
             return QObject::tr("Thumbnail");

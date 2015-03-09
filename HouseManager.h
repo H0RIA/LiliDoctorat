@@ -7,7 +7,7 @@ class HouseManager
 {
     DECLARE_SINGLETON_OBJECT(House, Houses)
     DECLARE_SINGLETON_OBJECT(Deanery, Deaneries)
-    DECLARE_SINGLETON_OBJECT(Shire, Shires)
+    DECLARE_SINGLETON_OBJECT(Comune, Comunes)
     DECLARE_SINGLETON_OBJECT(Locality, Localities)
     DECLARE_SINGLETON_OBJECT(County, Counties)
     DECLARE_SINGLETON_OBJECT(LocationInfo, Locations)

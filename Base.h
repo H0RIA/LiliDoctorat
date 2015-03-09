@@ -312,8 +312,8 @@
 
 #endif // !IMPLEMENT_SINGLETON
 
-//typedef std::map<Language, QString> LocalizedName;
-typedef QMap<QUuid /*LanguageId*/, QString> LocalizedName;
+////typedef std::map<Language, QString> LocalizedName;
+//typedef QMap<QUuid /*LanguageId*/, QString> LocalizedName;
 
 inline void RunQuery(const QString& strQuery, bool& output)
 {

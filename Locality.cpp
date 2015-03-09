@@ -2,21 +2,29 @@
 
 QString Locality::STR_CREATE_TABLE = "Create table Locality (\
 Id varchar(50) primary key,\
-IdLocale varchar(50),\
-LocalizedName varchar(255),\
+NameRO varchar(255),\
+NameDE varchar(255),\
+NameSX varchar(255),\
+NameHU varchar(255),\
 IdCounty varchar(50))";
 
 QString Locality::STR_TABLE_NAME = "Locality";
 
 Locality::Locality()
     :   m_Id(QUuid::createUuid()),
-        m_Name(),
+        m_NameRO(),
+        m_NameDE(),
+        m_NameSX(),
+        m_NameHU(),
         m_County()
 {}
 
 Locality::Locality(const Locality& loc)
     :   m_Id(loc.Id()),
-        m_Name(loc.Name()),
+        m_NameRO(loc.NameRO()),
+        m_NameDE(loc.NameDE()),
+        m_NameSX(loc.NameSX()),
+        m_NameHU(loc.NameHU()),
         m_County(loc.County())
 {}
 
@@ -26,7 +34,10 @@ Locality&
 Locality::operator=(const Locality& loc)
 {
     m_Id = loc.Id();
-    m_Name = loc.Name();
+    m_NameRO = loc.NameRO();
+    m_NameDE = loc.NameDE();
+    m_NameSX = loc.NameSX();
+    m_NameHU = loc.NameHU();
     m_County = loc.County();
 
     return *this;
@@ -72,11 +83,11 @@ Locality::LoadFromDB()
     if(query.exec()){
         QSqlRecord record = query.record();
 
-        LocalizedName name;
-        name.insert(QUuid(record.value("IdLocale").toString()), record.value("LocalizedName").toString());
-
         setCounty(QUuid(record.value("IdCounty").toString()));
-        setName(name);
+        setNameRO(record.value("NameRO").toString());
+        setNameDE(record.value("NameDE").toString());
+        setNameSX(record.value("NameSX").toString());
+        setNameHU(record.value("NameHU").toString());
 
         return true;
     }
@@ -92,17 +103,16 @@ Locality::SaveToDB()const
 
     QSqlQuery query;
     QString strQuery;
-    QMap<QUuid /*LanguageId*/, QString>::const_iterator iter = m_Name.begin();
 
     if(!ExistsInDB()){
         // We must insert the new data
-        strQuery = QString("Insert into %1 (Id, IdLocale, LocalizedName, IdCounty) Values('%2', '%3', '%4', '%5')")
-                .arg(Locality::STR_TABLE_NAME).arg(m_Id.toString()).arg(iter.key().toString()).arg(iter.value()).arg(m_County.toString());
+        strQuery = QString("Insert into %1 (Id, NameRO, NameDE, NameSX, NamHU, IdCounty) Values('%2', '%3', '%4', '%5', '%6', '%7')")
+                .arg(Locality::STR_TABLE_NAME).arg(m_Id.toString()).arg(NameRO()).arg(NameDE()).arg(NameSX()).arg(NameHU()).arg(m_County.toString());
     }else{
         // We must update the old data
 
-        strQuery = QString("Update %1 Set IdLocale = '%2', LocalizedName = '%3', IdCounty = '%4') Where Id = '%5'")
-                .arg(Locality::STR_TABLE_NAME).arg(iter.key().toString()).arg(iter.value()).arg(m_County.toString()).arg(m_Id.toString());
+        strQuery = QString("Update %1 Set NameRO = '%2', NameDE = '%3', NameSX = '%4', NameHU = '%5', IdCounty = '%6' Where Id = '%7'")
+                .arg(Locality::STR_TABLE_NAME).arg(NameRO()).arg(NameDE()).arg(NameSX()).arg(NameHU()).arg(m_County.toString()).arg(m_Id.toString());
     }
 
     if(!query.exec(strQuery)){

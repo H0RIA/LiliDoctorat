@@ -25,6 +25,7 @@ MainWindow::MainWindow(QWidget *parent)
         m_ActionDockTaxes(nullptr)
 
 {
+    setMinimumSize(640, 480);
     setMenuBar(&m_Menu);
 
     createMenus();

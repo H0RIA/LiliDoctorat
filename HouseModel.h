@@ -4,7 +4,10 @@
 #include "HouseManager.h"
 
 enum class HouseModelColumn{
-    Name = 0,
+    NameRO = 0,
+    NameDE,
+    NameSX,
+    NameHU,
     Description,
     Id,
     Dating,

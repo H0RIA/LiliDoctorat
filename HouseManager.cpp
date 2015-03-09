@@ -60,42 +60,31 @@ HouseManager::addDefaultData()
 
     County* county = createCounty();
     if(county != nullptr){
-        county->setName("Sibiu");
+        county->setNameRO("Sibiu");
     }
 
     Deanery* dioceza = createDeanery();
     if(dioceza != nullptr){
-        dioceza->setName("Smenul de aur");
+        dioceza->setNameRO("Smenul de aur");
     }
 
     Locality* loc = createLocality();
     if(loc != nullptr){
-        LocalizedName locName;
-        Language* lang = DBManager::instance()->findLanguage(QString("Romanian"));
-        if(lang != nullptr)
-            locName[lang->Id()] = "Sat Test";
-
-        lang = DBManager::instance()->findLanguage(QString("German"));
-        if(lang != nullptr)
-            locName[lang->Id()] = "Test Dorf";
-
-        lang = DBManager::instance()->findLanguage(QString("Hungarian"));
-        if(lang != nullptr)
-            locName[lang->Id()] = "Test Falu";
-
-        lang = DBManager::instance()->findLanguage(QString("Saxon"));
-        if(lang != nullptr)
-            locName[lang->Id()] = "Test Dorfen";
-
-        loc->setName(locName);
+        loc->setNameRO("Sat Test");
+        loc->setNameDE("Test Dorf");
+        loc->setNameSX("Test Dorfen");
+        loc->setNameHU("Test Falu");
         if(county != nullptr){
             loc->setCounty(county->Id());
         }
     }
 
-    Shire* shire = createShire();
-    if(shire != nullptr){
-        shire->setName("Testenshire");
+    Comune* comune = createComune();
+    if(comune != nullptr){
+        comune->setNameRO("ComunaTest");
+        comune->setNameDE("TestComune");
+        comune->setNameSX("TestenComune");
+        comune->setNameHU("TudfighdkjfndComune");
     }
 
     TaxInfo* ti = createTaxInfo();
@@ -115,10 +104,10 @@ HouseManager::addDefaultData()
     House* house = createHouse();
     if(house != nullptr){
         house->addImageInfo(ii);
-        LocalizedName name;
-        name[Language::LANGUAGE_ROMANIAN] = "Casa test";
-        name[Language::LANGUAGE_GERMAN] = "Das test casa";
-        house->setName(name);
+        house->setNameRO("Casa test");
+        house->setNameDE("Das test casa");
+        house->setNameSX("Das testen casa");
+        house->setNameHU("KAEUtidghdtiogheiobnei opsjgdrighd");
         house->setDescription("Test house for Lili");
         house->setHouseDating("Datare inexistenta");
     }

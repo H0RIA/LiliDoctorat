@@ -256,10 +256,10 @@ WndEditHouse::loadHouseInfo()
 
     House* ptrHouse = HouseManager::instance()->findHouse(m_HouseId);
     if(ptrHouse != nullptr){
-        m_edNumeRomanesc.setText(ptrHouse->Name()[Language::LANGUAGE_ROMANIAN]);
-        m_edNumeGerman.setText(ptrHouse->Name()[Language::LANGUAGE_GERMAN]);
-        m_edNumeSasesc.setText(ptrHouse->Name()[Language::LANGUAGE_SAXON]);
-        m_edNumeMaghiar.setText(ptrHouse->Name()[Language::LANGUAGE_HUNGARIAN]);
+        m_edNumeRomanesc.setText(ptrHouse->NameRO());
+        m_edNumeGerman.setText(ptrHouse->NameDE());
+        m_edNumeSasesc.setText(ptrHouse->NameSX());
+        m_edNumeMaghiar.setText(ptrHouse->NameHU());
         m_edDate.setText(ptrHouse->HouseDating());
         m_Image.setPixmap(QPixmap(ptrHouse->getImages().front()->Path()));
 
