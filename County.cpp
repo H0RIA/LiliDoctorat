@@ -76,14 +76,13 @@ County::LoadFromDB()
     if(m_Id.isNull())
         return false;
 
-    QSqlQuery query(QString("Select * From %1 Where Id = '%2'").arg(County::STR_TABLE_NAME).arg(m_Id.toString()));
-    if(query.exec()){
-        QSqlRecord record = query.record();
-
-        setNameRO(record.value("NameRO").toString());
-        setNameDE(record.value("NameDE").toString());
-        setNameSX(record.value("NameSX").toString());
-        setNameHU(record.value("NameHU").toString());
+    QString strQuery = QString("Select * From %1 Where Id = '%2'").arg(County::STR_TABLE_NAME).arg(m_Id.toString());
+    QSqlQuery query(strQuery);
+    if(query.next()){
+        setNameRO(query.value("NameRO").toString());
+        setNameDE(query.value("NameDE").toString());
+        setNameSX(query.value("NameSX").toString());
+        setNameHU(query.value("NameHU").toString());
 
         return true;
     }
@@ -102,7 +101,7 @@ County::SaveToDB()const
 
     if(!ExistsInDB()){
         // We must insert the new data
-        strQuery = QString("Insert into %1 (Id, NameRO, NameDE, NameSX, NameHU) Values('%2', '%3', '%4', '%5', '6')")
+        strQuery = QString("Insert into %1 (Id, NameRO, NameDE, NameSX, NameHU) Values('%2', '%3', '%4', '%5', '%6')")
                 .arg(County::STR_TABLE_NAME).arg(m_Id.toString()).arg(NameRO()).arg(NameDE()).arg(NameSX()).arg(NameHU());
     }else{
         // We must update the old data

@@ -48,7 +48,8 @@ SOURCES += main.cpp\
     WndFilterBase.cpp \
     LineEdit.cpp \
     WndEditCounty.cpp \
-    Comune.cpp
+    Comune.cpp \
+    WndEditLocality.cpp
 
 HEADERS  += MainWindow.h \
     Base.h \
@@ -86,7 +87,8 @@ HEADERS  += MainWindow.h \
     WndFilterBase.h \
     LineEdit.h \
     WndEditCounty.h \
-    Comune.h
+    Comune.h \
+    WndEditLocality.h
 
 FORMS +=
 

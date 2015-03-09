@@ -106,7 +106,7 @@ Locality::SaveToDB()const
 
     if(!ExistsInDB()){
         // We must insert the new data
-        strQuery = QString("Insert into %1 (Id, NameRO, NameDE, NameSX, NamHU, IdCounty) Values('%2', '%3', '%4', '%5', '%6', '%7')")
+        strQuery = QString("Insert into %1 (Id, NameRO, NameDE, NameSX, NameHU, IdCounty) Values('%2', '%3', '%4', '%5', '%6', '%7')")
                 .arg(Locality::STR_TABLE_NAME).arg(m_Id.toString()).arg(NameRO()).arg(NameDE()).arg(NameSX()).arg(NameHU()).arg(m_County.toString());
     }else{
         // We must update the old data

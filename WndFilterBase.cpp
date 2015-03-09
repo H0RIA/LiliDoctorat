@@ -90,4 +90,12 @@ WndFilterBase::initializeData()
     }
 
     connect(&m_View, SIGNAL(doubleClicked(QModelIndex)), SLOT(onItemSelected(QModelIndex)));
+
+    QHBoxLayout* mainLayout = new QHBoxLayout();
+    mainLayout->setContentsMargins(0, 0, 0, 0);
+    mainLayout->setSpacing(0);
+
+    mainLayout->addWidget(&m_View);
+
+    setLayout(mainLayout);
 }

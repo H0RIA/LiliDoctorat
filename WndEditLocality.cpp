@@ -1,12 +1,10 @@
-#include "Language.h"
-#include "WndEditCounty.h"
+#include "WndFilterBase.h"
+#include "WndEditLocality.h"
 
-using namespace UI;
-
-WndEditCounty::WndEditCounty(QWidget *parent)
+WndEditLocality::WndEditLocality(QWidget *parent)
     :   QDialog(parent),
         m_NewItem(true),
-        m_County(),
+        m_Locality(),
         m_lblNameRO(this),
         m_edNameRO(this),
         m_lblNameDE(this),
@@ -15,6 +13,8 @@ WndEditCounty::WndEditCounty(QWidget *parent)
         m_edNameSX(this),
         m_lblNameHU(this),
         m_edNameHU(this),
+        m_lblCountyRO(this),
+        m_edCountyRO(this),
         m_btnCancel(this),
         m_btnOK(this),
         m_btnApply(this)
@@ -22,10 +22,10 @@ WndEditCounty::WndEditCounty(QWidget *parent)
     initializeData();
 }
 
-WndEditCounty::WndEditCounty(const QUuid& countyId, QWidget* parent)
+WndEditLocality::WndEditLocality(const QUuid& localityId, QWidget* parent)
     :   QDialog(parent),
         m_NewItem(false),
-        m_County(),
+        m_Locality(),
         m_lblNameRO(this),
         m_edNameRO(this),
         m_lblNameDE(this),
@@ -34,22 +34,21 @@ WndEditCounty::WndEditCounty(const QUuid& countyId, QWidget* parent)
         m_edNameSX(this),
         m_lblNameHU(this),
         m_edNameHU(this),
+        m_lblCountyRO(this),
+        m_edCountyRO(this),
         m_btnCancel(this),
         m_btnOK(this),
         m_btnApply(this)
 {
-    m_County.setId(countyId);
+    m_Locality.setId(localityId);
 
     initializeData();
 }
 
-WndEditCounty::~WndEditCounty()
-{
-
-}
+WndEditLocality::~WndEditLocality(){}
 
 void
-WndEditCounty::initializeData()
+WndEditLocality::initializeData()
 {
     m_btnCancel.setText(tr("Cancel"));
     m_btnApply.setText(tr("Apply"));
@@ -58,6 +57,7 @@ WndEditCounty::initializeData()
     connect(&m_btnApply, SIGNAL(clicked()), SLOT(onApply()));
     connect(&m_btnCancel, SIGNAL(clicked()), SLOT(onCancel()));
     connect(&m_btnOK, SIGNAL(clicked()), SLOT(onOK()));
+    connect(&m_edCountyRO, SIGNAL(doubleClick(QMouseEvent*)), SLOT(on_edCounty_doubleClicked(QMouseEvent*)));
 
     QHBoxLayout* btnLayout = new QHBoxLayout();
     btnLayout->setSpacing(0);
@@ -81,6 +81,9 @@ WndEditCounty::initializeData()
     m_lblNameSX.setText(tr("Nume sasesc"));
     m_lblNameHU.setText(tr("Nume maghiar"));
 
+    m_lblCountyRO.setText(tr("Judet romanesc"));
+    m_edCountyRO.setReadOnly(true);
+
     m_lblNameRO.setMinimumWidth(labelWidth);
     m_lblNameRO.setMaximumWidth(labelWidth);
     m_lblNameDE.setMinimumWidth(labelWidth);
@@ -90,6 +93,9 @@ WndEditCounty::initializeData()
     m_lblNameHU.setMinimumWidth(labelWidth);
     m_lblNameHU.setMaximumWidth(labelWidth);
 
+    m_lblCountyRO.setMinimumWidth(labelWidth);
+    m_lblCountyRO.setMaximumWidth(labelWidth);
+
     m_edNameRO.setMaximumWidth(editWidth);
     m_edNameRO.setMinimumWidth(editWidth);
     m_edNameDE.setMaximumWidth(editWidth);
@@ -98,6 +104,9 @@ WndEditCounty::initializeData()
     m_edNameSX.setMinimumWidth(editWidth);
     m_edNameHU.setMaximumWidth(editWidth);
     m_edNameHU.setMinimumWidth(editWidth);
+
+    m_edCountyRO.setMaximumWidth(editWidth);
+    m_edCountyRO.setMinimumWidth(editWidth);
 
 
     QHBoxLayout* layoutNameRO = new QHBoxLayout();
@@ -148,6 +157,18 @@ WndEditCounty::initializeData()
     layoutNameHU->addStretch();
     layoutNameHU->addSpacing(20);
 
+    QHBoxLayout* layoutCountyRO = new QHBoxLayout();
+    layoutCountyRO->setContentsMargins(0, 0, 0, 0);
+    layoutCountyRO->setSpacing(0);
+
+    layoutCountyRO->addSpacing(20);
+    layoutCountyRO->addStretch();
+    layoutCountyRO->addWidget(&m_lblCountyRO);
+    layoutCountyRO->addSpacing(10);
+    layoutCountyRO->addWidget(&m_edCountyRO);
+    layoutCountyRO->addStretch();
+    layoutCountyRO->addSpacing(20);
+
     QVBoxLayout* mainLayout = new QVBoxLayout();
     mainLayout->setContentsMargins(0, 0, 0, 0);
     mainLayout->setSpacing(0);
@@ -161,6 +182,8 @@ WndEditCounty::initializeData()
     mainLayout->addLayout(layoutNameSX);
     mainLayout->addSpacing(10);
     mainLayout->addLayout(layoutNameHU);
+    mainLayout->addSpacing(20);
+    mainLayout->addLayout(layoutCountyRO);
     mainLayout->addSpacing(10);
     mainLayout->addLayout(btnLayout);
     mainLayout->addSpacing(20);
@@ -173,16 +196,16 @@ WndEditCounty::initializeData()
 }
 
 bool
-WndEditCounty::loadFromDB(const QUuid& id)
+WndEditLocality::loadFromDB(const QUuid& id)
 {
     if(!id.isNull())
         m_County.setId(id);
 
     if(m_County.LoadFromDB()){
-        m_edNameRO.setText(m_County.NameRO());
-        m_edNameDE.setText(m_County.NameDE());
-        m_edNameSX.setText(m_County.NameSX());
-        m_edNameHU.setText(m_County.NameHU());
+        m_edNameRO.setText(m_Locality.NameRO());
+        m_edNameDE.setText(m_Locality.NameDE());
+        m_edNameSX.setText(m_Locality.NameSX());
+        m_edNameHU.setText(m_Locality.NameHU());
 
         return true;
     }
@@ -191,31 +214,51 @@ WndEditCounty::loadFromDB(const QUuid& id)
 }
 
 bool
-WndEditCounty::saveToDB()
+WndEditLocality::saveToDB()
 {
-    m_County.setNameRO(m_edNameRO.text());
-    m_County.setNameDE(m_edNameDE.text());
-    m_County.setNameSX(m_edNameSX.text());
-    m_County.setNameHU(m_edNameHU.text());
+    m_Locality.setNameRO(m_edNameRO.text());
+    m_Locality.setNameDE(m_edNameDE.text());
+    m_Locality.setNameSX(m_edNameSX.text());
+    m_Locality.setNameHU(m_edNameHU.text());
+    m_Locality.setCounty(m_County.Id());
 
-    return m_County.SaveToDB();
+    return m_Locality.SaveToDB();
 }
 
 void
-WndEditCounty::onCancel()
+WndEditLocality::onCancel()
 {
     done(-1);
 }
 
 void
-WndEditCounty::onOK()
+WndEditLocality::onOK()
 {
     saveToDB();
     done(0);
 }
 
 void
-WndEditCounty::onApply()
+WndEditLocality::onApply()
 {
     saveToDB();
+}
+
+void
+WndEditLocality::on_edCounty_doubleClicked(QMouseEvent* ev)
+{
+    Q_UNUSED(ev);
+
+    WndFilterBase filter(County::STR_TABLE_NAME, this);
+    filter.exec();
+
+    QUuid idItem = filter.getSelectedId();
+    if(idItem.isNull()){
+        m_edCountyRO.clear();
+    }else{
+        m_County.setId(idItem);
+        if(m_County.LoadFromDB()){
+            m_edCountyRO.setText(m_County.NameRO());
+        }
+    }
 }
