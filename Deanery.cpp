@@ -68,3 +68,67 @@ Deanery::TableExists()
 {
     return ::TableExists(Deanery::STR_TABLE_NAME);
 }
+
+bool
+Deanery::LoadFromDB()
+{
+    if(m_Id.isNull())
+        return false;
+
+    QString strQuery = QString("Select * From %1 Where Id = '%2'").arg(Deanery::STR_TABLE_NAME).arg(m_Id.toString());
+    QSqlQuery query(strQuery);
+    if(query.next()){
+        setNameRO(query.value("NameRO").toString());
+        setNameDE(query.value("NameDE").toString());
+        setNameSX(query.value("NameSX").toString());
+        setNameHU(query.value("NameHU").toString());
+
+        return true;
+    }
+
+    return false;
+}
+
+bool
+Deanery::SaveToDB()const
+{
+    if(m_Id.isNull())
+        return false;
+
+    QSqlQuery query;
+    QString strQuery;
+
+    if(!ExistsInDB()){
+        // We must insert the new data
+        strQuery = QString("Insert into %1 (Id, NameRO, NameDE, NameSX, NameHU) Values('%2', '%3', '%4', '%5', '%6')")
+                .arg(Deanery::STR_TABLE_NAME).arg(m_Id.toString()).arg(NameRO()).arg(NameDE()).arg(NameSX()).arg(NameHU());
+    }else{
+        // We must update the old data
+
+        strQuery = QString("Update %1 Set NameRO = '%2', NameDE = '%3', NameSX = '%4', NameHU = '%5' Name Where Id = '%6'")
+                .arg(Deanery::STR_TABLE_NAME).arg(NameRO()).arg(NameDE()).arg(NameSX()).arg(NameHU()).arg(m_Id.toString());
+    }
+
+    if(!query.exec(strQuery)){
+        qDebug() << query.lastError().text();
+        return false;
+    }
+
+    return true;
+}
+
+bool
+Deanery::ExistsInDB()const
+{
+    if(m_Id.isNull())
+        return false;
+
+    QSqlQuery query(QString("Select Count(*) As EntryExists From %1 Where Id = '%2'").arg(Deanery::STR_TABLE_NAME).arg(m_Id.toString()));
+    while(query.next()){
+        int size = query.value("EntryExists").toInt();
+        if(size == 1)
+            return true;
+    }
+
+    return false;
+}

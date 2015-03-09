@@ -52,7 +52,8 @@ SOURCES += main.cpp\
     WndEditLocality.cpp \
     WndComunes.cpp \
     WndEditComune.cpp \
-    WndEditPriest.cpp
+    WndEditPriest.cpp \
+    WndEditDeanery.cpp
 
 HEADERS  += MainWindow.h \
     Base.h \
@@ -94,7 +95,8 @@ HEADERS  += MainWindow.h \
     WndEditLocality.h \
     WndComunes.h \
     WndEditComune.h \
-    WndEditPriest.h
+    WndEditPriest.h \
+    WndEditDeanery.h
 
 FORMS +=
 
