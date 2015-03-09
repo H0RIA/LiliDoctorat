@@ -25,7 +25,7 @@ class WndEditLocality : public QDialog
         void onOK();
         void onApply();
 
-        void on_edCounty_doubleClicked(QMouseEvent* ev);
+        void on_edComune_doubleClicked(QMouseEvent* ev);
 
     protected:
         bool m_NewItem;
@@ -44,8 +44,8 @@ class WndEditLocality : public QDialog
         QLabel m_lblNameHU;
         QLineEdit m_edNameHU;
 
-        QLabel m_lblCountyRO;
-        LineEdit m_edCountyRO;
+        QLabel m_lblComuneRO;
+        LineEdit m_edComuneRO;
 
         QPushButton m_btnCancel;
         QPushButton m_btnOK;

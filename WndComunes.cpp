@@ -7,7 +7,7 @@ using namespace UI;
 WndComunes::WndComunes(QWidget *parent)
     :   QWidget(parent)
 {
-
+    initializeData();
 }
 
 WndComunes::~WndComunes()

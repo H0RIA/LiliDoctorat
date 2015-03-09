@@ -13,8 +13,8 @@ WndEditLocality::WndEditLocality(QWidget *parent)
         m_edNameSX(this),
         m_lblNameHU(this),
         m_edNameHU(this),
-        m_lblCountyRO(this),
-        m_edCountyRO(this),
+        m_lblComuneRO(this),
+        m_edComuneRO(this),
         m_btnCancel(this),
         m_btnOK(this),
         m_btnApply(this)
@@ -34,8 +34,8 @@ WndEditLocality::WndEditLocality(const QUuid& localityId, QWidget* parent)
         m_edNameSX(this),
         m_lblNameHU(this),
         m_edNameHU(this),
-        m_lblCountyRO(this),
-        m_edCountyRO(this),
+        m_lblComuneRO(this),
+        m_edComuneRO(this),
         m_btnCancel(this),
         m_btnOK(this),
         m_btnApply(this)
@@ -57,7 +57,7 @@ WndEditLocality::initializeData()
     connect(&m_btnApply, SIGNAL(clicked()), SLOT(onApply()));
     connect(&m_btnCancel, SIGNAL(clicked()), SLOT(onCancel()));
     connect(&m_btnOK, SIGNAL(clicked()), SLOT(onOK()));
-    connect(&m_edCountyRO, SIGNAL(doubleClick(QMouseEvent*)), SLOT(on_edCounty_doubleClicked(QMouseEvent*)));
+    connect(&m_edComuneRO, SIGNAL(doubleClick(QMouseEvent*)), SLOT(on_edComune_doubleClicked(QMouseEvent*)));
 
     QHBoxLayout* btnLayout = new QHBoxLayout();
     btnLayout->setSpacing(0);
@@ -81,8 +81,8 @@ WndEditLocality::initializeData()
     m_lblNameSX.setText(tr("Nume sasesc"));
     m_lblNameHU.setText(tr("Nume maghiar"));
 
-    m_lblCountyRO.setText(tr("Comuna RO"));
-    m_edCountyRO.setReadOnly(true);
+    m_lblComuneRO.setText(tr("Comuna RO"));
+    m_edComuneRO.setReadOnly(true);
 
     m_lblNameRO.setMinimumWidth(labelWidth);
     m_lblNameRO.setMaximumWidth(labelWidth);
@@ -93,8 +93,8 @@ WndEditLocality::initializeData()
     m_lblNameHU.setMinimumWidth(labelWidth);
     m_lblNameHU.setMaximumWidth(labelWidth);
 
-    m_lblCountyRO.setMinimumWidth(labelWidth);
-    m_lblCountyRO.setMaximumWidth(labelWidth);
+    m_lblComuneRO.setMinimumWidth(labelWidth);
+    m_lblComuneRO.setMaximumWidth(labelWidth);
 
     m_edNameRO.setMaximumWidth(editWidth);
     m_edNameRO.setMinimumWidth(editWidth);
@@ -105,8 +105,8 @@ WndEditLocality::initializeData()
     m_edNameHU.setMaximumWidth(editWidth);
     m_edNameHU.setMinimumWidth(editWidth);
 
-    m_edCountyRO.setMaximumWidth(editWidth);
-    m_edCountyRO.setMinimumWidth(editWidth);
+    m_edComuneRO.setMaximumWidth(editWidth);
+    m_edComuneRO.setMinimumWidth(editWidth);
 
 
     QHBoxLayout* layoutNameRO = new QHBoxLayout();
@@ -157,17 +157,17 @@ WndEditLocality::initializeData()
     layoutNameHU->addStretch();
     layoutNameHU->addSpacing(20);
 
-    QHBoxLayout* layoutCountyRO = new QHBoxLayout();
-    layoutCountyRO->setContentsMargins(0, 0, 0, 0);
-    layoutCountyRO->setSpacing(0);
+    QHBoxLayout* layoutComuneRO = new QHBoxLayout();
+    layoutComuneRO->setContentsMargins(0, 0, 0, 0);
+    layoutComuneRO->setSpacing(0);
 
-    layoutCountyRO->addSpacing(20);
-    layoutCountyRO->addStretch();
-    layoutCountyRO->addWidget(&m_lblCountyRO);
-    layoutCountyRO->addSpacing(10);
-    layoutCountyRO->addWidget(&m_edCountyRO);
-    layoutCountyRO->addStretch();
-    layoutCountyRO->addSpacing(20);
+    layoutComuneRO->addSpacing(20);
+    layoutComuneRO->addStretch();
+    layoutComuneRO->addWidget(&m_lblComuneRO);
+    layoutComuneRO->addSpacing(10);
+    layoutComuneRO->addWidget(&m_edComuneRO);
+    layoutComuneRO->addStretch();
+    layoutComuneRO->addSpacing(20);
 
     QVBoxLayout* mainLayout = new QVBoxLayout();
     mainLayout->setContentsMargins(0, 0, 0, 0);
@@ -183,7 +183,7 @@ WndEditLocality::initializeData()
     mainLayout->addSpacing(10);
     mainLayout->addLayout(layoutNameHU);
     mainLayout->addSpacing(20);
-    mainLayout->addLayout(layoutCountyRO);
+    mainLayout->addLayout(layoutComuneRO);
     mainLayout->addSpacing(10);
     mainLayout->addLayout(btnLayout);
     mainLayout->addSpacing(20);
@@ -245,7 +245,7 @@ WndEditLocality::onApply()
 }
 
 void
-WndEditLocality::on_edCounty_doubleClicked(QMouseEvent* ev)
+WndEditLocality::on_edComune_doubleClicked(QMouseEvent* ev)
 {
     Q_UNUSED(ev);
 
@@ -254,11 +254,11 @@ WndEditLocality::on_edCounty_doubleClicked(QMouseEvent* ev)
 
     QUuid idItem = filter.getSelectedId();
     if(idItem.isNull()){
-        m_edCountyRO.clear();
+        m_edComuneRO.clear();
     }else{
         m_Comune.setId(idItem);
         if(m_Comune.LoadFromDB()){
-            m_edCountyRO.setText(m_Comune.NameRO());
+            m_edComuneRO.setText(m_Comune.NameRO());
         }
     }
 }

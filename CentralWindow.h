@@ -2,6 +2,7 @@
 #define CENTRALWINDOW
 
 #include "Base.h"
+#include "WndComunes.h"
 #include "WndCounties.h"
 #include "WndDeaneries.h"
 #include "WndHouses.h"
@@ -52,6 +53,9 @@ inline void callOnNewItem(WindowType type, QWidget* widget)
 {
     switch(type)
     {
+    case WindowType::Comunes:
+        if(qobject_cast<UI::WndComunes*>(widget) != nullptr)
+            qobject_cast<UI::WndComunes*>(widget)->onNewItem();
     case WindowType::Counties:
         if(qobject_cast<UI::WndCounties*>(widget) != nullptr)
             qobject_cast<UI::WndCounties*>(widget)->onNewItem();
