@@ -17,6 +17,7 @@ namespace UI
             void onNewItem();
 
         protected:
+            void resetModel();
             void initializeData();
 
         protected slots:

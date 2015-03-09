@@ -19,26 +19,58 @@ WndHouses::~WndHouses()
 void
 WndHouses::onNewItem()
 {
-    // TODO
+    WndEditHouse newEditor(this);
+    newEditor.exec();
+    resetModel();
+}
+
+void
+WndHouses::resetModel()
+{
+    QSqlQueryModel* model = new QSqlQueryModel();
+    QString strQuery = QString("select\
+                               House.Id, House.NameRO, House.NameDE, House.NameSX, House.NameHU, House.Description, House.HouseDating,\
+                               LocationInfo.NameRO As LocationRO, LocationInfo.NameDE As LocationDE, LocationInfo.NameSX As LocationSX, LocationInfo.NameHU As LocationHU, LocationInfo.OldStatus,\
+                               HouseFunction.Current As CurrentFunction\
+                           from House\
+                               Join LocationInfo On House.IdLocation = LocationInfo.Id\
+                               Join BuildingInfo On House.IdBuildingInfo = BuildingInfo.Id\
+                               Join HouseFunction On House.IdHouseFunction = HouseFunction.Id\
+                               Join HousePositioning On House.IdHousePositioning = HousePositioning.Id");
+    QSqlQuery query(strQuery);
+    model->setQuery(query);
+//    if(!model->select()){
+//        qDebug() << model->lastError().text();
+//    }else{
+        model->setHeaderData(0, Qt::Horizontal, QObject::tr("Id"));
+        model->setHeaderData(1, Qt::Horizontal, QObject::tr("Name RO"));
+        model->setHeaderData(2, Qt::Horizontal, QObject::tr("Name DE"));
+        model->setHeaderData(3, Qt::Horizontal, QObject::tr("Name SX"));
+        model->setHeaderData(4, Qt::Horizontal, QObject::tr("Name HU"));
+        model->setHeaderData(5, Qt::Horizontal, QObject::tr("Description"));
+        model->setHeaderData(6, Qt::Horizontal, QObject::tr("Dating"));
+        model->setHeaderData(7, Qt::Horizontal, QObject::tr("Location RO"));
+        model->setHeaderData(8, Qt::Horizontal, QObject::tr("Location DE"));
+        model->setHeaderData(9, Qt::Horizontal, QObject::tr("Location SX"));
+        model->setHeaderData(10, Qt::Horizontal, QObject::tr("Location HU"));
+        model->setHeaderData(11, Qt::Horizontal, QObject::tr("Old Status"));
+        model->setHeaderData(12, Qt::Horizontal, QObject::tr("Current function"));
+
+        m_View.setModel(model);
+        m_View.setColumnHidden(0, true);
+//    }
 }
 
 void
 WndHouses::initializeData()
 {
     QHBoxLayout* mainLayout = new QHBoxLayout();
-    mainLayout->setContentsMargins(0, 0, 0, 0);
+    mainLayout->setContentsMargins(0, 5, 0, 0);
     mainLayout->setSpacing(0);
 
-    mainLayout->addWidget(&m_View);
+    resetModel();
 
-    HouseModel* model = new HouseModel();
-    m_View.setItemDelegateForColumn((int)HouseModelColumn::Thumbnail, new ThumbnailDelegate());
-    m_View.setModel(model);
-    m_View.verticalHeader()->hide();
-    m_View.setSelectionBehavior(QAbstractItemView::SelectRows);
-    m_View.setEditTriggers(QAbstractItemView::NoEditTriggers);
-    m_View.setSelectionMode(QAbstractItemView::SingleSelection);
-    m_View.horizontalHeader()->setStretchLastSection(false);
+    mainLayout->addWidget(&m_View);
 
     setLayout(mainLayout);
 
