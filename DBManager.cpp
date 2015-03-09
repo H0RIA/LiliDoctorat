@@ -311,18 +311,6 @@ DBManager::createTables()
     if(!House::TableExists())
         result = !result ? false : House::CreateTable();
 
-    // Create the CountyNames table
-    if(! ::TableExists("CountyNames")){
-        strQuery = "Create table CountyNames (IdCounty varchar(50), IdLanguage varchar(50), Name varchar(255), FOREIGN KEY(IdCounty) REFERENCES County(Id), FOREIGN KEY(IdLanguage) REFERENCES Language(Id))";
-        RunQuery(strQuery, result);
-    }
-
-    // Create the LocalityNames table
-    if(! ::TableExists("CountyNames")){
-        strQuery = "Create table CountyNames (IdLocality varchar(50), IdLanguage varchar(50), Name varchar(255), FOREIGN KEY(IdLocality) REFERENCES Locality(Id), FOREIGN KEY(IdLanguage) REFERENCES Language(Id))";
-        RunQuery(strQuery, result);
-    }
-
     // Create the HousePriests table
     if(! ::TableExists("HousePriests")){
         strQuery = "Create table HousePriests (IdHouse varchar(50), IdPriest varchar(50), FOREIGN KEY(IdHouse) REFERENCES House(Id),FOREIGN KEY(IdPriest) REFERENCES Priest(Id))";

@@ -34,11 +34,12 @@ WndCounties::resetModel()
         qDebug() << model->lastError().text();
     }else{
         model->setHeaderData(0, Qt::Horizontal, QObject::tr("Id"));
-        model->setHeaderData(1, Qt::Horizontal, QObject::tr("IdLocale"));
-        model->setHeaderData(2, Qt::Horizontal, QObject::tr("LocalizedName"));
+        model->setHeaderData(1, Qt::Horizontal, QObject::tr("Name RO"));
+        model->setHeaderData(2, Qt::Horizontal, QObject::tr("Name DE"));
+        model->setHeaderData(3, Qt::Horizontal, QObject::tr("Name SX"));
+        model->setHeaderData(4, Qt::Horizontal, QObject::tr("Name HU"));
         m_View.setModel(model);
         m_View.setColumnHidden(0, true);
-        m_View.setColumnHidden(1, true);
     }
 }
 
