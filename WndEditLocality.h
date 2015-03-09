@@ -2,6 +2,7 @@
 #define WNDEDITLOCALITY_H
 
 #include "LineEdit.h"
+#include "Comune.h"
 #include "Locality.h"
 
 class WndEditLocality : public QDialog
@@ -29,7 +30,7 @@ class WndEditLocality : public QDialog
     protected:
         bool m_NewItem;
         Locality m_Locality;
-        County m_County;
+        Comune m_Comune;
 
         QLabel m_lblNameRO;
         QLineEdit m_edNameRO;

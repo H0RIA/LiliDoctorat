@@ -2,7 +2,7 @@
 #define LOCALITY
 
 #include "Base.h"
-#include "County.h"
+#include "Comune.h"
 
 class Locality
 {
@@ -11,7 +11,7 @@ class Locality
     DECLARE_PROPERTY_GREF(QString, NameDE)
     DECLARE_PROPERTY_GREF(QString, NameSX)
     DECLARE_PROPERTY_GREF(QString, NameHU)
-    DECLARE_PROPERTY(QUuid, County)
+    DECLARE_PROPERTY(QUuid, Comune)
 
     public:
         static QString STR_CREATE_TABLE;

@@ -2,6 +2,8 @@
 #define WNDEDITHOUSE_H
 
 #include "LineEdit.h"
+#include "House.h"
+#include "Locality.h"
 #include "HouseManager.h"
 
 class WndEditHouse : public QDialog
@@ -27,6 +29,7 @@ class WndEditHouse : public QDialog
     protected:
         QUuid m_HouseId;
         House* m_pHouse;
+        Locality m_Locality;
 
         // Top left
         QLabel m_lblNumeRomanesc;
@@ -48,10 +51,10 @@ class WndEditHouse : public QDialog
         LineEdit m_edLocality;
 
         QLabel m_lblComune;
-        LineEdit m_edComune;
+        QLineEdit m_edComune;
 
         QLabel m_lblCounty;
-        LineEdit m_edCounty;
+        QLineEdit m_edCounty;
 
         QLabel m_lblDate;
         QLineEdit m_edDate;

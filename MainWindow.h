@@ -49,6 +49,7 @@ class MainWindow : public QMainWindow
         QAction* m_ActionDockHouses;
         QAction* m_ActionDockPriests;
         QAction* m_ActionDockLanguages;
+        QAction* m_ActionDockComunes;
         QAction* m_ActionDockCounties;
         QAction* m_ActionDockDeaneries;
         QAction* m_ActionDockLocalities;

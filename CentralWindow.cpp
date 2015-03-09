@@ -1,6 +1,7 @@
 #include "CentralWindow.h"
 #include "WndHouses.h"
 #include "WndPriests.h"
+#include "WndComunes.h"
 #include "WndLanguages.h"
 #include "WndCounties.h"
 #include "WndDeaneries.h"
@@ -55,6 +56,9 @@ CentralWindow::initializeData()
 
     m_Windows[WindowType::Languages] = new UI::WndLanguages();
     m_WidgetContainer.addWidget(m_Windows[WindowType::Languages]);
+
+    m_Windows[WindowType::Comunes] = new UI::WndComunes();
+    m_WidgetContainer.addWidget(m_Windows[WindowType::Comunes]);
 
     m_Windows[WindowType::Counties] = new UI::WndCounties();
     m_WidgetContainer.addWidget(m_Windows[WindowType::Counties]);

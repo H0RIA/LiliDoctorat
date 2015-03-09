@@ -97,6 +97,10 @@ WndEditHouse::initializeData()
     m_edOldStatus.setMinimumWidth(editWidth);
     m_edOldStatus.setMaximumWidth(editWidth);
 
+    m_edLocality.setReadOnly(true);
+    m_edComune.setReadOnly(true);
+    m_edCounty.setReadOnly(true);
+
     connect(&m_edLocality, SIGNAL(doubleClick(QMouseEvent*)), SLOT(on_edLocality_doubleClicked(QMouseEvent*)));
 
     QHBoxLayout* layoutNumeRO = new QHBoxLayout();
@@ -310,8 +314,24 @@ WndEditHouse::on_edLocality_doubleClicked(QMouseEvent* ev)
     filterLocality.exec();
 
     QUuid idLocality = filterLocality.getSelectedId();
-    if(idLocality.isNull())
+    if(idLocality.isNull()){
         m_edLocality.clear();
+    }else{
+        m_Locality.setId(idLocality);
+        if(m_Locality.LoadFromDB()){
+            Comune comune;
+            comune.setId(m_Locality.Comune());
+            m_edLocality.setText(m_Locality.NameRO());
+            if(comune.LoadFromDB()){
+                m_edComune.setText(comune.NameRO());
+                County county;
+                county.setId(comune.County());
+                if(county.LoadFromDB()){
+                    m_edCounty.setText(county.NameRO());
+                }
+            }
+        }
+    }
 
     // TODO
 }

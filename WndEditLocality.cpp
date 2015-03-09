@@ -81,7 +81,7 @@ WndEditLocality::initializeData()
     m_lblNameSX.setText(tr("Nume sasesc"));
     m_lblNameHU.setText(tr("Nume maghiar"));
 
-    m_lblCountyRO.setText(tr("Judet romanesc"));
+    m_lblCountyRO.setText(tr("Comuna RO"));
     m_edCountyRO.setReadOnly(true);
 
     m_lblNameRO.setMinimumWidth(labelWidth);
@@ -199,9 +199,9 @@ bool
 WndEditLocality::loadFromDB(const QUuid& id)
 {
     if(!id.isNull())
-        m_County.setId(id);
+        m_Locality.setId(id);
 
-    if(m_County.LoadFromDB()){
+    if(m_Locality.LoadFromDB()){
         m_edNameRO.setText(m_Locality.NameRO());
         m_edNameDE.setText(m_Locality.NameDE());
         m_edNameSX.setText(m_Locality.NameSX());
@@ -220,7 +220,7 @@ WndEditLocality::saveToDB()
     m_Locality.setNameDE(m_edNameDE.text());
     m_Locality.setNameSX(m_edNameSX.text());
     m_Locality.setNameHU(m_edNameHU.text());
-    m_Locality.setCounty(m_County.Id());
+    m_Locality.setComune(m_Comune.Id());
 
     return m_Locality.SaveToDB();
 }
@@ -249,16 +249,16 @@ WndEditLocality::on_edCounty_doubleClicked(QMouseEvent* ev)
 {
     Q_UNUSED(ev);
 
-    WndFilterBase filter(County::STR_TABLE_NAME, this);
+    WndFilterBase filter(Comune::STR_TABLE_NAME, this);
     filter.exec();
 
     QUuid idItem = filter.getSelectedId();
     if(idItem.isNull()){
         m_edCountyRO.clear();
     }else{
-        m_County.setId(idItem);
-        if(m_County.LoadFromDB()){
-            m_edCountyRO.setText(m_County.NameRO());
+        m_Comune.setId(idItem);
+        if(m_Comune.LoadFromDB()){
+            m_edCountyRO.setText(m_Comune.NameRO());
         }
     }
 }

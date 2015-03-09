@@ -18,6 +18,7 @@ MainWindow::MainWindow(QWidget *parent)
         m_ActionDockHouses(nullptr),
         m_ActionDockPriests(nullptr),
         m_ActionDockLanguages(nullptr),
+        m_ActionDockComunes(nullptr),
         m_ActionDockCounties(nullptr),
         m_ActionDockDeaneries(nullptr),
         m_ActionDockLocalities(nullptr),
@@ -79,6 +80,15 @@ MainWindow::createDockBar()
     m_ActionDockLanguages->setIcon(iconLanguage);
     connect(m_ActionDockLanguages, SIGNAL(triggered(bool)), SLOT(onDockItemTriggered(bool)));
     m_DockTab->addAction(m_ActionDockLanguages);
+
+    m_ActionDockComunes = new QAction(m_DockTab);
+    m_ActionDockComunes->setCheckable(true);
+    m_ActionDockComunes->setData((int)WindowType::Comunes);
+    QIcon iconComunes(":/images/icon-region.png");
+    m_ActionDockComunes->setText("Comunes");
+    m_ActionDockComunes->setIcon(iconComunes);
+    connect(m_ActionDockComunes, SIGNAL(triggered(bool)), SLOT(onDockItemTriggered(bool)));
+    m_DockTab->addAction(m_ActionDockComunes);
 
     m_ActionDockCounties = new QAction(m_DockTab);
     m_ActionDockCounties->setCheckable(true);
@@ -216,6 +226,9 @@ MainWindow::uncheckAllDockItems(WindowType wndException)
 
     if(wndException != WindowType::Languages)
         m_ActionDockLanguages->setChecked(false);
+
+    if(wndException != WindowType::Comunes)
+        m_ActionDockComunes->setChecked(false);
 
     if(wndException != WindowType::Counties)
         m_ActionDockCounties->setChecked(false);

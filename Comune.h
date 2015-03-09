@@ -10,6 +10,7 @@ class Comune
     DECLARE_PROPERTY_GREF(QString, NameDE)
     DECLARE_PROPERTY_GREF(QString, NameSX)
     DECLARE_PROPERTY_GREF(QString, NameHU)
+    DECLARE_PROPERTY(QUuid, County)
 
     public:
         static QString STR_CREATE_TABLE;
@@ -26,6 +27,9 @@ class Comune
 
         static bool CreateTable();
         static bool TableExists();
+        bool LoadFromDB();
+        bool SaveToDB()const;
+        bool ExistsInDB()const;
 };
 
 #endif // COMUNE

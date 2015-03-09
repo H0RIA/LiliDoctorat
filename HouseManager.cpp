@@ -58,10 +58,20 @@ HouseManager::addDefaultData()
         pi->setLastName("Agamemnon");
     }
 
+    Comune* comune = createComune();
+    if(comune != nullptr){
+        comune->setNameRO("ComunaTest");
+        comune->setNameDE("TestComune");
+        comune->setNameSX("TestenComune");
+        comune->setNameHU("TudfighdkjfndComune");
+    }
+
     County* county = createCounty();
     if(county != nullptr){
         county->setNameRO("Sibiu");
     }
+
+    comune->setCounty(county->Id());
 
     Deanery* dioceza = createDeanery();
     if(dioceza != nullptr){
@@ -75,17 +85,11 @@ HouseManager::addDefaultData()
         loc->setNameSX("Test Dorfen");
         loc->setNameHU("Test Falu");
         if(county != nullptr){
-            loc->setCounty(county->Id());
+            loc->setComune(comune->Id());
         }
     }
 
-    Comune* comune = createComune();
-    if(comune != nullptr){
-        comune->setNameRO("ComunaTest");
-        comune->setNameDE("TestComune");
-        comune->setNameSX("TestenComune");
-        comune->setNameHU("TudfighdkjfndComune");
-    }
+
 
     TaxInfo* ti = createTaxInfo();
     if(ti != nullptr){

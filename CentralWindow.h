@@ -17,6 +17,7 @@ enum class WindowType : int
     Houses = 0,
     Priests,
     Languages,
+    Comunes,
     Counties,
     Deaneries,
     Localities,

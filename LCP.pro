@@ -49,7 +49,9 @@ SOURCES += main.cpp\
     LineEdit.cpp \
     WndEditCounty.cpp \
     Comune.cpp \
-    WndEditLocality.cpp
+    WndEditLocality.cpp \
+    WndComunes.cpp \
+    WndEditComune.cpp
 
 HEADERS  += MainWindow.h \
     Base.h \
@@ -88,7 +90,9 @@ HEADERS  += MainWindow.h \
     LineEdit.h \
     WndEditCounty.h \
     Comune.h \
-    WndEditLocality.h
+    WndEditLocality.h \
+    WndComunes.h \
+    WndEditComune.h
 
 FORMS +=
 
