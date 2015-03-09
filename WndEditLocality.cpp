@@ -71,8 +71,6 @@ WndEditLocality::initializeData()
     btnLayout->addWidget(&m_btnApply);
     btnLayout->addStretch();
 
-    // TODO
-
     int labelWidth = 80;
     int editWidth = 180;
 
@@ -107,7 +105,6 @@ WndEditLocality::initializeData()
 
     m_edComuneRO.setMaximumWidth(editWidth);
     m_edComuneRO.setMinimumWidth(editWidth);
-
 
     QHBoxLayout* layoutNameRO = new QHBoxLayout();
     layoutNameRO->setContentsMargins(0, 0, 0, 0);

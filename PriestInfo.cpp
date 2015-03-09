@@ -61,6 +61,68 @@ PriestInfo::TableExists()
     return ::TableExists(PriestInfo::STR_TABLE_NAME);
 }
 
+bool
+PriestInfo::LoadFromDB()
+{
+    if(m_Id.isNull())
+        return false;
+
+    QString strQuery = QString("Select * From %1 Where Id = '%2'").arg(PriestInfo::STR_TABLE_NAME).arg(m_Id.toString());
+    QSqlQuery query(strQuery);
+    if(query.next()){
+        setFirstName(query.value("FirstName").toString());
+        setLastName(query.value("LastName").toString());
+
+        return true;
+    }
+
+    return false;
+}
+
+bool
+PriestInfo::SaveToDB()const
+{
+    if(m_Id.isNull())
+        return false;
+
+    QSqlQuery query;
+    QString strQuery;
+
+    if(!ExistsInDB()){
+        // We must insert the new data
+        strQuery = QString("Insert into %1 (Id, FirstName, LastName) Values('%2', '%3', '%4')")
+                .arg(PriestInfo::STR_TABLE_NAME).arg(m_Id.toString()).arg(FirstName()).arg(LastName());
+    }else{
+        // We must update the old data
+
+        strQuery = QString("Update %1 Set FirstName = '%2', LastName = '%3' Where Id = '%4'")
+                .arg(PriestInfo::STR_TABLE_NAME).arg(FirstName()).arg(LastName()).arg(m_Id.toString());
+    }
+
+    if(!query.exec(strQuery)){
+        qDebug() << query.lastError().text();
+        return false;
+    }
+
+    return true;
+}
+
+bool
+PriestInfo::ExistsInDB()const
+{
+    if(m_Id.isNull())
+        return false;
+
+    QSqlQuery query(QString("Select Count(*) As EntryExists From %1 Where Id = '%2'").arg(PriestInfo::STR_TABLE_NAME).arg(m_Id.toString()));
+    while(query.next()){
+        int size = query.value("EntryExists").toInt();
+        if(size == 1)
+            return true;
+    }
+
+    return false;
+}
+
 PriestTenure::PriestTenure()
     :   m_Id(QUuid::createUuid()),
         m_PriestId(),

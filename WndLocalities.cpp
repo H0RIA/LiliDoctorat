@@ -12,9 +12,7 @@ WndLocalities::WndLocalities(QWidget* parent)
     initializeData();
 }
 
-WndLocalities::~WndLocalities()
-{
-}
+WndLocalities::~WndLocalities(){}
 
 void
 WndLocalities::onNewItem()
@@ -30,11 +28,13 @@ WndLocalities::resetModel()
     QSqlQueryModel* model = new QSqlQueryModel();
     QString strQuery = QString("Select %1.*, %2.NameRO As ComuneRO, %3.NameDE As ComuneDE, %4.NameSX As ComuneSX, %5.NameHU As ComuneHU,\
 %6.NameRO As CountyRO, %7.NameDE As CountyDE, %8.NameSX As CountySX, %9.NameHU As CountyHU \
-  From %10 Join %11 On %12.IdCounty = %13.Id")
+  From %10 Join %11 On %12.IdComune = %13.Id \
+Join %14 on %15.IdCounty = %16.Id")
             .arg(Locality::STR_TABLE_NAME)
             .arg(Comune::STR_TABLE_NAME).arg(Comune::STR_TABLE_NAME).arg(Comune::STR_TABLE_NAME).arg(Comune::STR_TABLE_NAME)
             .arg(County::STR_TABLE_NAME).arg(County::STR_TABLE_NAME).arg(County::STR_TABLE_NAME).arg(County::STR_TABLE_NAME)
-            .arg(Locality::STR_TABLE_NAME).arg(Comune::STR_TABLE_NAME).arg(Locality::STR_TABLE_NAME).arg(Comune::STR_TABLE_NAME);
+            .arg(Locality::STR_TABLE_NAME).arg(Comune::STR_TABLE_NAME).arg(Locality::STR_TABLE_NAME).arg(Comune::STR_TABLE_NAME)
+            .arg(County::STR_TABLE_NAME).arg(Comune::STR_TABLE_NAME).arg(County::STR_TABLE_NAME);
     QSqlQuery query(strQuery);
     model->setQuery(query);
 //    if(!model->select()){
