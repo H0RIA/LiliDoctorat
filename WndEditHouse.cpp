@@ -6,27 +6,22 @@
 #include "WndHouse_TabFunction.h"
 #include "WndHouse_TabPositioning.h"
 
-WndEditHouse::WndEditHouse(QWidget *parent, const QUuid& houseId)
+WndEditHouse::WndEditHouse(QWidget *parent)
     :   QDialog(parent),
-        m_HouseId(houseId.isNull() ? QUuid::createUuid() : houseId)
+        m_NewItem(true),
+        m_House()
 {
     initializeData();
+}
 
-//    connect(ui->edLocality, SIGNAL(d))
+WndEditHouse::WndEditHouse(const QUuid& houseId, QWidget* parent)
+    :   QDialog(parent),
+        m_NewItem(false),
+        m_House()
+{
+    m_House.setId(houseId);
 
-    House* ptrHouse = HouseManager::instance()->findHouse(m_HouseId);
-    QUuid id = QUuid();
-
-    if(ptrHouse)
-        id = ptrHouse->HousePositioningId();
-
-//    ui->tabDetails->addTab(new WndHouse_TabPositioning(ui->tabDetails, id), tr("Pozitionare"));
-
-//    // TODO
-//    ui->tabDetails->addTab(new WndHouse_TabFunction(ui->tabDetails), tr("Functie"));
-//    ui->tabDetails->addTab(new WndHouse_TabBuilding(ui->tabDetails), tr("Cladire"));
-
-    loadHouseInfo();
+    initializeData();
 }
 
 WndEditHouse::~WndEditHouse()
@@ -252,45 +247,60 @@ WndEditHouse::initializeData()
     setLayout(layoutMain);
 }
 
-void
-WndEditHouse::loadHouseInfo()
+bool
+WndEditHouse::loadFromDB(const QUuid& id)
 {
-    if(m_HouseId.isNull())
-        return;
+    if(!id.isNull())
+        m_House.setId(id);
 
-    House* ptrHouse = HouseManager::instance()->findHouse(m_HouseId);
-    if(ptrHouse != nullptr){
-        m_edNumeRomanesc.setText(ptrHouse->NameRO());
-        m_edNumeGerman.setText(ptrHouse->NameDE());
-        m_edNumeSasesc.setText(ptrHouse->NameSX());
-        m_edNumeMaghiar.setText(ptrHouse->NameHU());
-        m_edDate.setText(ptrHouse->HouseDating());
-        m_Image.setPixmap(QPixmap(ptrHouse->getImages().front()->Path()));
+    if(m_House.LoadFromDB()){
+        m_edNumeRomanesc.setText(m_House.NameRO());
+        m_edNumeGerman.setText(m_House.NameDE());
+        m_edNumeSasesc.setText(m_House.NameSX());
+        m_edNumeMaghiar.setText(m_House.NameHU());
+        m_edDate.setText(m_House.HouseDating());
+        m_Image.setPixmap(QPixmap(m_House.getImages().front()->Path()));
 
-//        QWidget* tabWidget = ui->tabDetails->widget(0);
-//        if(tabWidget != nullptr){
-//            qobject_cast<WndHouse_TabPositioning*>(tabWidget)->loadFromDB(ptrHouse->HouseFunctionId());
-//        }
+        // TODO
+
+        return true;
     }
+
+    return false;
 }
 
-void
-WndEditHouse::onSave()
+bool
+WndEditHouse::saveToDB()
 {
-    if(m_pHouse == nullptr)
-        return;
+    m_House.setNameRO(m_edNumeRomanesc.text());
+    m_House.setNameDE(m_edNumeGerman.text());
+    m_House.setNameSX(m_edNumeSasesc.text());
+    m_House.setNameHU(m_edNumeMaghiar.text());
+    m_House.setHouseDating(m_edDate.text());
+//    m_House.setLocationId();
 
-    if(m_pHouse->Id().isNull()){
-        // The house is newly created => Insert in db
-    }else{
-        // This is an edit => Save in db
-        m_pHouse->saveToDB();
-    }
+    // TODO
+
+    return m_House.SaveToDB();
 }
 
 void
 WndEditHouse::onCancel()
 {
+    done(-1);
+}
+
+void
+WndEditHouse::onOK()
+{
+    saveToDB();
+    done(0);
+}
+
+void
+WndEditHouse::onApply()
+{
+    saveToDB();
 }
 
 void
@@ -332,6 +342,4 @@ WndEditHouse::on_edLocality_doubleClicked(QMouseEvent* ev)
             }
         }
     }
-
-    // TODO
 }

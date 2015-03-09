@@ -55,7 +55,7 @@ WndHouses::onDoubleClicked(const QModelIndex& index)
     House* ptrHouse = qobject_cast<HouseModel*>(m_View.model())->getHouseManager()->getHouses().at(row);
     if(ptrHouse != nullptr)
     {
-        WndEditHouse dialog(this, ptrHouse->Id());
+        WndEditHouse dialog(ptrHouse->Id(), this);
         dialog.exec();
     }
 }

@@ -41,10 +41,11 @@ class House
         bool operator==(const House& house)const;
         bool operator!=(const House& house)const;
 
-        bool saveToDB();
-
         static bool CreateTable();
         static bool TableExists();
+        bool LoadFromDB();
+        bool SaveToDB()const;
+        bool ExistsInDB()const;
 };
 
 #endif // HOUSE

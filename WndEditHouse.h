@@ -11,15 +11,19 @@ class WndEditHouse : public QDialog
     Q_OBJECT
 
     public:
-        explicit WndEditHouse(QWidget *parent = 0, const QUuid& houseId = QUuid());
+        explicit WndEditHouse(QWidget *parent = 0);
+        WndEditHouse(const QUuid& houseId, QWidget* parent = nullptr);
         ~WndEditHouse();
 
     protected:
         void initializeData();
 
-        void loadHouseInfo();
-        void onSave();
+        bool loadFromDB(const QUuid& id = QUuid());
+        bool saveToDB();
+
         void onCancel();
+        void onOK();
+        void onApply();
 
     private slots:
         void on_btnNextImage_clicked();
@@ -27,8 +31,8 @@ class WndEditHouse : public QDialog
         void on_edLocality_doubleClicked(QMouseEvent* ev);
 
     protected:
-        QUuid m_HouseId;
-        House* m_pHouse;
+        bool m_NewItem;
+        House m_House;
         Locality m_Locality;
 
         // Top left
@@ -66,6 +70,10 @@ class WndEditHouse : public QDialog
 
         // Bottom
         QTabWidget m_Tab;
+
+        QPushButton m_btnCancel;
+        QPushButton m_btnOK;
+        QPushButton m_btnApply;
 };
 
 #endif // WNDEDITHOUSE_H

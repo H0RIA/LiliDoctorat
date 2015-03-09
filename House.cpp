@@ -87,16 +87,6 @@ House::operator!=(const House& house)const
     return !(this->operator ==(house));
 }
 
-bool
-House::saveToDB()
-{
-    bool result = false;
-
-    // TODO
-
-    return result;
-}
-
 //void
 //House::addImage(const ImageInfo& image)
 //{
@@ -127,4 +117,79 @@ bool
 House::TableExists()
 {
     return ::TableExists(House::STR_TABLE_NAME);
+}
+
+bool
+House::LoadFromDB()
+{
+    if(m_Id.isNull())
+        return false;
+
+    QString strQuery = QString("Select * From %1 Where Id = '%2'").arg(House::STR_TABLE_NAME).arg(m_Id.toString());
+    QSqlQuery query(strQuery);
+    if(query.next()){
+        setNameRO(query.value("NameRO").toString());
+        setNameDE(query.value("NameDE").toString());
+        setNameSX(query.value("NameSX").toString());
+        setNameHU(query.value("NameHU").toString());
+        setDescription(query.value("Description").toString());
+        setLocationId(QUuid(query.value("IdLocation").toString()));
+        setHouseDating(query.value("HouseDating").toString());
+        setBuildInfoId(QUuid(query.value("IdBuildingInfo").toString()));
+        setHouseFunctionId(QUuid(query.value("IdHouseFunction").toString()));
+        setHousePositioningId(QUuid(query.value("IdHousePositioning").toString()));
+
+        return true;
+    }
+
+    return false;
+}
+
+bool
+House::SaveToDB()const
+{
+    if(m_Id.isNull())
+        return false;
+
+    QSqlQuery query;
+    QString strQuery;
+
+    if(!ExistsInDB()){
+        // We must insert the new data
+        strQuery = QString("Insert into %1 (Id, NameRO, NameDE, NameSX, NameHU, Description, IdLocation, HouseDating, IdBuildingInfo, IdHouseFunction, \
+IdHousePositioning) Values('%2', '%3', '%4', '%5', '%6', '%7', '%8', '%9', '%10', '%11', '%12')")
+                .arg(House::STR_TABLE_NAME).arg(m_Id.toString()).arg(NameRO()).arg(NameDE()).arg(NameSX()).arg(NameHU())
+                .arg(Description()).arg(LocationId().toString()).arg(HouseDating()).arg(HouseFunctionId().toString()).arg(HousePositioningId().toString());
+    }else{
+        // We must update the old data
+
+        strQuery = QString("Update %1 Set NameRO = '%2', NameDE = '%3', NameSX = '%4', NameHU = '%5', Description = '%6', IdLocation = '%7', HouseDating = '%8', IdBuildingInfo = '%9', \
+ IdHouseFunction = '%10', IdHousePositioning = '%11' Name Where Id = '%12'")
+                .arg(House::STR_TABLE_NAME).arg(NameRO()).arg(NameDE()).arg(NameSX()).arg(NameHU())
+                .arg(Description()).arg(LocationId().toString()).arg(HouseDating()).arg(BuildInfoId().toString())
+                .arg(HouseFunctionId().toString()).arg(HousePositioningId().toString()).arg(m_Id.toString());
+    }
+
+    if(!query.exec(strQuery)){
+        qDebug() << query.lastError().text();
+        return false;
+    }
+
+    return true;
+}
+
+bool
+House::ExistsInDB()const
+{
+    if(m_Id.isNull())
+        return false;
+
+    QSqlQuery query(QString("Select Count(*) As EntryExists From %1 Where Id = '%2'").arg(House::STR_TABLE_NAME).arg(m_Id.toString()));
+    while(query.next()){
+        int size = query.value("EntryExists").toInt();
+        if(size == 1)
+            return true;
+    }
+
+    return false;
 }
