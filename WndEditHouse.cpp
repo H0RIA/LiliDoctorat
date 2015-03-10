@@ -9,7 +9,35 @@
 WndEditHouse::WndEditHouse(QWidget *parent)
     :   QDialog(parent),
         m_NewItem(true),
-        m_House()
+        m_House(),
+        m_Locality(),
+        m_lblNumeRomanesc(this),
+        m_edNumeRomanesc(this),
+        m_lblNumeGerman(this),
+        m_edNumeGerman(this),
+        m_lblNumeSasesc(this),
+        m_edNumeSasesc(this),
+        m_lblNumeMaghiar(this),
+        m_edNumeMaghiar(this),
+        m_lblOldStatus(this),
+        m_edOldStatus(this),
+        m_lblLocality(this),
+        m_edLocality(this),
+        m_lblComune(this),
+        m_edComune(this),
+        m_lblCounty(this),
+        m_edCounty(this),
+        m_lblDate(this),
+        m_edDate(this),
+        m_Image(this),
+        m_btnImgPrev(this),
+        m_btnImgNext(this),
+        m_btnImgAdd(this),
+        m_btnImgRem(this),
+        m_Tab(this),
+        m_btnCancel(this),
+        m_btnOK(this),
+        m_btnApply(this)
 {
     initializeData();
 }
@@ -17,7 +45,35 @@ WndEditHouse::WndEditHouse(QWidget *parent)
 WndEditHouse::WndEditHouse(const QUuid& houseId, QWidget* parent)
     :   QDialog(parent),
         m_NewItem(false),
-        m_House()
+        m_House(),
+        m_Locality(),
+        m_lblNumeRomanesc(this),
+        m_edNumeRomanesc(this),
+        m_lblNumeGerman(this),
+        m_edNumeGerman(this),
+        m_lblNumeSasesc(this),
+        m_edNumeSasesc(this),
+        m_lblNumeMaghiar(this),
+        m_edNumeMaghiar(this),
+        m_lblOldStatus(this),
+        m_edOldStatus(this),
+        m_lblLocality(this),
+        m_edLocality(this),
+        m_lblComune(this),
+        m_edComune(this),
+        m_lblCounty(this),
+        m_edCounty(this),
+        m_lblDate(this),
+        m_edDate(this),
+        m_Image(this),
+        m_btnImgPrev(this),
+        m_btnImgNext(this),
+        m_btnImgAdd(this),
+        m_btnImgRem(this),
+        m_Tab(this),
+        m_btnCancel(this),
+        m_btnOK(this),
+        m_btnApply(this)
 {
     m_House.setId(houseId);
 
@@ -91,6 +147,10 @@ WndEditHouse::initializeData()
     m_edNumeSasesc.setMaximumWidth(editWidth);
     m_edOldStatus.setMinimumWidth(editWidth);
     m_edOldStatus.setMaximumWidth(editWidth);
+
+    m_Image.setMinimumWidth(editWidth + labelWidth + 20);
+    m_Tab.setMinimumWidth(2 * (editWidth + labelWidth + 20));
+    m_Tab.setMinimumHeight(80);
 
     m_edLocality.setReadOnly(true);
     m_edComune.setReadOnly(true);
@@ -213,6 +273,14 @@ WndEditHouse::initializeData()
     layoutTopLeft->addStretch();
 
     QHBoxLayout* layoutImgNextPrev = new QHBoxLayout();
+    layoutImgNextPrev->setContentsMargins(0, 0, 0, 0);
+    layoutImgNextPrev->setSpacing(0);
+
+    layoutImgNextPrev->addStretch();
+    layoutImgNextPrev->addWidget(&m_btnImgPrev);
+    layoutImgNextPrev->addSpacing(10);
+    layoutImgNextPrev->addWidget(&m_btnImgNext);
+    layoutImgNextPrev->addStretch();
 
     QVBoxLayout* layoutTopRight = new QVBoxLayout();
     layoutTopRight->setContentsMargins(0, 0, 0, 0);
@@ -222,7 +290,7 @@ WndEditHouse::initializeData()
     layoutTopRight->addWidget(&m_Image);
     layoutTopRight->addSpacing(10);
     layoutTopRight->addLayout(layoutImgNextPrev);
-
+    layoutTopRight->addStretch();
 
     QHBoxLayout* layoutTop = new QHBoxLayout();
     layoutTop->setContentsMargins(0, 0, 0, 0);
@@ -234,6 +302,7 @@ WndEditHouse::initializeData()
     QHBoxLayout* layoutBottom = new QHBoxLayout();
     layoutBottom->setContentsMargins(0, 0, 0, 0);
     layoutBottom->setSpacing(0);
+
     layoutBottom->addWidget(&m_Tab);
 
     QVBoxLayout* layoutMain = new QVBoxLayout();
@@ -260,8 +329,6 @@ WndEditHouse::loadFromDB(const QUuid& id)
         m_edNumeMaghiar.setText(m_House.NameHU());
         m_edDate.setText(m_House.HouseDating());
         m_Image.setPixmap(QPixmap(m_House.getImages().front()->Path()));
-
-        // TODO
 
         return true;
     }
@@ -306,13 +373,11 @@ WndEditHouse::onApply()
 void
 WndEditHouse::on_btnNextImage_clicked()
 {
-
 }
 
 void
 WndEditHouse::on_btnPrevImage_clicked()
 {
-
 }
 
 void

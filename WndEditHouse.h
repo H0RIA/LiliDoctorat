@@ -67,6 +67,8 @@ class WndEditHouse : public QDialog
         QLabel m_Image;
         QPushButton m_btnImgPrev;
         QPushButton m_btnImgNext;
+        QPushButton m_btnImgAdd;
+        QPushButton m_btnImgRem;
 
         // Bottom
         QTabWidget m_Tab;
