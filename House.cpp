@@ -199,8 +199,8 @@ IdHousePositioning) Values('%2', '%3', '%4', '%5', '%6', '%7', '%8', '%9', %10, 
         // We must update the old data
 
         strQuery = QString("Update %1 Set NameRO = '%2', NameDE = '%3', NameSX = '%4', NameHU = '%5', Description = '%6', \
-IdLocality = '%7', IdDeanery = '%8', InventoryDate = '%9', OldStatus = '%10', HouseDating = '%11', IdBuildingInfo = '%12', \
-IdHouseFunction = '%13', IdHousePositioning = '%14' Name Where Id = '%15'")
+IdLocality = '%7', IdDeanery = '%8', InventoryDate = %9, OldStatus = '%10', HouseDating = '%11', IdBuildingInfo = '%12', \
+IdHouseFunction = '%13', IdHousePositioning = '%14' Where Id = '%15'")
                 .arg(House::STR_TABLE_NAME).arg(NameRO()).arg(NameDE()).arg(NameSX()).arg(NameHU())
                 .arg(Description()).arg(IdLocality().toString()).arg(IdDeanery().toString()).arg(InventoryDate().toJulianDay()).arg(OldStatus())
                 .arg(HouseDating()).arg(BuildInfoId().toString()).arg(HouseFunctionId().toString()).arg(HousePositioningId().toString()).arg(m_Id.toString());
