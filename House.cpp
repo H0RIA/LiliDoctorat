@@ -181,10 +181,17 @@ House::SaveToDB()const
     QSqlQuery query;
     QString strQuery;
 
+    if(!InventoryDate().isValid()){
+        QDate currentDate = QDate::currentDate();
+        currentDate.addYears(-2000);
+        const_cast<House*>(this)->setInventoryDate(currentDate);
+    }
+
     if(!ExistsInDB()){
         // We must insert the new data
-        strQuery = QString("Insert into %1 (Id, NameRO, NameDE, NameSX, NameHU, Description, IdLocality, IdDeanery, InventoryDate, OldStatus, HouseDating, IdBuildingInfo, IdHouseFunction, \
-IdHousePositioning) Values('%2', '%3', '%4', '%5', '%6', '%7', '%8', '%9', '%10', '%11', '%12')")
+        strQuery = QString("Insert into %1 (Id, NameRO, NameDE, NameSX, NameHU, Description, IdLocality, IdDeanery, InventoryDate, \
+OldStatus, HouseDating, IdBuildingInfo, IdHouseFunction, \
+IdHousePositioning) Values('%2', '%3', '%4', '%5', '%6', '%7', '%8', '%9', %10, '%11', '%12', '%13', '%14', '%15')")
                 .arg(House::STR_TABLE_NAME).arg(m_Id.toString()).arg(NameRO()).arg(NameDE()).arg(NameSX()).arg(NameHU())
                 .arg(Description()).arg(IdLocality().toString()).arg(IdDeanery().toString()).arg(InventoryDate().toJulianDay()).arg(OldStatus())
                 .arg(HouseDating()).arg(BuildInfoId().toString()).arg(HouseFunctionId().toString()).arg(HousePositioningId().toString());

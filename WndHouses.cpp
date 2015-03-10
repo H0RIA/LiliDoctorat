@@ -83,21 +83,11 @@ WndHouses::onDoubleClicked(const QModelIndex& index)
     if(!index.isValid())
         return;
 
-    int row = index.row();
-    QModelIndex indexId = index.model()->index(0, index.column());
+    QModelIndex indexId = index.model()->index(index.row(), 0);
     QUuid idHouse = index.model()->data(indexId).toUuid();
-//    House house;
-//    house.setId(idHouse);
-//    if(house.LoadFromDB())
-    {
+    if(!idHouse.isNull()){
         WndEditHouse dialog(idHouse, this);
         dialog.exec();
-    }
-//    House* ptrHouse = qobject_cast<HouseModel*>(m_View.model())->getHouseManager()->getHouses().at(row);
-//    if(ptrHouse != nullptr)
-    {
-//        WndEditHouse dialog(ptrHouse->Id(), this);
-//        dialog.exec();
     }
 }
 
