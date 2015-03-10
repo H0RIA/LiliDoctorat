@@ -30,10 +30,10 @@ WndHouses::resetModel()
     QSqlQueryModel* model = new QSqlQueryModel();
     QString strQuery = QString("select\
                                House.Id, House.NameRO, House.NameDE, House.NameSX, House.NameHU, House.Description, House.HouseDating,\
-                               LocationInfo.NameRO As LocationRO, LocationInfo.NameDE As LocationDE, LocationInfo.NameSX As LocationSX, LocationInfo.NameHU As LocationHU, LocationInfo.OldStatus,\
+                               Locality.NameRO As LocalityRO, Locality.NameDE As LocalityDE, Locality.NameSX As LocalitySX, Locality.NameHU As LocalityHU, House.OldStatus,\
                                HouseFunction.Current As CurrentFunction\
                            from House\
-                               Join LocationInfo On House.IdLocation = LocationInfo.Id\
+                               Join Locality On House.IdLocality = Locality.Id\
                                Join BuildingInfo On House.IdBuildingInfo = BuildingInfo.Id\
                                Join HouseFunction On House.IdHouseFunction = HouseFunction.Id\
                                Join HousePositioning On House.IdHousePositioning = HousePositioning.Id");
@@ -49,10 +49,10 @@ WndHouses::resetModel()
         model->setHeaderData(4, Qt::Horizontal, QObject::tr("Name HU"));
         model->setHeaderData(5, Qt::Horizontal, QObject::tr("Description"));
         model->setHeaderData(6, Qt::Horizontal, QObject::tr("Dating"));
-        model->setHeaderData(7, Qt::Horizontal, QObject::tr("Location RO"));
-        model->setHeaderData(8, Qt::Horizontal, QObject::tr("Location DE"));
-        model->setHeaderData(9, Qt::Horizontal, QObject::tr("Location SX"));
-        model->setHeaderData(10, Qt::Horizontal, QObject::tr("Location HU"));
+        model->setHeaderData(7, Qt::Horizontal, QObject::tr("Locality RO"));
+        model->setHeaderData(8, Qt::Horizontal, QObject::tr("Locality DE"));
+        model->setHeaderData(9, Qt::Horizontal, QObject::tr("Locality SX"));
+        model->setHeaderData(10, Qt::Horizontal, QObject::tr("Locality HU"));
         model->setHeaderData(11, Qt::Horizontal, QObject::tr("Old Status"));
         model->setHeaderData(12, Qt::Horizontal, QObject::tr("Current function"));
 
@@ -84,11 +84,20 @@ WndHouses::onDoubleClicked(const QModelIndex& index)
         return;
 
     int row = index.row();
-    House* ptrHouse = qobject_cast<HouseModel*>(m_View.model())->getHouseManager()->getHouses().at(row);
-    if(ptrHouse != nullptr)
+    QModelIndex indexId = index.model()->index(0, index.column());
+    QUuid idHouse = index.model()->data(indexId).toUuid();
+//    House house;
+//    house.setId(idHouse);
+//    if(house.LoadFromDB())
     {
-        WndEditHouse dialog(ptrHouse->Id(), this);
+        WndEditHouse dialog(idHouse, this);
         dialog.exec();
+    }
+//    House* ptrHouse = qobject_cast<HouseModel*>(m_View.model())->getHouseManager()->getHouses().at(row);
+//    if(ptrHouse != nullptr)
+    {
+//        WndEditHouse dialog(ptrHouse->Id(), this);
+//        dialog.exec();
     }
 }
 

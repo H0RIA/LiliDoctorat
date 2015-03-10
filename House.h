@@ -8,7 +8,6 @@
 #include "ImageInfo.h"
 #include "HousePositioning.h"
 #include "BuildingInfo.h"
-#include "LocationInfo.h"
 
 class House
 {
@@ -18,7 +17,12 @@ class House
     DECLARE_PROPERTY_GREF(QString, NameSX)                      // Done
     DECLARE_PROPERTY_GREF(QString, NameHU)                      // Done
     DECLARE_PROPERTY(QString, Description)                      // Done
-    DECLARE_PROPERTY(QUuid, LocationId)                         // Done
+
+    DECLARE_PROPERTY(QUuid, IdLocality)    // Locality
+    DECLARE_PROPERTY(QUuid, IdDeanery) // Deanery
+    DECLARE_PROPERTY(QDate, InventoryDate)
+    DECLARE_PROPERTY(QString, OldStatus)
+
     DECLARE_PROPERTY(QString, HouseDating)                      // Done
     DECLARE_PROPERTY(QUuid, HouseFunctionId)                    // Done
     DECLARE_PROPERTY(QUuid, HousePositioningId)                 // HousePositioning - Done

@@ -95,6 +95,8 @@ WndEditHouse::initializeData()
     int labelWidth = 80;
     int editWidth = 150;
 
+    m_House.LoadFromDB();
+
     m_lblComune.setText(tr("Comuna"));
     m_lblCounty.setText(tr("Judet"));
     m_lblDate.setText(tr("Datare"));
@@ -142,16 +144,22 @@ WndEditHouse::initializeData()
     m_edDate.setMaximumWidth(editWidth);
     m_edLocality.setMinimumWidth(editWidth);
     m_edLocality.setMaximumWidth(editWidth);
-    m_edNumeGerman.setMinimumWidth(editWidth);
-    m_edNumeGerman.setMaximumWidth(editWidth);
-    m_edNumeMaghiar.setMinimumWidth(editWidth);
-    m_edNumeMaghiar.setMaximumWidth(editWidth);
     m_edNumeRomanesc.setMinimumWidth(editWidth);
     m_edNumeRomanesc.setMaximumWidth(editWidth);
+    m_edNumeGerman.setMinimumWidth(editWidth);
+    m_edNumeGerman.setMaximumWidth(editWidth);
     m_edNumeSasesc.setMinimumWidth(editWidth);
     m_edNumeSasesc.setMaximumWidth(editWidth);
+    m_edNumeMaghiar.setMinimumWidth(editWidth);
+    m_edNumeMaghiar.setMaximumWidth(editWidth);
     m_edOldStatus.setMinimumWidth(editWidth);
     m_edOldStatus.setMaximumWidth(editWidth);
+
+    m_edNumeRomanesc.setText(m_House.NameRO());
+    m_edNumeGerman.setText(m_House.NameDE());
+    m_edNumeSasesc.setText(m_House.NameSX());
+    m_edNumeMaghiar.setText(m_House.NameHU());
+    updateLocality(m_House.IdLocality());
 
     m_Image.setMinimumWidth(editWidth + labelWidth + 20);
     m_Tab.setMinimumWidth(2 * (editWidth + labelWidth + 20));
@@ -420,11 +428,30 @@ WndEditHouse::saveToDB()
     m_House.setNameSX(m_edNumeSasesc.text());
     m_House.setNameHU(m_edNumeMaghiar.text());
     m_House.setHouseDating(m_edDate.text());
-//    m_House.setLocationId();
+//    m_House.setIdLocality();
 
     // TODO
 
     return m_House.SaveToDB();
+}
+
+void
+WndEditHouse::updateLocality(const QUuid& idLocality)
+{
+    m_Locality.setId(idLocality);
+    if(m_Locality.LoadFromDB()){
+        Comune comune;
+        comune.setId(m_Locality.Comune());
+        m_edLocality.setText(m_Locality.NameRO());
+        if(comune.LoadFromDB()){
+            m_edComune.setText(comune.NameRO());
+            County county;
+            county.setId(comune.County());
+            if(county.LoadFromDB()){
+                m_edCounty.setText(county.NameRO());
+            }
+        }
+    }
 }
 
 void
@@ -512,18 +539,5 @@ WndEditHouse::on_edLocality_doubleClicked(QMouseEvent* ev)
     filterLocality.exec();
 
     QUuid idLocality = filterLocality.getSelectedId();
-    m_Locality.setId(idLocality);
-    if(m_Locality.LoadFromDB()){
-        Comune comune;
-        comune.setId(m_Locality.Comune());
-        m_edLocality.setText(m_Locality.NameRO());
-        if(comune.LoadFromDB()){
-            m_edComune.setText(comune.NameRO());
-            County county;
-            county.setId(comune.County());
-            if(county.LoadFromDB()){
-                m_edCounty.setText(county.NameRO());
-            }
-        }
-    }
+    updateLocality(idLocality);
 }

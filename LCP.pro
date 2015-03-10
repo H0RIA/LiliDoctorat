@@ -22,7 +22,6 @@ SOURCES += main.cpp\
     ImageInfo.cpp \
     HousePositioning.cpp \
     BuildingInfo.cpp \
-    LocationInfo.cpp \
     Locality.cpp \
     County.cpp \
     Deanery.cpp \
@@ -67,7 +66,6 @@ HEADERS  += MainWindow.h \
     ImageInfo.h \
     HousePositioning.h \
     BuildingInfo.h \
-    LocationInfo.h \
     Locality.h \
     County.h \
     Deanery.h \

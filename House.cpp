@@ -7,12 +7,16 @@ NameDE varchar(255),\
 NameSX varchar(255),\
 NameHU varchar(255),\
 Description text,\
-IdLocation varchar(50),\
+IdLocality varchar(50),\
+IdDeanery varchar(50),\
+InventoryDate date,\
+OldStatus text,\
 HouseDating text,\
 IdBuildingInfo varchar(50),\
 IdHouseFunction varchar(50),\
 IdHousePositioning varchar(50),\
-FOREIGN KEY(IdLocation) REFERENCES LocationInfo(Id),\
+FOREIGN KEY(IdLocality) REFERENCES Locality(Id),\
+FOREIGN KEY(IdDeanery) REFERENCES Deanery(Id),\
 FOREIGN KEY(IdBuildingInfo) REFERENCES BuildingInfo(Id),\
 FOREIGN KEY(IdHouseFunction) REFERENCES HouseFunction(Id),\
 FOREIGN KEY(IdHousePositioning) REFERENCES HousePositioning(Id))";
@@ -25,7 +29,10 @@ House::House()
         m_NameSX(),
         m_NameHU(),
         m_Description(),
-        m_LocationId(),
+        m_IdLocality(),
+        m_IdDeanery(),
+        m_InventoryDate(),
+        m_OldStatus(),
         m_HouseDating(),
         m_HouseFunctionId(),
         m_HousePositioningId(),
@@ -42,7 +49,10 @@ House::House(const House& house)
         m_NameSX(house.NameSX()),
         m_NameHU(house.NameHU()),
         m_Description(house.Description()),
-        m_LocationId(house.LocationId()),
+        m_IdLocality(house.IdLocality()),
+        m_IdDeanery(house.IdDeanery()),
+        m_InventoryDate(house.InventoryDate()),
+        m_OldStatus(house.OldStatus()),
         m_HouseDating(house.HouseDating()),
         m_HouseFunctionId(house.HouseFunctionId()),
         m_HousePositioningId(house.HousePositioningId()),
@@ -63,7 +73,10 @@ House::operator=(const House& house)
     m_NameSX = house.NameSX();
     m_NameHU = house.NameHU();
     m_Description = house.Description();
-    m_LocationId = house.LocationId();
+    m_IdLocality = house.IdLocality();
+    m_IdDeanery = house.IdDeanery();
+    m_InventoryDate = house.InventoryDate();
+    m_OldStatus = house.OldStatus();
     m_HouseDating = house.HouseDating();
     m_HouseFunctionId = house.HouseFunctionId();
     m_HousePositioningId = house.HousePositioningId();
@@ -133,7 +146,10 @@ House::LoadFromDB()
         setNameSX(query.value("NameSX").toString());
         setNameHU(query.value("NameHU").toString());
         setDescription(query.value("Description").toString());
-        setLocationId(QUuid(query.value("IdLocation").toString()));
+        setIdLocality(QUuid(query.value("IdLocality").toString()));
+        setIdDeanery(QUuid(query.value("IdDeanery").toString()));
+        setInventoryDate(query.value("InventoryDate").toDate());
+        setOldStatus(query.value("OldStatus").toString());
         setHouseDating(query.value("HouseDating").toString());
         setBuildInfoId(QUuid(query.value("IdBuildingInfo").toString()));
         setHouseFunctionId(QUuid(query.value("IdHouseFunction").toString()));
@@ -167,18 +183,20 @@ House::SaveToDB()const
 
     if(!ExistsInDB()){
         // We must insert the new data
-        strQuery = QString("Insert into %1 (Id, NameRO, NameDE, NameSX, NameHU, Description, IdLocation, HouseDating, IdBuildingInfo, IdHouseFunction, \
+        strQuery = QString("Insert into %1 (Id, NameRO, NameDE, NameSX, NameHU, Description, IdLocality, IdDeanery, InventoryDate, OldStatus, HouseDating, IdBuildingInfo, IdHouseFunction, \
 IdHousePositioning) Values('%2', '%3', '%4', '%5', '%6', '%7', '%8', '%9', '%10', '%11', '%12')")
                 .arg(House::STR_TABLE_NAME).arg(m_Id.toString()).arg(NameRO()).arg(NameDE()).arg(NameSX()).arg(NameHU())
-                .arg(Description()).arg(LocationId().toString()).arg(HouseDating()).arg(BuildInfoId().toString()).arg(HouseFunctionId().toString()).arg(HousePositioningId().toString());
+                .arg(Description()).arg(IdLocality().toString()).arg(IdDeanery().toString()).arg(InventoryDate().toJulianDay()).arg(OldStatus())
+                .arg(HouseDating()).arg(BuildInfoId().toString()).arg(HouseFunctionId().toString()).arg(HousePositioningId().toString());
     }else{
         // We must update the old data
 
-        strQuery = QString("Update %1 Set NameRO = '%2', NameDE = '%3', NameSX = '%4', NameHU = '%5', Description = '%6', IdLocation = '%7', HouseDating = '%8', IdBuildingInfo = '%9', \
- IdHouseFunction = '%10', IdHousePositioning = '%11' Name Where Id = '%12'")
+        strQuery = QString("Update %1 Set NameRO = '%2', NameDE = '%3', NameSX = '%4', NameHU = '%5', Description = '%6', \
+IdLocality = '%7', IdDeanery = '%8', InventoryDate = '%9', OldStatus = '%10', HouseDating = '%11', IdBuildingInfo = '%12', \
+IdHouseFunction = '%13', IdHousePositioning = '%14' Name Where Id = '%15'")
                 .arg(House::STR_TABLE_NAME).arg(NameRO()).arg(NameDE()).arg(NameSX()).arg(NameHU())
-                .arg(Description()).arg(LocationId().toString()).arg(HouseDating()).arg(BuildInfoId().toString())
-                .arg(HouseFunctionId().toString()).arg(HousePositioningId().toString()).arg(m_Id.toString());
+                .arg(Description()).arg(IdLocality().toString()).arg(IdDeanery().toString()).arg(InventoryDate().toJulianDay()).arg(OldStatus())
+                .arg(HouseDating()).arg(BuildInfoId().toString()).arg(HouseFunctionId().toString()).arg(HousePositioningId().toString()).arg(m_Id.toString());
     }
 
     if(!query.exec(strQuery)){

@@ -21,6 +21,9 @@ class WndEditHouse : public QDialog
         bool loadFromDB(const QUuid& id = QUuid());
         bool saveToDB();
 
+        // For UI only
+        void updateLocality(const QUuid& idLocality);
+
         void resizeEvent(QResizeEvent* ev);
 
     protected slots:

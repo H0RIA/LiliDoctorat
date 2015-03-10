@@ -138,6 +138,10 @@ HousePositioning::CreateTable()
     bool result = true;
     RunQuery(HousePositioning::STR_CREATE_TABLE, result);
 
+    QString strQuery = QString("Insert Into %1 (Id, FromChurch, FromRoad, FromGarden, Declivity) Values('{00000000-0000-0000-0000-000000000000}', 'N/A', 'N/A', 'N/A', 'N/A') ")
+            .arg(HousePositioning::STR_TABLE_NAME);
+    RunQuery(strQuery, result);
+
     return result;
 }
 

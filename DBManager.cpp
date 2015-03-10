@@ -2,10 +2,10 @@
 #include "Locality.h"
 #include "Language.h"
 #include "PriestInfo.h"
+#include "County.h"
 #include "Comune.h"
 #include "Deanery.h"
 #include "ImageInfo.h"
-#include "LocationInfo.h"
 #include "HousePositioning.h"
 #include "HouseFunction.h"
 #include "BuildingInfo.h"
@@ -290,10 +290,6 @@ DBManager::createTables()
     // Create the ImageInfo table
     if(!ImageInfo::TableExists())
         result = !result ? false : ImageInfo::CreateTable();
-
-    // Create the LocationInfo table
-    if(!LocationInfo::TableExists())
-        result = !result ? false : LocationInfo::CreateTable();
 
     // Create the HousePositioning table
     if(!HousePositioning::TableExists())

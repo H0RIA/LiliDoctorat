@@ -75,6 +75,10 @@ HouseFunction::CreateTable()
     bool result = true;
     RunQuery(HouseFunction::STR_CREATE_TABLE, result);
 
+    QString strQuery = QString("Insert Into %1 (Id, Original, Current, LegalStatus) Values('{00000000-0000-0000-0000-000000000000}', '', '', %2) ")
+            .arg(HouseFunction::STR_TABLE_NAME).arg((int)HouseLegalStatus::DoesNotExist);
+    RunQuery(strQuery, result);
+
     return result;
 }
 

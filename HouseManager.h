@@ -1,6 +1,9 @@
 #ifndef HOUSEMANAGER
 #define HOUSEMANAGER
 
+#include "Deanery.h"
+#include "Locality.h"
+#include "County.h"
 #include "House.h"
 
 class HouseManager
@@ -10,7 +13,6 @@ class HouseManager
     DECLARE_SINGLETON_OBJECT(Comune, Comunes)
     DECLARE_SINGLETON_OBJECT(Locality, Localities)
     DECLARE_SINGLETON_OBJECT(County, Counties)
-    DECLARE_SINGLETON_OBJECT(LocationInfo, Locations)
     DECLARE_SINGLETON_OBJECT(ImageInfo, Images)
     DECLARE_SINGLETON_OBJECT(PriestInfo, Priests)
     DECLARE_SINGLETON_OBJECT(TaxInfo, Taxes)
