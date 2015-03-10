@@ -66,6 +66,9 @@ Comune::CreateTable()
     bool result = true;
     RunQuery(Comune::STR_CREATE_TABLE, result);
 
+    QString strQuery = QString("Insert Into %1 (Id, NameRO, NameDE, NameSX, NameHU, IdCounty) Values ('{00000000-0000-0000-0000-000000000000}', 'N/A', 'N/A', 'N/A', 'N/A', '{00000000-0000-0000-0000-000000000000}') ").arg(Comune::STR_TABLE_NAME);
+    RunQuery(strQuery, result);
+
     return result;
 }
 
@@ -78,9 +81,6 @@ Comune::TableExists()
 bool
 Comune::LoadFromDB()
 {
-    if(m_Id.isNull())
-        return false;
-
     QSqlQuery query(QString("Select * From %1 Where Id = '%2'").arg(Comune::STR_TABLE_NAME).arg(m_Id.toString()));
     if(query.next()){
         setCounty(QUuid(query.value("IdCounty").toString()));
@@ -126,9 +126,6 @@ Comune::SaveToDB()const
 bool
 Comune::ExistsInDB()const
 {
-    if(m_Id.isNull())
-        return false;
-
     QSqlQuery query(QString("Select Count(*) As EntryExists From %1 Where Id = '%2'").arg(Comune::STR_TABLE_NAME).arg(m_Id.toString()));
     while(query.next()){
         int size = query.value("EntryExists").toInt();

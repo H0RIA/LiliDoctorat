@@ -170,7 +170,7 @@ House::SaveToDB()const
         strQuery = QString("Insert into %1 (Id, NameRO, NameDE, NameSX, NameHU, Description, IdLocation, HouseDating, IdBuildingInfo, IdHouseFunction, \
 IdHousePositioning) Values('%2', '%3', '%4', '%5', '%6', '%7', '%8', '%9', '%10', '%11', '%12')")
                 .arg(House::STR_TABLE_NAME).arg(m_Id.toString()).arg(NameRO()).arg(NameDE()).arg(NameSX()).arg(NameHU())
-                .arg(Description()).arg(LocationId().toString()).arg(HouseDating()).arg(HouseFunctionId().toString()).arg(HousePositioningId().toString());
+                .arg(Description()).arg(LocationId().toString()).arg(HouseDating()).arg(BuildInfoId().toString()).arg(HouseFunctionId().toString()).arg(HousePositioningId().toString());
     }else{
         // We must update the old data
 

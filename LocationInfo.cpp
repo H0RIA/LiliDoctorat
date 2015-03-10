@@ -71,6 +71,11 @@ LocationInfo::CreateTable()
     bool result = true;
     RunQuery(LocationInfo::STR_CREATE_TABLE, result);
 
+    QString strQuery = QString("Insert Into LocationInfo (Id, NameRO, NameDE, NameSX, NameHU, IdLocality, IdDeanery, InventoryDate, OldStatus) \
+Values ('{00000000-0000-0000-0000-000000000000}', 'N/A', 'N/A', 'N/A', 'N/A', '{00000000-0000-0000-0000-000000000000}',\
+'{00000000-0000-0000-0000-000000000000}', '', 'N/A')");
+    RunQuery(strQuery, result);
+
     return result;
 }
 

@@ -259,10 +259,6 @@ DBManager::createTables()
     QString strQuery = "PRAGMA foreign_keys = ON;";
     RunQuery(strQuery, result);
 
-    // Create the locality table
-    if(!Locality::TableExists())
-        result = !result ? false : Locality::CreateTable();
-
     // Create the language table
     if(!Language::TableExists())
         result = !result ? false : Language::CreateTable();
@@ -271,21 +267,25 @@ DBManager::createTables()
     if(!PriestInfo::TableExists())
         result = !result ? false : PriestInfo::CreateTable();
 
-    // Create the Comune table
-    if(!Comune::TableExists())
-        result = !result ? false : Comune::CreateTable();
-
     // Create the County table
     if(!County::TableExists())
         result = !result ? false : County::CreateTable();
 
-    // Create the TaxInfo table
-    if(!TaxInfo::TableExists())
-        result = !result ? false : TaxInfo::CreateTable();
+    // Create the Comune table
+    if(!Comune::TableExists())
+        result = !result ? false : Comune::CreateTable();
 
     // Create the Deanery table
     if(!Deanery::TableExists())
         result = !result ? false : Deanery::CreateTable();
+
+    // Create the locality table
+    if(!Locality::TableExists())
+        result = !result ? false : Locality::CreateTable();
+
+    // Create the TaxInfo table
+    if(!TaxInfo::TableExists())
+        result = !result ? false : TaxInfo::CreateTable();
 
     // Create the ImageInfo table
     if(!ImageInfo::TableExists())
