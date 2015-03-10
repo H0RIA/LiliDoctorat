@@ -21,6 +21,7 @@ class WndEditHouse : public QDialog
         bool loadFromDB(const QUuid& id = QUuid());
         bool saveToDB();
 
+    protected slots:
         void onCancel();
         void onOK();
         void onApply();
@@ -28,6 +29,8 @@ class WndEditHouse : public QDialog
     private slots:
         void on_btnNextImage_clicked();
         void on_btnPrevImage_clicked();
+        void on_btnAddImage_clicked();
+        void on_btnRemImage_clicked();
         void on_edLocality_doubleClicked(QMouseEvent* ev);
 
     protected:

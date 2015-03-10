@@ -156,6 +156,39 @@ WndEditHouse::initializeData()
     m_edComune.setReadOnly(true);
     m_edCounty.setReadOnly(true);
 
+    m_btnImgPrev.setText("<<");
+    m_btnImgNext.setText(">>");
+    m_btnImgAdd.setText("+");
+    m_btnImgRem.setText("-");
+
+
+    m_btnCancel.setText(tr("Cancel"));
+    m_btnApply.setText(tr("Apply"));
+    m_btnOK.setText(tr("OK"));
+
+    connect(&m_btnApply, SIGNAL(clicked()), SLOT(onApply()));
+    connect(&m_btnCancel, SIGNAL(clicked()), SLOT(onCancel()));
+    connect(&m_btnOK, SIGNAL(clicked()), SLOT(onOK()));
+
+    QHBoxLayout* btnLayout = new QHBoxLayout();
+    btnLayout->setSpacing(0);
+    btnLayout->setContentsMargins(0, 0, 0, 0);
+
+    btnLayout->addStretch();
+    btnLayout->addWidget(&m_btnCancel);
+    btnLayout->addSpacing(5);
+    btnLayout->addWidget(&m_btnOK);
+    btnLayout->addSpacing(5);
+    btnLayout->addWidget(&m_btnApply);
+    btnLayout->addStretch();
+
+    connect(&m_btnApply, SIGNAL(clicked()), SLOT(onApply()));
+    connect(&m_btnCancel, SIGNAL(clicked()), SLOT(onCancel()));
+    connect(&m_btnOK, SIGNAL(clicked()), SLOT(onOK()));
+    connect(&m_btnImgAdd, SIGNAL(clicked()), SLOT(on_btnAddImage_clicked()));
+    connect(&m_btnImgRem, SIGNAL(clicked()), SLOT(on_btnRemImage_clicked()));
+    connect(&m_btnImgPrev, SIGNAL(clicked()), SLOT(on_btnPrevImage_clicked()));
+    connect(&m_btnImgNext, SIGNAL(clicked()), SLOT(on_btnNextImage_clicked()));
     connect(&m_edLocality, SIGNAL(doubleClick(QMouseEvent*)), SLOT(on_edLocality_doubleClicked(QMouseEvent*)));
 
     QHBoxLayout* layoutNumeRO = new QHBoxLayout();
@@ -272,6 +305,25 @@ WndEditHouse::initializeData()
     layoutTopLeft->addLayout(layoutDate);
     layoutTopLeft->addStretch();
 
+    QVBoxLayout* layoutImgAddRem = new QVBoxLayout();
+    layoutImgAddRem->setContentsMargins(0, 0, 0, 0);
+    layoutImgAddRem->setSpacing(0);
+
+    layoutImgAddRem->addSpacing(20);
+    layoutImgAddRem->addWidget(&m_btnImgAdd);
+    layoutImgAddRem->addSpacing(10);
+    layoutImgAddRem->addWidget(&m_btnImgRem);
+    layoutImgAddRem->addStretch();
+
+    QHBoxLayout* layoutImage = new QHBoxLayout();
+    layoutImage->setContentsMargins(0, 0, 0, 0);
+    layoutImage->setSpacing(0);
+
+    layoutImage->addStretch();
+    layoutImage->addWidget(&m_Image);
+    layoutImage->addSpacing(10);
+    layoutImage->addLayout(layoutImgAddRem);
+
     QHBoxLayout* layoutImgNextPrev = new QHBoxLayout();
     layoutImgNextPrev->setContentsMargins(0, 0, 0, 0);
     layoutImgNextPrev->setSpacing(0);
@@ -287,7 +339,7 @@ WndEditHouse::initializeData()
     layoutTopRight->setSpacing(0);
 
     layoutTopRight->addStretch();
-    layoutTopRight->addWidget(&m_Image);
+    layoutTopRight->addLayout(layoutImage);
     layoutTopRight->addSpacing(10);
     layoutTopRight->addLayout(layoutImgNextPrev);
     layoutTopRight->addStretch();
@@ -312,6 +364,9 @@ WndEditHouse::initializeData()
     layoutMain->addLayout(layoutTop);
     layoutMain->addSpacing(10);
     layoutMain->addLayout(layoutBottom);
+    layoutMain->addSpacing(20);
+    layoutMain->addLayout(btnLayout);
+    layoutMain->addSpacing(20);
 
     setLayout(layoutMain);
 }
@@ -377,6 +432,16 @@ WndEditHouse::on_btnNextImage_clicked()
 
 void
 WndEditHouse::on_btnPrevImage_clicked()
+{
+}
+
+void
+WndEditHouse::on_btnAddImage_clicked()
+{
+}
+
+void
+WndEditHouse::on_btnRemImage_clicked()
 {
 }
 
