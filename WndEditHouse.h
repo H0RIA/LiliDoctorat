@@ -32,6 +32,7 @@ class WndEditHouse : public QDialog
         void onApply();
 
         void updateImageSize();
+        void setCurrentImage(const QUuid& idImage);
 
     private slots:
         void on_btnNextImage_clicked();
@@ -89,7 +90,7 @@ class WndEditHouse : public QDialog
         QPushButton m_btnOK;
         QPushButton m_btnApply;
 
-        int m_CurrentImage;
+        QUuid m_CurrentImageId;
 };
 
 #endif // WNDEDITHOUSE_H

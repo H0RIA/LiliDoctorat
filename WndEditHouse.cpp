@@ -40,7 +40,7 @@ WndEditHouse::WndEditHouse(QWidget *parent)
         m_btnCancel(this),
         m_btnOK(this),
         m_btnApply(this),
-        m_CurrentImage(-1)
+        m_CurrentImageId()
 {
     initializeData();
 }
@@ -78,7 +78,7 @@ WndEditHouse::WndEditHouse(const QUuid& houseId, QWidget* parent)
         m_btnCancel(this),
         m_btnOK(this),
         m_btnApply(this),
-        m_CurrentImage(-1)
+        m_CurrentImageId()
 {
     m_House.setId(houseId);
 
@@ -398,6 +398,14 @@ WndEditHouse::initializeData()
     layoutMain->addSpacing(20);
 
     setLayout(layoutMain);
+
+    // Initialize images
+    QList<ImageInfo*> images = m_House.getImages();
+    if(!images.isEmpty()){
+        ImageInfo* image = images.front();
+        if(image != nullptr)
+            setCurrentImage(image->Id());
+    }
 }
 
 bool
@@ -485,20 +493,42 @@ void
 WndEditHouse::updateImageSize()
 {
     QSize sizeImage = m_Image.size();
-    if(m_CurrentImage >= 0){
-        QPixmap pixImage = QPixmap(m_House.getImages().at(m_CurrentImage)->Path()).scaled(sizeImage, Qt::KeepAspectRatio);
-        m_Image.setPixmap(pixImage);
+    {
+        ImageInfo* image = m_House.findImageInfo(m_CurrentImageId);
+        if(image != nullptr){
+            QPixmap pixImage = QPixmap(image->Path()).scaled(sizeImage, Qt::KeepAspectRatio);
+            m_Image.setPixmap(pixImage);
+        }
+    }
+}
+
+void
+WndEditHouse::setCurrentImage(const QUuid& idImage)
+{
+    if(!idImage.isNull()){
+        ImageInfo image;
+        image.setId(idImage);
+        if(image.LoadFromDB()){
+            m_Image.setPixmap(QPixmap(image.Path()));
+            updateImageSize();
+        }
+    }else{
+        m_Image.clear();
     }
 }
 
 void
 WndEditHouse::on_btnNextImage_clicked()
 {
+    if(m_House.hasNextImage(m_CurrentImageId))
+        setCurrentImage(m_House.getNextImageId(m_CurrentImageId));
 }
 
 void
 WndEditHouse::on_btnPrevImage_clicked()
 {
+    if(m_House.hasPrevImage(m_CurrentImageId))
+        setCurrentImage(m_House.getPrevImageId(m_CurrentImageId));
 }
 
 void
@@ -513,7 +543,7 @@ WndEditHouse::on_btnAddNewImage_clicked()
         m_House.addImageInfo(image);
         if(m_House.getImages().size() == 1){
             m_Image.setPixmap(QPixmap(image->Path()));
-            m_CurrentImage = 0;
+            m_CurrentImageId = image->Id();
 
             updateImageSize();
         }

@@ -64,6 +64,200 @@ House::House(const House& house)
 
 House::~House(){}
 
+bool
+House::hasNextImage(const QUuid& idCurrentImage)const
+{
+    bool result = false;
+
+    QList<ImageInfo*> images = getImages();
+    if(images.isEmpty())
+        return result;
+
+    ImageInfo* currentImage = nullptr;
+    QList<ImageInfo*>::const_iterator iter;
+    for(iter = images.begin(); iter != images.end(); iter++){
+        ImageInfo* image = (*iter);
+        if(image != nullptr){
+            if(image->Id() == idCurrentImage){
+                currentImage = image;
+                break;
+            }
+        }
+    }
+
+    if(currentImage != nullptr){
+        iter++;
+        result = iter == images.end();
+    }
+
+    return result;
+}
+
+bool
+House::hasPrevImage(const QUuid& idCurrentImage)const
+{
+    bool result = false;
+
+    QList<ImageInfo*> images = getImages();
+    if(images.isEmpty())
+        return result;
+
+    ImageInfo* currentImage = nullptr;
+    QList<ImageInfo*>::const_iterator iter;
+    for(iter = images.begin(); iter != images.end(); iter++){
+        ImageInfo* image = (*iter);
+        if(image != nullptr){
+            if(image->Id() == idCurrentImage){
+                currentImage = image;
+                break;
+            }
+        }
+    }
+
+    if(currentImage != nullptr){
+        iter--;
+        result = iter == images.end();
+    }
+
+    return result;
+}
+
+QString
+House::getNextImagePath(const QUuid& idCurrentImage)const
+{
+    QString path;
+
+    QList<ImageInfo*> images = getImages();
+    if(images.isEmpty())
+        return path;
+
+    if(!hasNextImage(idCurrentImage))
+        return path;
+
+    ImageInfo* currentImage = nullptr;
+    QList<ImageInfo*>::const_iterator iter;
+    for(iter = images.begin(); iter != images.end(); iter++){
+        ImageInfo* image = *iter;
+        if(image != nullptr){
+            if(image->Id() == idCurrentImage){
+                currentImage = image;
+                break;
+            }
+        }
+    }
+
+    if(currentImage != nullptr){
+        iter++;
+        if(*iter != nullptr){
+            path = (*iter)->Path();
+        }
+    }
+
+    return path;
+}
+
+QUuid
+House::getNextImageId(const QUuid& idCurrentImage)const
+{
+    QUuid id;
+
+    QList<ImageInfo*> images = getImages();
+    if(images.isEmpty())
+        return id;
+
+    if(!hasNextImage(idCurrentImage))
+        return id;
+
+    ImageInfo* currentImage = nullptr;
+    QList<ImageInfo*>::const_iterator iter;
+    for(iter = images.begin(); iter != images.end(); iter++){
+        ImageInfo* image = *iter;
+        if(image != nullptr){
+            if(image->Id() == idCurrentImage){
+                currentImage = image;
+                break;
+            }
+        }
+    }
+
+    if(currentImage != nullptr){
+        iter++;
+        if(*iter != nullptr){
+            id = (*iter)->Id();
+        }
+    }
+
+    return id;
+}
+
+QString
+House::getPrevImagePath(const QUuid& idCurrentImage)const
+{
+    QString path;
+
+    QList<ImageInfo*> images = getImages();
+    if(images.isEmpty())
+        return path;
+
+    if(!hasPrevImage(idCurrentImage))
+        return path;
+
+    ImageInfo* currentImage = nullptr;
+    QList<ImageInfo*>::const_iterator iter;
+    for(iter = images.begin(); iter != images.end(); iter++){
+        ImageInfo* image = *iter;
+        if(image != nullptr){
+            if(image->Id() == idCurrentImage){
+                currentImage = image;
+                break;
+            }
+        }
+    }
+
+    if(currentImage != nullptr){
+        iter--;
+        if(*iter != nullptr){
+            path = (*iter)->Path();
+        }
+    }
+
+    return path;
+}
+
+QUuid
+House::getPrevImageId(const QUuid& idCurrentImage)const
+{
+    QUuid id;
+
+    QList<ImageInfo*> images = getImages();
+    if(images.isEmpty())
+        return id;
+
+    if(!hasPrevImage(idCurrentImage))
+        return id;
+
+    ImageInfo* currentImage = nullptr;
+    QList<ImageInfo*>::const_iterator iter;
+    for(iter = images.begin(); iter != images.end(); iter++){
+        ImageInfo* image = *iter;
+        if(image != nullptr){
+            if(image->Id() == idCurrentImage){
+                currentImage = image;
+                break;
+            }
+        }
+    }
+
+    if(currentImage != nullptr){
+        iter--;
+        if(*iter != nullptr){
+            id = (*iter)->Id();
+        }
+    }
+
+    return id;
+}
+
 House&
 House::operator=(const House& house)
 {

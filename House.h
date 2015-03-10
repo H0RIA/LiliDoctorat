@@ -41,6 +41,14 @@ class House
         House(const House& house);
         virtual ~House();
 
+        bool hasNextImage(const QUuid& idCurrentImage)const;
+        bool hasPrevImage(const QUuid& idCurrentImage)const;
+
+        QString getNextImagePath(const QUuid& idCurrentImage)const;
+        QUuid getNextImageId(const QUuid& idCurrentImage)const;
+        QString getPrevImagePath(const QUuid& idCurrentImage)const;
+        QUuid getPrevImageId(const QUuid& idCurrentImage)const;
+
         House& operator=(const House& house);
         bool operator==(const House& house)const;
         bool operator!=(const House& house)const;
