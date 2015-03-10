@@ -87,7 +87,7 @@ House::hasNextImage(const QUuid& idCurrentImage)const
 
     if(currentImage != nullptr){
         iter++;
-        result = iter == images.end();
+        result = iter != images.end();
     }
 
     return result;
@@ -115,8 +115,7 @@ House::hasPrevImage(const QUuid& idCurrentImage)const
     }
 
     if(currentImage != nullptr){
-        iter--;
-        result = iter == images.end();
+        result = iter != images.begin();
     }
 
     return result;

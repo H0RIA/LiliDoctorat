@@ -95,7 +95,7 @@ WndEditHouse::initializeData()
     int labelWidth = 80;
     int editWidth = 150;
 
-    m_House.LoadFromDB();
+    loadFromDB(m_House.Id());
 
     m_lblComune.setText(tr("Comuna"));
     m_lblCounty.setText(tr("Judet"));
@@ -399,7 +399,6 @@ WndEditHouse::initializeData()
 
     setLayout(layoutMain);
 
-    // Initialize images
     QList<ImageInfo*> images = m_House.getImages();
     if(!images.isEmpty()){
         ImageInfo* image = images.front();
@@ -420,7 +419,12 @@ WndEditHouse::loadFromDB(const QUuid& id)
         m_edNumeSasesc.setText(m_House.NameSX());
         m_edNumeMaghiar.setText(m_House.NameHU());
         m_edDate.setText(m_House.HouseDating());
-        m_Image.setPixmap(QPixmap(m_House.getImages().front()->Path()));
+        m_edOldStatus.setText(m_House.OldStatus());
+        ImageInfo* image = m_House.getImages().front();
+        if(image != nullptr){
+            m_Image.setPixmap(QPixmap(image->Path()));
+            m_CurrentImageId = image->Id();
+        }
 
         return true;
     }
@@ -436,7 +440,8 @@ WndEditHouse::saveToDB()
     m_House.setNameSX(m_edNumeSasesc.text());
     m_House.setNameHU(m_edNumeMaghiar.text());
     m_House.setHouseDating(m_edDate.text());
-//    m_House.setIdLocality();
+    m_House.setOldStatus(m_edOldStatus.text());
+    m_House.setIdLocality(m_Locality.Id());
 
     // TODO
 
@@ -520,15 +525,19 @@ WndEditHouse::setCurrentImage(const QUuid& idImage)
 void
 WndEditHouse::on_btnNextImage_clicked()
 {
-    if(m_House.hasNextImage(m_CurrentImageId))
-        setCurrentImage(m_House.getNextImageId(m_CurrentImageId));
+    if(m_House.hasNextImage(m_CurrentImageId)){
+        m_CurrentImageId = m_House.getNextImageId(m_CurrentImageId);
+        setCurrentImage(m_CurrentImageId);
+    }
 }
 
 void
 WndEditHouse::on_btnPrevImage_clicked()
 {
-    if(m_House.hasPrevImage(m_CurrentImageId))
-        setCurrentImage(m_House.getPrevImageId(m_CurrentImageId));
+    if(m_House.hasPrevImage(m_CurrentImageId)){
+        m_CurrentImageId = m_House.getPrevImageId(m_CurrentImageId);
+        setCurrentImage(m_CurrentImageId);
+    }
 }
 
 void
