@@ -39,7 +39,8 @@ WndEditHouse::WndEditHouse(QWidget *parent)
         m_Tab(this),
         m_btnCancel(this),
         m_btnOK(this),
-        m_btnApply(this)
+        m_btnApply(this),
+        m_CurrentImage(-1)
 {
     initializeData();
 }
@@ -76,7 +77,8 @@ WndEditHouse::WndEditHouse(const QUuid& houseId, QWidget* parent)
         m_Tab(this),
         m_btnCancel(this),
         m_btnOK(this),
-        m_btnApply(this)
+        m_btnApply(this),
+        m_CurrentImage(-1)
 {
     m_House.setId(houseId);
 
@@ -200,6 +202,11 @@ WndEditHouse::initializeData()
     m_Image.setMaximumHeight(400);
     m_Image.setMinimumWidth(200);
     m_Image.setMaximumWidth(400);
+
+    m_btnImgAddFromDB.setMaximumWidth(50);
+    m_btnImgAddNew.setMaximumWidth(50);
+    m_btnImgRem.setMaximumWidth(50);
+
 
     QHBoxLayout* layoutNumeRO = new QHBoxLayout();
     layoutNumeRO->setContentsMargins(0, 0, 0, 0);
@@ -325,13 +332,14 @@ WndEditHouse::initializeData()
     layoutImgAddRem->addWidget(&m_btnImgAddFromDB);
     layoutImgAddRem->addSpacing(10);
     layoutImgAddRem->addWidget(&m_btnImgRem);
+    layoutImgAddRem->addSpacing(10);
     layoutImgAddRem->addStretch();
 
     QHBoxLayout* layoutImage = new QHBoxLayout();
     layoutImage->setContentsMargins(0, 0, 0, 0);
     layoutImage->setSpacing(0);
 
-    layoutImage->addStretch();
+    layoutImage->addSpacing(10);
     layoutImage->addWidget(&m_Image);
     layoutImage->addSpacing(10);
     layoutImage->addLayout(layoutImgAddRem);
@@ -350,15 +358,16 @@ WndEditHouse::initializeData()
     layoutTopRight->setContentsMargins(0, 0, 0, 0);
     layoutTopRight->setSpacing(0);
 
-    layoutTopRight->addStretch();
+    layoutTopRight->addSpacing(10);
     layoutTopRight->addLayout(layoutImage);
     layoutTopRight->addSpacing(10);
     layoutTopRight->addLayout(layoutImgNextPrev);
-    layoutTopRight->addStretch();
+    layoutTopRight->addSpacing(10);
 
     QHBoxLayout* layoutTop = new QHBoxLayout();
     layoutTop->setContentsMargins(0, 0, 0, 0);
     layoutTop->setSpacing(0);
+
     layoutTop->addLayout(layoutTopLeft);
     layoutTop->addSpacing(10);
     layoutTop->addLayout(layoutTopRight);
@@ -419,6 +428,14 @@ WndEditHouse::saveToDB()
 }
 
 void
+WndEditHouse::resizeEvent(QResizeEvent* ev)
+{
+    Q_UNUSED(ev);
+
+    updateImageSize();
+}
+
+void
 WndEditHouse::onCancel()
 {
     done(-1);
@@ -435,6 +452,16 @@ void
 WndEditHouse::onApply()
 {
     saveToDB();
+}
+
+void
+WndEditHouse::updateImageSize()
+{
+    QSize sizeImage = m_Image.size();
+    if(m_CurrentImage >= 0){
+        QPixmap pixImage = QPixmap(m_House.getImages().at(m_CurrentImage)->Path()).scaled(sizeImage, Qt::KeepAspectRatio);
+        m_Image.setPixmap(pixImage);
+    }
 }
 
 void
@@ -459,6 +486,9 @@ WndEditHouse::on_btnAddNewImage_clicked()
         m_House.addImageInfo(image);
         if(m_House.getImages().size() == 1){
             m_Image.setPixmap(QPixmap(image->Path()));
+            m_CurrentImage = 0;
+
+            updateImageSize();
         }
     }
 }

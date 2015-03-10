@@ -21,10 +21,14 @@ class WndEditHouse : public QDialog
         bool loadFromDB(const QUuid& id = QUuid());
         bool saveToDB();
 
+        void resizeEvent(QResizeEvent* ev);
+
     protected slots:
         void onCancel();
         void onOK();
         void onApply();
+
+        void updateImageSize();
 
     private slots:
         void on_btnNextImage_clicked();
@@ -81,6 +85,8 @@ class WndEditHouse : public QDialog
         QPushButton m_btnCancel;
         QPushButton m_btnOK;
         QPushButton m_btnApply;
+
+        int m_CurrentImage;
 };
 
 #endif // WNDEDITHOUSE_H
