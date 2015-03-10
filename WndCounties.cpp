@@ -25,6 +25,24 @@ WndCounties::onNewItem()
 }
 
 void
+WndCounties::onDoubleClicked(const QModelIndex& index)
+{
+    if(!index.isValid())
+        return;
+
+    QModelIndex indexId = index.model()->index(index.row(), 0);
+    QUuid id = index.model()->data(indexId).toUuid();
+    if(!id.isNull()){
+        WndEditCounty dialog(id, this);
+        dialog.exec();
+
+        QSqlTableModel* model = qobject_cast<QSqlTableModel*>(m_View.model());
+        if(model != nullptr)
+            model->select();
+    }
+}
+
+void
 WndCounties::resetModel()
 {
     QSqlTableModel* model = new QSqlTableModel(this, QSqlDatabase::database());
@@ -55,4 +73,6 @@ WndCounties::initializeData()
     mainLayout->addWidget(&m_View);
 
     setLayout(mainLayout);
+
+    connect(&m_View, SIGNAL(doubleClicked(QModelIndex)), SLOT(onDoubleClicked(QModelIndex)));
 }

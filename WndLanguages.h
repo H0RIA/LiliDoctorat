@@ -15,8 +15,14 @@ namespace UI
 
         public slots:
             void onNewItem();
+            void onDoubleClicked(const QModelIndex& index);
 
         protected:
+            void resetModel();
+            void initializeData();
+
+        protected:
+            QTableView m_View;
     };
 }
 

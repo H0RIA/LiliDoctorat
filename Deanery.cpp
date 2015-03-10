@@ -105,7 +105,7 @@ Deanery::SaveToDB()const
     }else{
         // We must update the old data
 
-        strQuery = QString("Update %1 Set NameRO = '%2', NameDE = '%3', NameSX = '%4', NameHU = '%5' Name Where Id = '%6'")
+        strQuery = QString("Update %1 Set NameRO = '%2', NameDE = '%3', NameSX = '%4', NameHU = '%5' Where Id = '%6'")
                 .arg(Deanery::STR_TABLE_NAME).arg(NameRO()).arg(NameDE()).arg(NameSX()).arg(NameHU()).arg(m_Id.toString());
     }
 

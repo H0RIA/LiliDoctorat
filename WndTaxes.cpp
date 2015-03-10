@@ -26,6 +26,24 @@ WndTaxes::onNewItem()
 }
 
 void
+WndTaxes::onDoubleClicked(const QModelIndex& index)
+{
+    if(!index.isValid())
+        return;
+
+    QModelIndex indexId = index.model()->index(index.row(), 0);
+    QUuid id = index.model()->data(indexId).toUuid();
+    if(!id.isNull()){
+        WndEditTax dialog(id, this);
+        dialog.exec();
+
+        QSqlTableModel* model = qobject_cast<QSqlTableModel*>(m_View.model());
+        if(model != nullptr)
+            model->select();
+    }
+}
+
+void
 WndTaxes::resetModel()
 {
     QSqlTableModel* model = new QSqlTableModel(this, QSqlDatabase::database());
@@ -55,4 +73,6 @@ WndTaxes::initializeData()
     mainLayout->addWidget(&m_View);
 
     setLayout(mainLayout);
+
+    connect(&m_View, SIGNAL(doubleClicked(QModelIndex)), SLOT(onDoubleClicked(QModelIndex)));
 }

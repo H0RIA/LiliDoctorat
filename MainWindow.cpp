@@ -154,6 +154,7 @@ MainWindow::createFileMenu()
 
     m_ActionFileNew = new QAction(m_MenuFile);
     m_ActionFileNew->setText("New");
+    connect(m_ActionFileNew, SIGNAL(triggered()), SLOT(onNewItem()));
 
     m_ActionFileSave = new QAction(m_MenuFile);
     m_ActionFileSave->setText("Save");
@@ -210,9 +211,24 @@ MainWindow::onDockItemTriggered(bool checked)
 }
 
 void
+MainWindow::onNewItem()
+{
+    m_MainWidget.onNewItem();
+}
+
+void
 MainWindow::createGlobalShortcuts()
 {
-    // TODO
+    // New item
+    {
+        QShortcut* newItem = new QShortcut(this);
+        newItem->setContext(Qt::ApplicationShortcut);
+        newItem->setEnabled(true);
+        QKeySequence sequence(Qt::CTRL + Qt::Key_N);
+        newItem->setKey(sequence);
+
+        connect(newItem, SIGNAL(activated()), SLOT(onNewItem()));
+    }
 }
 
 void

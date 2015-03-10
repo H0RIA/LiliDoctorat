@@ -4,7 +4,8 @@
 #include "TaxInfo.h"
 #include "Language.h"
 
-#define DEFAULT_SQLITE_PATH "./LCP.sqlite"
+//#define DEFAULT_SQLITE_PATH "./LCP.sqlite"
+#define DEFAULT_SQLITE_NAME "LCP.sqlite"
 
 class DBManager
 {

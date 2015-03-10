@@ -23,6 +23,7 @@ class MainWindow : public QMainWindow
 
     protected slots:
         void onDockItemTriggered(bool checked = false);
+        void onNewItem();
 
     protected:
         void uncheckAllDockItems(WindowType wndException);

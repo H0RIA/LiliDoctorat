@@ -23,6 +23,22 @@ WndLocalities::onNewItem()
 }
 
 void
+WndLocalities::onDoubleClicked(const QModelIndex& index)
+{
+    if(!index.isValid())
+        return;
+
+    QModelIndex indexId = index.model()->index(index.row(), 0);
+    QUuid id = index.model()->data(indexId).toUuid();
+    if(!id.isNull()){
+        WndEditLocality dialog(id, this);
+        dialog.exec();
+
+        resetModel();
+    }
+}
+
+void
 WndLocalities::resetModel()
 {
     QSqlQueryModel* model = new QSqlQueryModel();
@@ -75,4 +91,6 @@ WndLocalities::initializeData()
     mainLayout->addWidget(&m_View);
 
     setLayout(mainLayout);
+
+    connect(&m_View, SIGNAL(doubleClicked(QModelIndex)), SLOT(onDoubleClicked(QModelIndex)));
 }

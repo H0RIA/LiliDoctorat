@@ -15,6 +15,7 @@ namespace UI
 
         public slots:
             void onNewItem();
+            void onDoubleClicked(const QModelIndex& index);
 
         protected:
             void resetModel();

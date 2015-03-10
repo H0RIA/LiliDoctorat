@@ -78,14 +78,14 @@ CentralWindow::initializeData()
     m_WidgetContainer.setCurrentIndex((int)WindowType::Houses);
 
     // Shortcut NEW ITEM
-    {
-        QShortcut* newItem = new QShortcut(this);
-        newItem->setContext(Qt::ApplicationShortcut);
-        newItem->setEnabled(true);
-        QKeySequence sequence(Qt::CTRL + Qt::Key_N);
-        newItem->setKey(sequence);
-        m_Shortcuts.push_back(newItem);
+//    {
+//        QShortcut* newItem = new QShortcut(this);
+//        newItem->setContext(Qt::ApplicationShortcut);
+//        newItem->setEnabled(true);
+//        QKeySequence sequence(Qt::CTRL + Qt::Key_N);
+//        newItem->setKey(sequence);
+//        m_Shortcuts.push_back(newItem);
 
-        connect(newItem, SIGNAL(activated()), SLOT(onNewItem()));
-    }
+//        connect(newItem, SIGNAL(activated()), SLOT(onNewItem()));
+//    }
 }

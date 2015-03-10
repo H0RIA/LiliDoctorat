@@ -234,12 +234,31 @@ DBManager::createDatabase()
     if(m_pDatabase != nullptr)
         return false;
 
+    QStringList strPathToDB = QStandardPaths::standardLocations(QStandardPaths::AppDataLocation);
+    if(strPathToDB.isEmpty()){
+        QMessageBox::critical(0, QObject::tr("Cannot create database"),
+                              QObject::tr("Unable to create a SQLite database file.\n"), QMessageBox::Cancel);
+        qApp->exit();
+    }
+
+    QString firstPath = strPathToDB.front();
     m_pDatabase = new QSqlDatabase();
     *m_pDatabase = QSqlDatabase::addDatabase("QSQLITE");
-    QString path = QDir::toNativeSeparators(DEFAULT_SQLITE_PATH);
-    m_pDatabase->setDatabaseName(path);
+    firstPath += QDir::separator();
+    QDir dir(firstPath);
+    dir.mkpath(firstPath);
+    firstPath += DEFAULT_SQLITE_NAME;
+    m_pDatabase->setDatabaseName(firstPath);
 
-    return m_pDatabase->open();
+    if(!m_pDatabase->open()){
+        QMessageBox::critical(0, QObject::tr("Cannot open database"),
+                              m_pDatabase->lastError().text(), QMessageBox::Cancel);
+        qDebug() << m_pDatabase->lastError().text();
+        qApp->exit();
+        return false;
+    }
+
+    return true;
 }
 
 bool
