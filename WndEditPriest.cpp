@@ -37,6 +37,9 @@ WndEditPriest::~WndEditPriest(){}
 void
 WndEditPriest::initializeData()
 {
+    m_edFirstName.installEventFilter(this);
+    m_edLastName.installEventFilter(this);
+
     m_btnCancel.setText(tr("Cancel"));
     m_btnApply.setText(tr("Apply"));
     m_btnOK.setText(tr("OK"));
@@ -112,6 +115,8 @@ WndEditPriest::initializeData()
     mainLayout->addStretch();
 
     setLayout(mainLayout);
+
+    loadFromDB(m_Priest.Id());
 }
 
 bool
@@ -139,6 +144,23 @@ WndEditPriest::saveToDB()
     return m_Priest.SaveToDB();
 }
 
+bool
+WndEditPriest::eventFilter(QObject* o, QEvent * ev)
+{
+    Q_UNUSED(o)
+
+    if(ev->type() == QEvent::KeyPress){
+        QKeyEvent* keyEvent = dynamic_cast<QKeyEvent*>(ev);
+        if(!onKeyPressed(keyEvent)){
+            return false;
+        }
+
+        return true;
+    }
+
+    return false;
+}
+
 void
 WndEditPriest::onCancel()
 {
@@ -156,4 +178,23 @@ void
 WndEditPriest::onApply()
 {
     saveToDB();
+}
+
+bool
+WndEditPriest::onKeyPressed(QKeyEvent* ev)
+{
+    if(ev == nullptr)
+        return false;
+
+    switch(ev->key())
+    {
+    case Qt::Key_Enter:
+    case Qt::Key_Return:
+        onOK();
+        break;
+    default:
+        return false;
+    }
+
+    return true;
 }

@@ -92,6 +92,13 @@ WndEditHouse::~WndEditHouse()
 void
 WndEditHouse::initializeData()
 {
+    m_edNumeRomanesc.installEventFilter(this);
+    m_edNumeGerman.installEventFilter(this);
+    m_edNumeSasesc.installEventFilter(this);
+    m_edNumeMaghiar.installEventFilter(this);
+    m_edOldStatus.installEventFilter(this);
+    m_edDate.installEventFilter(this);
+
     int labelWidth = 80;
     int editWidth = 150;
 
@@ -475,6 +482,23 @@ WndEditHouse::resizeEvent(QResizeEvent* ev)
     updateImageSize();
 }
 
+bool
+WndEditHouse::eventFilter(QObject* o, QEvent * ev)
+{
+    Q_UNUSED(o)
+
+    if(ev->type() == QEvent::KeyPress){
+        QKeyEvent* keyEvent = dynamic_cast<QKeyEvent*>(ev);
+        if(!onKeyPressed(keyEvent)){
+            return false;
+        }
+
+        return true;
+    }
+
+    return false;
+}
+
 void
 WndEditHouse::onCancel()
 {
@@ -492,6 +516,25 @@ void
 WndEditHouse::onApply()
 {
     saveToDB();
+}
+
+bool
+WndEditHouse::onKeyPressed(QKeyEvent* ev)
+{
+    if(ev == nullptr)
+        return false;
+
+    switch(ev->key())
+    {
+    case Qt::Key_Enter:
+    case Qt::Key_Return:
+        onOK();
+        break;
+    default:
+        return false;
+    }
+
+    return true;
 }
 
 void

@@ -49,6 +49,10 @@ WndEditImage::getImage()const
 void
 WndEditImage::initializeData()
 {
+    m_edName.installEventFilter(this);
+    m_edPath.installEventFilter(this);
+    m_edDetails.installEventFilter(this);
+
     m_btnCancel.setText(tr("Cancel"));
     m_btnApply.setText(tr("Apply"));
     m_btnOK.setText(tr("OK"));
@@ -158,6 +162,8 @@ WndEditImage::initializeData()
     mainLayout->addSpacing(10);
 
     setLayout(mainLayout);
+
+    loadFromDB(m_Image.Id());
 }
 
 bool
@@ -187,6 +193,23 @@ WndEditImage::saveToDB()
     return m_Image.SaveToDB();
 }
 
+bool
+WndEditImage::eventFilter(QObject* o, QEvent * ev)
+{
+    Q_UNUSED(o)
+
+    if(ev->type() == QEvent::KeyPress){
+        QKeyEvent* keyEvent = dynamic_cast<QKeyEvent*>(ev);
+        if(!onKeyPressed(keyEvent)){
+            return false;
+        }
+
+        return true;
+    }
+
+    return false;
+}
+
 void
 WndEditImage::onCancel()
 {
@@ -204,6 +227,27 @@ void
 WndEditImage::onApply()
 {
     saveToDB();
+}
+
+bool
+WndEditImage::onKeyPressed(QKeyEvent* ev)
+{
+    if(ev == nullptr)
+        return false;
+
+    switch(ev->key())
+    {
+    case Qt::Key_Enter:
+    case Qt::Key_Return:
+        if(QApplication::keyboardModifiers().testFlag(Qt::ControlModifier))
+            return false;
+        onOK();
+        break;
+    default:
+        return false;
+    }
+
+    return true;
 }
 
 void

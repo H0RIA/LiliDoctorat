@@ -48,6 +48,11 @@ WndEditDeanery::~WndEditDeanery()
 void
 WndEditDeanery::initializeData()
 {
+    m_edNameRO.installEventFilter(this);
+    m_edNameDE.installEventFilter(this);
+    m_edNameSX.installEventFilter(this);
+    m_edNameHU.installEventFilter(this);
+
     m_btnCancel.setText(tr("Cancel"));
     m_btnApply.setText(tr("Apply"));
     m_btnOK.setText(tr("OK"));
@@ -196,6 +201,23 @@ WndEditDeanery::saveToDB()
     return m_Deanery.SaveToDB();
 }
 
+bool
+WndEditDeanery::eventFilter(QObject* o, QEvent * ev)
+{
+    Q_UNUSED(o)
+
+    if(ev->type() == QEvent::KeyPress){
+        QKeyEvent* keyEvent = dynamic_cast<QKeyEvent*>(ev);
+        if(!onKeyPressed(keyEvent)){
+            return false;
+        }
+
+        return true;
+    }
+
+    return false;
+}
+
 void
 WndEditDeanery::onCancel()
 {
@@ -213,4 +235,23 @@ void
 WndEditDeanery::onApply()
 {
     saveToDB();
+}
+
+bool
+WndEditDeanery::onKeyPressed(QKeyEvent* ev)
+{
+    if(ev == nullptr)
+        return false;
+
+    switch(ev->key())
+    {
+    case Qt::Key_Enter:
+    case Qt::Key_Return:
+        onOK();
+        break;
+    default:
+        return false;
+    }
+
+    return true;
 }

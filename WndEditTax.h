@@ -21,10 +21,14 @@ namespace UI
             bool loadFromDB(const QUuid& id = QUuid());
             bool saveToDB();
 
+            bool eventFilter(QObject* o, QEvent * ev);
+
         protected slots:
             void onCancel();
             void onOK();
             void onApply();
+
+            bool onKeyPressed(QKeyEvent* ev);
 
         protected:
             bool m_NewItem;

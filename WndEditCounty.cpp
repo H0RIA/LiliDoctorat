@@ -51,6 +51,11 @@ WndEditCounty::~WndEditCounty()
 void
 WndEditCounty::initializeData()
 {
+    m_edNameRO.installEventFilter(this);
+    m_edNameDE.installEventFilter(this);
+    m_edNameSX.installEventFilter(this);
+    m_edNameHU.installEventFilter(this);
+
     m_btnCancel.setText(tr("Cancel"));
     m_btnApply.setText(tr("Apply"));
     m_btnOK.setText(tr("OK"));
@@ -201,6 +206,23 @@ WndEditCounty::saveToDB()
     return m_County.SaveToDB();
 }
 
+bool
+WndEditCounty::eventFilter(QObject* o, QEvent * ev)
+{
+    Q_UNUSED(o)
+
+    if(ev->type() == QEvent::KeyPress){
+        QKeyEvent* keyEvent = dynamic_cast<QKeyEvent*>(ev);
+        if(!onKeyPressed(keyEvent)){
+            return false;
+        }
+
+        return true;
+    }
+
+    return false;
+}
+
 void
 WndEditCounty::onCancel()
 {
@@ -218,4 +240,23 @@ void
 WndEditCounty::onApply()
 {
     saveToDB();
+}
+
+bool
+WndEditCounty::onKeyPressed(QKeyEvent* ev)
+{
+    if(ev == nullptr)
+        return false;
+
+    switch(ev->key())
+    {
+    case Qt::Key_Enter:
+    case Qt::Key_Return:
+        onOK();
+        break;
+    default:
+        return false;
+    }
+
+    return true;
 }

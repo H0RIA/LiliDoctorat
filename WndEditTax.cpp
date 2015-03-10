@@ -28,7 +28,7 @@ WndEditTax::WndEditTax(const QUuid& taxId, QWidget* parent)
         m_NewItem(taxId.isNull() ? true : false),
         m_Tax()
 {
-    m_Tax.setId(taxId.isNull() ? QUuid::createUuid() : taxId);
+    m_Tax.setId(taxId);
 
     initializeData();
 }
@@ -40,6 +40,11 @@ WndEditTax::~WndEditTax()
 void
 WndEditTax::initializeData()
 {
+    m_edName.installEventFilter(this);
+    m_edDescription.installEventFilter(this);
+    m_edFormula.installEventFilter(this);
+
+
     if(!m_NewItem)
         loadFromDB();
 
@@ -168,6 +173,23 @@ WndEditTax::saveToDB()
     return m_Tax.SaveToDB();
 }
 
+bool
+WndEditTax::eventFilter(QObject* o, QEvent * ev)
+{
+    Q_UNUSED(o)
+
+    if(ev->type() == QEvent::KeyPress){
+        QKeyEvent* keyEvent = dynamic_cast<QKeyEvent*>(ev);
+        if(!onKeyPressed(keyEvent)){
+            return false;
+        }
+
+        return true;
+    }
+
+    return false;
+}
+
 void
 WndEditTax::onCancel()
 {
@@ -185,4 +207,23 @@ void
 WndEditTax::onApply()
 {
     saveToDB();
+}
+
+bool
+WndEditTax::onKeyPressed(QKeyEvent* ev)
+{
+    if(ev == nullptr)
+        return false;
+
+    switch(ev->key())
+    {
+    case Qt::Key_Enter:
+    case Qt::Key_Return:
+        onOK();
+        break;
+    default:
+        return false;
+    }
+
+    return true;
 }

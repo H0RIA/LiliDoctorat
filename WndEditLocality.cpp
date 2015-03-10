@@ -50,6 +50,11 @@ WndEditLocality::~WndEditLocality(){}
 void
 WndEditLocality::initializeData()
 {
+    m_edNameRO.installEventFilter(this);
+    m_edNameDE.installEventFilter(this);
+    m_edNameSX.installEventFilter(this);
+    m_edNameHU.installEventFilter(this);
+
     m_btnCancel.setText(tr("Cancel"));
     m_btnApply.setText(tr("Apply"));
     m_btnOK.setText(tr("OK"));
@@ -204,6 +209,11 @@ WndEditLocality::loadFromDB(const QUuid& id)
         m_edNameSX.setText(m_Locality.NameSX());
         m_edNameHU.setText(m_Locality.NameHU());
 
+        m_Comune.setId(m_Locality.Comune());
+        if(m_Comune.LoadFromDB()){
+            m_edComuneRO.setText(m_Comune.NameRO());
+        }
+
         return true;
     }
 
@@ -220,6 +230,23 @@ WndEditLocality::saveToDB()
     m_Locality.setComune(m_Comune.Id());
 
     return m_Locality.SaveToDB();
+}
+
+bool
+WndEditLocality::eventFilter(QObject* o, QEvent * ev)
+{
+    Q_UNUSED(o)
+
+    if(ev->type() == QEvent::KeyPress){
+        QKeyEvent* keyEvent = dynamic_cast<QKeyEvent*>(ev);
+        if(!onKeyPressed(keyEvent)){
+            return false;
+        }
+
+        return true;
+    }
+
+    return false;
 }
 
 void
@@ -239,6 +266,25 @@ void
 WndEditLocality::onApply()
 {
     saveToDB();
+}
+
+bool
+WndEditLocality::onKeyPressed(QKeyEvent* ev)
+{
+    if(ev == nullptr)
+        return false;
+
+    switch(ev->key())
+    {
+    case Qt::Key_Enter:
+    case Qt::Key_Return:
+        onOK();
+        break;
+    default:
+        return false;
+    }
+
+    return true;
 }
 
 void

@@ -25,12 +25,14 @@ class WndEditHouse : public QDialog
         void updateLocality(const QUuid& idLocality);
 
         void resizeEvent(QResizeEvent* ev);
+        bool eventFilter(QObject* o, QEvent * ev);
 
     protected slots:
         void onCancel();
         void onOK();
         void onApply();
 
+        bool onKeyPressed(QKeyEvent* ev);
         void updateImageSize();
         void setCurrentImage(const QUuid& idImage);
 
