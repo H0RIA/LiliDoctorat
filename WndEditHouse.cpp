@@ -1,4 +1,5 @@
 #include "Locality.h"
+#include "WndEditImage.h"
 #include "WndFilterBase.h"
 #include "WndEditHouse.h"
 #include "Language.h"
@@ -32,7 +33,8 @@ WndEditHouse::WndEditHouse(QWidget *parent)
         m_Image(this),
         m_btnImgPrev(this),
         m_btnImgNext(this),
-        m_btnImgAdd(this),
+        m_btnImgAddFromDB(this),
+        m_btnImgAddNew(this),
         m_btnImgRem(this),
         m_Tab(this),
         m_btnCancel(this),
@@ -68,7 +70,8 @@ WndEditHouse::WndEditHouse(const QUuid& houseId, QWidget* parent)
         m_Image(this),
         m_btnImgPrev(this),
         m_btnImgNext(this),
-        m_btnImgAdd(this),
+        m_btnImgAddFromDB(this),
+        m_btnImgAddNew(this),
         m_btnImgRem(this),
         m_Tab(this),
         m_btnCancel(this),
@@ -158,7 +161,8 @@ WndEditHouse::initializeData()
 
     m_btnImgPrev.setText("<<");
     m_btnImgNext.setText(">>");
-    m_btnImgAdd.setText("+");
+    m_btnImgAddNew.setText("+N");
+    m_btnImgAddFromDB.setText("+DB");
     m_btnImgRem.setText("-");
 
 
@@ -185,11 +189,17 @@ WndEditHouse::initializeData()
     connect(&m_btnApply, SIGNAL(clicked()), SLOT(onApply()));
     connect(&m_btnCancel, SIGNAL(clicked()), SLOT(onCancel()));
     connect(&m_btnOK, SIGNAL(clicked()), SLOT(onOK()));
-    connect(&m_btnImgAdd, SIGNAL(clicked()), SLOT(on_btnAddImage_clicked()));
+    connect(&m_btnImgAddNew, SIGNAL(clicked()), SLOT(on_btnAddNewImage_clicked()));
+    connect(&m_btnImgAddFromDB, SIGNAL(clicked()), SLOT(on_btnAddDBImage_clicked()));
     connect(&m_btnImgRem, SIGNAL(clicked()), SLOT(on_btnRemImage_clicked()));
     connect(&m_btnImgPrev, SIGNAL(clicked()), SLOT(on_btnPrevImage_clicked()));
     connect(&m_btnImgNext, SIGNAL(clicked()), SLOT(on_btnNextImage_clicked()));
     connect(&m_edLocality, SIGNAL(doubleClick(QMouseEvent*)), SLOT(on_edLocality_doubleClicked(QMouseEvent*)));
+
+    m_Image.setMinimumHeight(200);
+    m_Image.setMaximumHeight(400);
+    m_Image.setMinimumWidth(200);
+    m_Image.setMaximumWidth(400);
 
     QHBoxLayout* layoutNumeRO = new QHBoxLayout();
     layoutNumeRO->setContentsMargins(0, 0, 0, 0);
@@ -310,7 +320,9 @@ WndEditHouse::initializeData()
     layoutImgAddRem->setSpacing(0);
 
     layoutImgAddRem->addSpacing(20);
-    layoutImgAddRem->addWidget(&m_btnImgAdd);
+    layoutImgAddRem->addWidget(&m_btnImgAddNew);
+    layoutImgAddRem->addSpacing(10);
+    layoutImgAddRem->addWidget(&m_btnImgAddFromDB);
     layoutImgAddRem->addSpacing(10);
     layoutImgAddRem->addWidget(&m_btnImgRem);
     layoutImgAddRem->addStretch();
@@ -436,7 +448,23 @@ WndEditHouse::on_btnPrevImage_clicked()
 }
 
 void
-WndEditHouse::on_btnAddImage_clicked()
+WndEditHouse::on_btnAddNewImage_clicked()
+{
+    WndEditImage addImge;
+    addImge.exec();
+
+    ImageInfo* image = new ImageInfo();
+    (*image) = addImge.getImage();
+    if(!image->Id().isNull()){
+        m_House.addImageInfo(image);
+        if(m_House.getImages().size() == 1){
+            m_Image.setPixmap(QPixmap(image->Path()));
+        }
+    }
+}
+
+void
+WndEditHouse::on_btnAddDBImage_clicked()
 {
 }
 

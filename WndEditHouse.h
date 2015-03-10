@@ -29,7 +29,8 @@ class WndEditHouse : public QDialog
     private slots:
         void on_btnNextImage_clicked();
         void on_btnPrevImage_clicked();
-        void on_btnAddImage_clicked();
+        void on_btnAddNewImage_clicked();
+        void on_btnAddDBImage_clicked();
         void on_btnRemImage_clicked();
         void on_edLocality_doubleClicked(QMouseEvent* ev);
 
@@ -70,7 +71,8 @@ class WndEditHouse : public QDialog
         QLabel m_Image;
         QPushButton m_btnImgPrev;
         QPushButton m_btnImgNext;
-        QPushButton m_btnImgAdd;
+        QPushButton m_btnImgAddFromDB;
+        QPushButton m_btnImgAddNew;
         QPushButton m_btnImgRem;
 
         // Bottom

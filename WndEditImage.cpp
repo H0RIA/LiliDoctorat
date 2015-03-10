@@ -40,6 +40,12 @@ WndEditImage::WndEditImage(const QUuid& imageId, QWidget* parent)
 
 WndEditImage::~WndEditImage(){}
 
+ImageInfo
+WndEditImage::getImage()const
+{
+    return m_Image;
+}
+
 void
 WndEditImage::initializeData()
 {

@@ -12,6 +12,8 @@ class WndEditImage : public QDialog
         WndEditImage(const QUuid& imageId, QWidget* parent = nullptr);
         ~WndEditImage();
 
+        ImageInfo getImage()const;
+
     protected:
         void initializeData();
 

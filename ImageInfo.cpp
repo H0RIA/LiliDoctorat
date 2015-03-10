@@ -130,7 +130,7 @@ ImageInfo::SaveToDB()const
     }else{
         // We must update the old data
 
-        strQuery = QString("Update %1 Set Path = '%2', Name = '%3', Details = '%4' Name Where Id = '%5'")
+        strQuery = QString("Update %1 Set Path = '%2', Name = '%3', Details = '%4' Where Id = '%5'")
                 .arg(ImageInfo::STR_TABLE_NAME).arg(Path()).arg(Name()).arg(Details()).arg(m_Id.toString());
     }
 

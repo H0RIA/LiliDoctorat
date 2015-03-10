@@ -139,6 +139,17 @@ House::LoadFromDB()
         setHouseFunctionId(QUuid(query.value("IdHouseFunction").toString()));
         setHousePositioningId(QUuid(query.value("IdHousePositioning").toString()));
 
+        // Load Images
+        strQuery = QString("Select IdImage from HouseImages Where IdHouse = '%1'").arg(Id().toString());
+        QSqlQuery queryHouseImages(strQuery);
+        while(queryHouseImages.next()){
+            ImageInfo* ii = new ImageInfo();
+            ii->setId(QUuid(queryHouseImages.value("IdImage").toString()));
+            if(ii->LoadFromDB()){
+                addImageInfo(ii);
+            }
+        }
+
         return true;
     }
 
@@ -173,6 +184,22 @@ IdHousePositioning) Values('%2', '%3', '%4', '%5', '%6', '%7', '%8', '%9', '%10'
     if(!query.exec(strQuery)){
         qDebug() << query.lastError().text();
         return false;
+    }
+
+    // Save images
+    QList<ImageInfo*> imageList = getImages();
+    foreach(ImageInfo* image, imageList){
+        if(image != nullptr){
+            bool result = true;
+            strQuery = QString("Select Count(*) As ItemExists From HouseImages Where IdHouse = '%1' and IdImage = '%2'").arg(Id().toString()).arg(image->Id().toString());
+            QSqlQuery queryExists(strQuery);
+            if(queryExists.next()){
+                if(queryExists.value("ItemExists").toInt() == 0){
+                    strQuery = QString("Insert Into HouseImages (IdHouse, IdImage) Values('%1', '%2')").arg(Id().toString()).arg(image->Id().toString());
+                    RunQuery(strQuery, result);
+                }
+            }
+        }
     }
 
     return true;
