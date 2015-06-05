@@ -55,7 +55,8 @@ SOURCES += main.cpp \
     UI/Editors/WndEditTax.cpp \
     UI/WndConfig.cpp \
     UI/CentralWindow.cpp \
-    UI/MainWindow.cpp
+    UI/MainWindow.cpp \
+    DBWrapper/PriestTenure.cpp
 
 HEADERS  += Base.h \
     DBWrapper/BuildingInfo.h \
@@ -100,7 +101,8 @@ HEADERS  += Base.h \
     UI/Editors/WndEditTax.h \
     UI/WndConfig.h \
     UI/CentralWindow.h \
-    UI/MainWindow.h
+    UI/MainWindow.h \
+    DBWrapper/PriestTenure.h
 
 FORMS +=
 

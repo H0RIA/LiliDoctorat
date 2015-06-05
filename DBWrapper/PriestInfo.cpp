@@ -22,9 +22,7 @@ PriestInfo::PriestInfo(const PriestInfo& pi)
 {
 }
 
-PriestInfo::~PriestInfo()
-{
-}
+PriestInfo::~PriestInfo(){}
 
 PriestInfo&
 PriestInfo::operator=(const PriestInfo& pi)
@@ -123,46 +121,4 @@ PriestInfo::ExistsInDB()const
     }
 
     return false;
-}
-
-PriestTenure::PriestTenure()
-    :   m_Id(QUuid::createUuid()),
-        m_PriestId(),
-        m_Start(),
-        m_End()
-{}
-
-PriestTenure::PriestTenure(const PriestTenure& pt)
-    :   m_Id(pt.Id()),
-        m_PriestId(pt.PriestId()),
-        m_Start(pt.Start()),
-        m_End(pt.End())
-{}
-
-PriestTenure::~PriestTenure(){}
-
-PriestTenure&
-PriestTenure::operator=(const PriestTenure& pt)
-{
-    m_Id = pt.Id();
-    m_PriestId = pt.PriestId();
-    m_Start = pt.Start();
-    m_End = pt.End();
-
-    return *this;
-}
-
-bool
-PriestTenure::operator==(const PriestTenure& pt)const
-{
-    if(m_PriestId == pt.PriestId() &&  m_Start == pt.Start() &&  m_End == pt.End())
-        return true;
-
-    return false;
-}
-
-bool
-PriestTenure::operator!=(const PriestTenure& pt)const
-{
-    return !(this->operator ==(pt));
 }

@@ -1,6 +1,7 @@
 #ifndef WNDHOUSE_TABPOSITIONING
 #define WNDHOUSE_TABPOSITIONING
 
+#include "DBWrapper/House.h"
 #include "DBWrapper/HousePositioning.h"
 
 namespace UI
@@ -14,10 +15,13 @@ namespace UI
                 Q_OBJECT
 
                 public:
-                    WndEditHouse_TabPositioning(const QUuid& houseId, bool newItem, QWidget* parent = nullptr);
+                    WndEditHouse_TabPositioning(DBWrapper::House* pHouse, bool newItem, QWidget* parent = nullptr);
 
                     bool saveToDB();
                     bool loadFromDB(const QUuid& idPositioning);
+
+                protected:
+                    void initializeData();
 
                 protected:
                     QLabel m_lblFromChurch;

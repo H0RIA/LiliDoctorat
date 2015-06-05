@@ -179,8 +179,8 @@ WndEditHouse::initializeData()
 
     WndEditHouse_TabBuilding* tabBuilding = new WndEditHouse_TabBuilding(&m_House, m_NewItem, this);
     WndEditHouse_TabFunction* tabFunction = new WndEditHouse_TabFunction(&m_House, m_NewItem, this);
-    WndEditHouse_TabPositioning* tabPositioning = new WndEditHouse_TabPositioning(m_House.Id(), m_NewItem, this);
-    WndEditHouse_TabPriests* tabPriests = new WndEditHouse_TabPriests(m_House.Id(), m_NewItem, this);
+    WndEditHouse_TabPositioning* tabPositioning = new WndEditHouse_TabPositioning(&m_House, m_NewItem, this);
+    WndEditHouse_TabPriests* tabPriests = new WndEditHouse_TabPriests(&m_House, m_NewItem, this);
     WndEditHouse_TabTaxes* tabTaxes = new WndEditHouse_TabTaxes(m_House.Id(), m_NewItem, this);
 
     m_TabItems[tr("Building")] = m_Tab.addTab(tabBuilding, tr("Building"));;
@@ -476,6 +476,10 @@ WndEditHouse::saveToDB()
     WndEditHouse_TabFunction* tabFunction = qobject_cast<WndEditHouse_TabFunction*>(m_Tab.widget(m_TabItems[tr("Function")]));
     if(tabFunction != nullptr)
         tabFunction->saveToDB();
+
+    WndEditHouse_TabPositioning* tabPositioning = qobject_cast<WndEditHouse_TabPositioning*>(m_Tab.widget(m_TabItems[tr("Positioning")]));
+    if(tabPositioning != nullptr)
+        tabPositioning->saveToDB();
 
     return m_House.SaveToDB();
 }

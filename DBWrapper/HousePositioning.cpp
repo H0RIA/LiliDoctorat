@@ -112,10 +112,12 @@ HousePositioning::loadFromDB(const QUuid& id)
 {
     bool result = false;
 
+    m_Id = id;
     if(id.isNull())
         return result;
 
-    QSqlQuery query(QString("Select * From %1 Where Id = '%2'").arg(HousePositioning::STR_TABLE_NAME).arg(m_Id.toString()));
+    QString strQuery = QString("Select * From %1 Where Id = '%2'").arg(HousePositioning::STR_TABLE_NAME).arg(m_Id.toString());
+    QSqlQuery query(strQuery);
     if(query.next()){
         setFromChurch(query.value("FromChurch").toString());
         setFromRoad(query.value("FromRoad").toString());
@@ -138,7 +140,7 @@ HousePositioning::saveToDB()const
 
     if(!ExistsInDB()){
         // We must insert the new data
-        strQuery = QString("Insert into %1 (Id, FromChurch, FromRoad, FromGarden, Declivity) Values('%2', '%3', '%4', '%5', '6')")
+        strQuery = QString("Insert into %1 (Id, FromChurch, FromRoad, FromGarden, Declivity) Values('%2', '%3', '%4', '%5', '%6')")
                 .arg(HousePositioning::STR_TABLE_NAME).arg(m_Id.toString()).arg(FromChurch()).arg(FromRoad()).arg(FromGarden()).arg(Declivity());
     }else{
         // We must update the old data

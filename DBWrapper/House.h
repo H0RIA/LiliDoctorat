@@ -3,6 +3,7 @@
 
 #include "Base.h"
 #include "PriestInfo.h"
+#include "PriestTenure.h"
 #include "HouseFunction.h"
 #include "TaxInfo.h"
 #include "ImageInfo.h"

@@ -3,7 +3,6 @@
 
 #include "DBWrapper/HouseFunction.h"
 #include "DBWrapper/House.h"
-#include "Base.h"
 
 namespace UI
 {

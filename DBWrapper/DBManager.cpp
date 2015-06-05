@@ -329,10 +329,8 @@ DBManager::createTables()
         result = !result ? false : House::CreateTable();
 
     // Create the HousePriests table
-    if(! ::TableExists("HousePriests")){
-        strQuery = "Create table HousePriests (IdHouse varchar(50), IdPriest varchar(50), FOREIGN KEY(IdHouse) REFERENCES House(Id),FOREIGN KEY(IdPriest) REFERENCES Priest(Id))";
-        RunQuery(strQuery, result);
-    }
+    if(!PriestTenure::TableExists())
+        result = !result ? false : PriestTenure::CreateTable();
 
     // Create the HouseTaxes table
     if(! ::TableExists("HouseTaxes")){

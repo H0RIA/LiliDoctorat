@@ -1,7 +1,8 @@
 #ifndef WNDEDITHOUSE_TABPRIESTS_H
 #define WNDEDITHOUSE_TABPRIESTS_H
 
-#include <QWidget>
+#include "UI/Core/LineEdit.h"
+#include "DBWrapper/House.h"
 
 namespace UI
 {
@@ -14,12 +15,37 @@ namespace UI
                 Q_OBJECT
 
                 public:
-                    explicit WndEditHouse_TabPriests(const QUuid& houseId, bool newItem, QWidget* parent = nullptr);
+                    explicit WndEditHouse_TabPriests(DBWrapper::House* pHouse, bool newItem, QWidget* parent = nullptr);
                     ~WndEditHouse_TabPriests();
 
-                signals:
+                protected slots:
+                    void onAddPriest();
+                    void onFindPriest(QMouseEvent* ev);
 
-                public slots:
+                protected:
+                    void updatePriest(const QUuid& id);
+                    void initializeData();
+
+                protected:
+                    DBWrapper::House* m_pHouse;
+                    QTableView m_View;
+
+                    // Right side
+                    QLabel m_lblFirstName;
+                    Core::LineEdit m_edFirstName;
+
+                    QLabel m_lblLastName;
+                    Core::LineEdit m_edLastName;
+
+                    QLabel m_lblStartDate;
+                    QLineEdit m_edStartDate;
+
+                    QLabel m_lblEndDate;
+                    QLineEdit m_edEndDate;
+
+                    QPushButton m_btnAdd;
+                    DBWrapper::PriestInfo m_Priest;
+                    DBWrapper::PriestTenure m_PriestTenure;
             };
         }
     }
