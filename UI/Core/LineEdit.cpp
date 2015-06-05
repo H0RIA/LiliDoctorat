@@ -5,7 +5,7 @@ using namespace UI::Core;
 LineEdit::LineEdit(QWidget* parent)
     :   QLineEdit(parent)
 {
-    setStyleSheet("LineEdit{background-color: lightYellow;} LineEdit:hover{border: 1px solid gray; background-color lightYellow;}");
+    setStyleSheet("UI--Core--LineEdit{background-color: lightYellow;} UI--Core--LineEdit:hover{border: 1px solid gray; background-color lightYellow;}");
 }
 
 LineEdit::~LineEdit()

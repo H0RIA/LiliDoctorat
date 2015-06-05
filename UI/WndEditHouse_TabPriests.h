@@ -10,7 +10,7 @@ namespace UI
         Q_OBJECT
 
         public:
-            explicit WndEditHouse_TabPriests(QWidget *parent = 0);
+            explicit WndEditHouse_TabPriests(const QUuid& houseId, bool newItem, QWidget* parent = nullptr);
             ~WndEditHouse_TabPriests();
 
         signals:

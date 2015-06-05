@@ -2,12 +2,12 @@
 
 using namespace UI;
 
-WndEditHouse_TabPositioning::WndEditHouse_TabPositioning(QWidget* parent, const QUuid& idPositioning)
+WndEditHouse_TabPositioning::WndEditHouse_TabPositioning(const QUuid& houseId, bool newItem, QWidget* parent)
     :   QWidget(parent),
         m_Positioning()
 {
-    if(!idPositioning.isNull())
-        m_Positioning.loadFromDB(idPositioning);
+//    if(!idPositioning.isNull())
+//        m_Positioning.loadFromDB(idPositioning);
 }
 
 bool

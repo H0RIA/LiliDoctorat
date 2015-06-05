@@ -11,7 +11,7 @@ namespace UI
         Q_OBJECT
 
         public:
-            WndEditHouse_TabFunction(QWidget* parent = nullptr);
+            WndEditHouse_TabFunction(const QUuid& houseId, bool newItem, QWidget* parent = nullptr);
 
             bool saveToDB();
             bool loadFromDB(const QUuid& id);

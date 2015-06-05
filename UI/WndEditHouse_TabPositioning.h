@@ -10,7 +10,7 @@ namespace UI
         Q_OBJECT
 
         public:
-            WndEditHouse_TabPositioning(QWidget* parent = nullptr, const QUuid& idPositioning = QUuid());
+            WndEditHouse_TabPositioning(const QUuid& houseId, bool newItem, QWidget* parent = nullptr);
 
             bool saveToDB();
             bool loadFromDB(const QUuid& idPositioning);

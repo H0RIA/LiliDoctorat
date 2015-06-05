@@ -5,6 +5,8 @@
 #include "WndEditHouse.h"
 #include "WndEditHouse_TabBuilding.h"
 #include "WndEditHouse_TabFunction.h"
+#include "WndEditHouse_TabPriests.h"
+#include "WndEditHouse_TabTaxes.h"
 #include "WndEditHouse_TabPositioning.h"
 
 using namespace UI;
@@ -175,7 +177,16 @@ WndEditHouse::initializeData()
     m_Tab.setMinimumHeight(80);
 
     WndEditHouse_TabBuilding* tabBuilding = new WndEditHouse_TabBuilding(m_House.Id(), m_NewItem, this);
+    WndEditHouse_TabFunction* tabFunction = new WndEditHouse_TabFunction(m_House.Id(), m_NewItem, this);
+    WndEditHouse_TabPositioning* tabPositioning = new WndEditHouse_TabPositioning(m_House.Id(), m_NewItem, this);
+    WndEditHouse_TabPriests* tabPriests = new WndEditHouse_TabPriests(m_House.Id(), m_NewItem, this);
+    WndEditHouse_TabTaxes* tabTaxes = new WndEditHouse_TabTaxes(m_House.Id(), m_NewItem, this);
+
     m_Tab.addTab(tabBuilding, tr("Building"));
+    m_Tab.addTab(tabFunction, tr("Function"));
+    m_Tab.addTab(tabPositioning, tr("Positioning"));
+    m_Tab.addTab(tabPriests, tr("Priests"));
+    m_Tab.addTab(tabTaxes, tr("Taxes"));
 
     m_edLocality.setReadOnly(true);
     m_edComune.setReadOnly(true);
@@ -432,10 +443,12 @@ WndEditHouse::loadFromDB(const QUuid& id)
         m_edNumeMaghiar.setText(m_House.NameHU());
         m_edDate.setText(m_House.HouseDating());
         m_edOldStatus.setText(m_House.OldStatus());
-        DBWrapper::ImageInfo* image = m_House.getImages().front();
-        if(image != nullptr){
-            m_Image.setPixmap(QPixmap(image->Path()));
-            m_CurrentImageId = image->Id();
+        if(!m_House.getImages().isEmpty()){
+            DBWrapper::ImageInfo* image = m_House.getImages().front();
+            if(image != nullptr){
+                m_Image.setPixmap(QPixmap(image->Path()));
+                m_CurrentImageId = image->Id();
+            }
         }
 
         return true;

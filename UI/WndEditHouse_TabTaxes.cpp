@@ -2,7 +2,8 @@
 
 using namespace UI;
 
-WndEditHouse_TabTaxes::WndEditHouse_TabTaxes()
+WndEditHouse_TabTaxes::WndEditHouse_TabTaxes(const QUuid& houseId, bool newItem, QWidget* parent)
+    :   QWidget(parent)
 {
 
 }

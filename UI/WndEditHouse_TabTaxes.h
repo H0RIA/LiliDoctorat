@@ -5,10 +5,12 @@
 
 namespace UI
 {
-    class WndEditHouse_TabTaxes
+    class WndEditHouse_TabTaxes : public QWidget
     {
+        Q_OBJECT
+
         public:
-            WndEditHouse_TabTaxes();
+            WndEditHouse_TabTaxes(const QUuid& houseId, bool newItem, QWidget* parent = nullptr);
             ~WndEditHouse_TabTaxes();
     };
 }

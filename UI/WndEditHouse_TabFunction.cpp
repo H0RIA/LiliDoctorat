@@ -2,7 +2,7 @@
 
 using namespace UI;
 
-WndEditHouse_TabFunction::WndEditHouse_TabFunction(QWidget* parent)
+WndEditHouse_TabFunction::WndEditHouse_TabFunction(const QUuid& houseId, bool newItem, QWidget* parent)
     :   QWidget(parent)
 {
 }
