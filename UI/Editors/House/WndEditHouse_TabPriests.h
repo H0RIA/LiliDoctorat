@@ -25,6 +25,7 @@ namespace UI
                     void onFindPriest(QMouseEvent* ev);
 
                 protected:
+                    void resetModel();
                     void updatePriest(const QUuid& id);
                     void initializeData();
 

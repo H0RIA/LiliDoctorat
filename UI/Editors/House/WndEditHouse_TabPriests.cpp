@@ -28,8 +28,9 @@ WndEditHouse_TabPriests::onAddPriest()
 {
     bool result = false;
 
-
-    QString strInsert = QString("Select Count(*) As EntryExists From HousePriests Where IdHouse = '%1' And IdPriest = '%2'").arg(m_pHouse->Id().toString()).arg(m_Priest.Id().toString());
+    QString strInsert = QString("Select Count(*) As EntryExists From %1 Where IdHouse = '%2' And IdPriest = '%3' And StartDate = %4 And EndDate = %5")
+            .arg(DBWrapper::PriestTenure::STR_TABLE_NAME).arg(m_PriestTenure.HouseId().toString()).arg(m_PriestTenure.PriestId().toString())
+            .arg(m_PriestTenure.Start().toJulianDay()).arg(m_PriestTenure.End().toJulianDay());
     QSqlQuery query(strInsert);
     while(query.next()){
         int size = query.value("EntryExists").toInt();
@@ -40,12 +41,18 @@ WndEditHouse_TabPriests::onAddPriest()
     if(result)
         return;
 
-    strInsert = QString("Insert Into HousePriests (IdHouse, IdPriest) Values ('%1', '%2')").arg(m_pHouse->Id().toString()).arg(m_Priest.Id().toString());
-    RunQuery(strInsert, result);
+    m_PriestTenure.SaveToDB();
+    resetModel();
 
-    if(result){
-        strInsert = QString("Insert Into HousePriests (IdHouse, IdPriest) Values ('%1', '%2')").arg(m_pHouse->Id().toString()).arg(m_Priest.Id().toString());
-    }
+    m_Priest = DBWrapper::PriestInfo();
+    m_PriestTenure = DBWrapper::PriestTenure();
+    m_PriestTenure.setId(m_pHouse->Id());
+    m_btnAdd.setEnabled(false);
+
+    m_edEndDate.setText(QString());
+    m_edStartDate.setText(QString());
+    m_edFirstName.setText(QString());
+    m_edLastName.setText(QString());
 }
 
 void
@@ -87,7 +94,34 @@ WndEditHouse_TabPriests::onFindPriest(QMouseEvent* ev)
     filterPriests.exec();
 
     QUuid idPriest = filterPriests.getSelectedId();
+    m_PriestTenure.setPriestId(idPriest);
     updatePriest(idPriest);
+}
+
+void
+WndEditHouse_TabPriests::resetModel()
+{
+    QAbstractItemModel* oldModel = m_View.model();
+    if(oldModel != nullptr)
+        oldModel->deleteLater();
+
+    QSqlQueryModel* model = new QSqlQueryModel();
+    QString strQuery = QString("Select Priest.Id, Priest.FirstName, Priest.LastName, date(julianday(HousePriests.StartDate)) As  Start, date(julianday(HousePriests.EndDate)) As End \
+                                From Priest \
+                                Join HousePriests On Priest.Id = HousePriests.IdPriest\
+                                Where HousePriests.IdHouse = '%1'").arg(m_pHouse->Id().toString());
+    model->setQuery(strQuery);
+
+    model->setHeaderData(0, Qt::Horizontal, QObject::tr("Id"));
+    model->setHeaderData(1, Qt::Horizontal, QObject::tr("First name"));
+    model->setHeaderData(2, Qt::Horizontal, QObject::tr("Last name"));
+    model->setHeaderData(3, Qt::Horizontal, QObject::tr("Start date"));
+    model->setHeaderData(4, Qt::Horizontal, QObject::tr("End date"));
+
+    m_View.setModel(model);
+    m_View.setHorizontalScrollMode(QAbstractItemView::ScrollPerPixel);
+    m_View.setVerticalScrollMode(QAbstractItemView::ScrollPerPixel);
+    m_View.setColumnHidden(0, true);
 }
 
 void
@@ -106,6 +140,9 @@ WndEditHouse_TabPriests::updatePriest(const QUuid& id)
 void
 WndEditHouse_TabPriests::initializeData()
 {
+    if(m_pHouse == nullptr)
+        return;
+
     m_btnAdd.setEnabled(false);
     m_lblEndDate.setText(tr("End date"));
     m_lblFirstName.setText(tr("First name"));
@@ -113,25 +150,15 @@ WndEditHouse_TabPriests::initializeData()
     m_lblStartDate.setText(tr("Start date"));
     m_btnAdd.setText(tr("Add priest..."));
 
+    m_PriestTenure.setHouseId(m_pHouse->Id());
+
     connect(&m_edFirstName, SIGNAL(doubleClick(QMouseEvent*)), SLOT(onFindPriest(QMouseEvent*)));
     connect(&m_edLastName, SIGNAL(doubleClick(QMouseEvent*)), SLOT(onFindPriest(QMouseEvent*)));
     connect(&m_edStartDate, SIGNAL(doubleClick(QMouseEvent*)), SLOT(onSelectStart(QMouseEvent*)));
     connect(&m_edEndDate, SIGNAL(doubleClick(QMouseEvent*)), SLOT(onSelectEnd(QMouseEvent*)));
     connect(&m_btnAdd, SIGNAL(clicked()), SLOT(onAddPriest()));
 
-    QSqlQueryModel* model = new QSqlQueryModel();
-    QString strQuery = QString("Select Priest.Id, Priest.FirstName, Priest.LastName From Priest \
-                                Join HousePriests On Priest.Id = HousePriests.IdPriest\
-                                Where HousePriests.IdHouse = '%1'").arg(m_pHouse->Id().toString());
-    model->setQuery(strQuery);
-//    model->setEditStrategy(QSqlTableModel::OnFieldChange);
-
-    model->setHeaderData(0, Qt::Horizontal, QObject::tr("Id"));
-    model->setHeaderData(1, Qt::Horizontal, QObject::tr("First name"));
-    model->setHeaderData(2, Qt::Horizontal, QObject::tr("Last name"));
-
-    m_View.setModel(model);
-    m_View.setColumnHidden(0, true);
+    resetModel();
 
     QHBoxLayout* mainLayout = new QHBoxLayout();
     mainLayout->setContentsMargins(0, 0, 0, 0);
