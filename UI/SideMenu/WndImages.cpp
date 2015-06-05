@@ -1,4 +1,4 @@
-#include "WndEditImage.h"
+#include "UI/Editors/WndEditImage.h"
 #include "WndImages.h"
 
 using namespace UI;

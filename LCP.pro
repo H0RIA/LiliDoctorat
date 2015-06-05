@@ -28,34 +28,34 @@ SOURCES += main.cpp \
     DBWrapper/PriestInfo.cpp \
     DBWrapper/TaxInfo.cpp \
     UI/Core/LineEdit.cpp \
-    UI/CentralWindow.cpp \
-    UI/HouseModel.cpp \
-    UI/MainWindow.cpp \
-    UI/ThumbnailDelegate.cpp \
-    UI/WndComunes.cpp \
+    UI/Core/WndFilterBase.cpp \
+    UI/SideMenu/WndHouses.cpp \
+    UI/SideMenu/ThumbnailDelegate.cpp \
+    UI/SideMenu/HouseModel.cpp \
+    UI/SideMenu/WndComunes.cpp \
+    UI/SideMenu/WndCounties.cpp \
+    UI/SideMenu/WndDeaneries.cpp \
+    UI/SideMenu/WndImages.cpp \
+    UI/SideMenu/WndLanguages.cpp \
+    UI/SideMenu/WndLocalities.cpp \
+    UI/SideMenu/WndTaxes.cpp \
+    UI/SideMenu/WndPriests.cpp \
+    UI/Editors/House/WndEditHouse.cpp \
+    UI/Editors/House/WndEditHouse_TabBuilding.cpp \
+    UI/Editors/House/WndEditHouse_TabFunction.cpp \
+    UI/Editors/House/WndEditHouse_TabPositioning.cpp \
+    UI/Editors/House/WndEditHouse_TabPriests.cpp \
+    UI/Editors/House/WndEditHouse_TabTaxes.cpp \
+    UI/Editors/WndEditComune.cpp \
+    UI/Editors/WndEditCounty.cpp \
+    UI/Editors/WndEditDeanery.cpp \
+    UI/Editors/WndEditImage.cpp \
+    UI/Editors/WndEditLocality.cpp \
+    UI/Editors/WndEditPriest.cpp \
+    UI/Editors/WndEditTax.cpp \
     UI/WndConfig.cpp \
-    UI/WndCounties.cpp \
-    UI/WndDeaneries.cpp \
-    UI/WndEditComune.cpp \
-    UI/WndEditCounty.cpp \
-    UI/WndEditDeanery.cpp \
-    UI/WndEditHouse.cpp \
-    UI/WndEditHouse_TabBuilding.cpp \
-    UI/WndEditHouse_TabFunction.cpp \
-    UI/WndEditHouse_TabPositioning.cpp \
-    UI/WndEditHouse_TabPriests.cpp \
-    UI/WndEditHouse_TabTaxes.cpp \
-    UI/WndEditImage.cpp \
-    UI/WndEditLocality.cpp \
-    UI/WndEditPriest.cpp \
-    UI/WndEditTax.cpp \
-    UI/WndFilterBase.cpp \
-    UI/WndHouses.cpp \
-    UI/WndImages.cpp \
-    UI/WndLanguages.cpp \
-    UI/WndLocalities.cpp \
-    UI/WndPriests.cpp \
-    UI/WndTaxes.cpp
+    UI/CentralWindow.cpp \
+    UI/MainWindow.cpp
 
 HEADERS  += Base.h \
     DBWrapper/BuildingInfo.h \
@@ -73,34 +73,34 @@ HEADERS  += Base.h \
     DBWrapper/PriestInfo.h \
     DBWrapper/TaxInfo.h \
     UI/Core/LineEdit.h \
-    UI/CentralWindow.h \
-    UI/HouseModel.h \
-    UI/MainWindow.h \
-    UI/ThumbnailDelegate.h \
-    UI/WndComunes.h \
+    UI/Core/WndFilterBase.h \
+    UI/SideMenu/WndHouses.h \
+    UI/SideMenu/ThumbnailDelegate.h \
+    UI/SideMenu/HouseModel.h \
+    UI/SideMenu/WndComunes.h \
+    UI/SideMenu/WndCounties.h \
+    UI/SideMenu/WndDeaneries.h \
+    UI/SideMenu/WndImages.h \
+    UI/SideMenu/WndLanguages.h \
+    UI/SideMenu/WndLocalities.h \
+    UI/SideMenu/WndTaxes.h \
+    UI/SideMenu/WndPriests.h \
+    UI/Editors/House/WndEditHouse.h \
+    UI/Editors/House/WndEditHouse_TabBuilding.h \
+    UI/Editors/House/WndEditHouse_TabFunction.h \
+    UI/Editors/House/WndEditHouse_TabPositioning.h \
+    UI/Editors/House/WndEditHouse_TabPriests.h \
+    UI/Editors/House/WndEditHouse_TabTaxes.h \
+    UI/Editors/WndEditComune.h \
+    UI/Editors/WndEditCounty.h \
+    UI/Editors/WndEditDeanery.h \
+    UI/Editors/WndEditImage.h \
+    UI/Editors/WndEditLocality.h \
+    UI/Editors/WndEditPriest.h \
+    UI/Editors/WndEditTax.h \
     UI/WndConfig.h \
-    UI/WndCounties.h \
-    UI/WndDeaneries.h \
-    UI/WndEditComune.h \
-    UI/WndEditCounty.h \
-    UI/WndEditDeanery.h \
-    UI/WndEditHouse.h \
-    UI/WndEditHouse_TabBuilding.h \
-    UI/WndEditHouse_TabFunction.h \
-    UI/WndEditHouse_TabPositioning.h \
-    UI/WndEditHouse_TabPriests.h \
-    UI/WndEditHouse_TabTaxes.h \
-    UI/WndEditImage.h \
-    UI/WndEditLocality.h \
-    UI/WndEditPriest.h \
-    UI/WndEditTax.h \
-    UI/WndFilterBase.h \
-    UI/WndHouses.h \
-    UI/WndImages.h \
-    UI/WndLanguages.h \
-    UI/WndLocalities.h \
-    UI/WndPriests.h \
-    UI/WndTaxes.h
+    UI/CentralWindow.h \
+    UI/MainWindow.h
 
 FORMS +=
 

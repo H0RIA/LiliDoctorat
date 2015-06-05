@@ -1,7 +1,7 @@
 #ifndef WNDEDITHOUSE_H
 #define WNDEDITHOUSE_H
 
-#include "Core/LineEdit.h"
+#include "UI/Core/LineEdit.h"
 #include "DBWrapper/House.h"
 #include "DBWrapper/Locality.h"
 #include "DBWrapper/HouseManager.h"

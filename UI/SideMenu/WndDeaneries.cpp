@@ -1,4 +1,4 @@
-#include "WndEditDeanery.h"
+#include "UI/Editors/WndEditDeanery.h"
 #include "WndDeaneries.h"
 
 using namespace UI;

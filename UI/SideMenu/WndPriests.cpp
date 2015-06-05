@@ -1,4 +1,4 @@
-#include "WndEditPriest.h"
+#include "UI/Editors/WndEditPriest.h"
 #include "WndPriests.h"
 
 using namespace UI;

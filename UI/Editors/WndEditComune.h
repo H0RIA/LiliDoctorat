@@ -1,7 +1,7 @@
 #ifndef WNDEDITCOMUNE_H
 #define WNDEDITCOMUNE_H
 
-#include "Core/LineEdit.h"
+#include "UI/Core/LineEdit.h"
 #include "DBWrapper/County.h"
 #include "DBWrapper/Comune.h"
 

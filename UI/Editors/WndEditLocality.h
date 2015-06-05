@@ -1,7 +1,7 @@
 #ifndef WNDEDITLOCALITY_H
 #define WNDEDITLOCALITY_H
 
-#include "Core/LineEdit.h"
+#include "UI/Core/LineEdit.h"
 #include "DBWrapper/Comune.h"
 #include "DBWrapper/Locality.h"
 

@@ -1,6 +1,6 @@
 #include "HouseModel.h"
 #include "ThumbnailDelegate.h"
-#include "WndEditHouse.h"
+#include "UI/Editors/House/WndEditHouse.h"
 #include "WndHouses.h"
 
 using namespace UI;

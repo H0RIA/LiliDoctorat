@@ -1,4 +1,4 @@
-#include "WndFilterBase.h"
+#include "UI/Core/WndFilterBase.h"
 #include "WndEditLocality.h"
 
 using namespace UI;

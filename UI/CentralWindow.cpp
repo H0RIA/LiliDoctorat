@@ -1,13 +1,13 @@
 #include "CentralWindow.h"
-#include "WndHouses.h"
-#include "WndPriests.h"
-#include "WndComunes.h"
-#include "WndLanguages.h"
-#include "WndCounties.h"
-#include "WndDeaneries.h"
-#include "WndLocalities.h"
-#include "WndImages.h"
-#include "WndTaxes.h"
+#include "UI/SideMenu/WndHouses.h"
+#include "UI/SideMenu/WndPriests.h"
+#include "UI/SideMenu/WndComunes.h"
+#include "UI/SideMenu/WndLanguages.h"
+#include "UI/SideMenu/WndCounties.h"
+#include "UI/SideMenu/WndDeaneries.h"
+#include "UI/SideMenu/WndLocalities.h"
+#include "UI/SideMenu/WndImages.h"
+#include "UI/SideMenu/WndTaxes.h"
 
 using namespace UI;
 

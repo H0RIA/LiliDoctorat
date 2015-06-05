@@ -2,15 +2,15 @@
 #define CENTRALWINDOW
 
 #include "Base.h"
-#include "WndComunes.h"
-#include "WndCounties.h"
-#include "WndDeaneries.h"
-#include "WndHouses.h"
-#include "WndImages.h"
-#include "WndLanguages.h"
-#include "WndLocalities.h"
-#include "WndPriests.h"
-#include "WndTaxes.h"
+#include "SideMenu/WndComunes.h"
+#include "SideMenu/WndCounties.h"
+#include "SideMenu/WndDeaneries.h"
+#include "SideMenu/WndHouses.h"
+#include "SideMenu/WndImages.h"
+#include "SideMenu/WndLanguages.h"
+#include "SideMenu/WndLocalities.h"
+#include "SideMenu/WndPriests.h"
+#include "SideMenu/WndTaxes.h"
 #include "DBWrapper/HouseManager.h"
 
 namespace UI

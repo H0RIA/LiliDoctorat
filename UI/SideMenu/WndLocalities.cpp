@@ -1,6 +1,6 @@
 #include "DBWrapper/County.h"
 #include "DBWrapper/Locality.h"
-#include "WndEditLocality.h"
+#include "UI/Editors/WndEditLocality.h"
 #include "WndLocalities.h"
 
 using namespace UI;

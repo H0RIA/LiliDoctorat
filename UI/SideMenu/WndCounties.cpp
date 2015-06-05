@@ -1,4 +1,4 @@
-#include "WndEditCounty.h"
+#include "UI/Editors/WndEditCounty.h"
 #include "WndCounties.h"
 
 using namespace UI;
