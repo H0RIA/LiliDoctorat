@@ -20,6 +20,8 @@ namespace UI
 
                 protected slots:
                     void onAddPriest();
+                    void onSelectStart(QMouseEvent* ev);
+                    void onSelectEnd(QMouseEvent* ev);
                     void onFindPriest(QMouseEvent* ev);
 
                 protected:
@@ -38,10 +40,10 @@ namespace UI
                     Core::LineEdit m_edLastName;
 
                     QLabel m_lblStartDate;
-                    QLineEdit m_edStartDate;
+                    Core::LineEdit m_edStartDate;
 
                     QLabel m_lblEndDate;
-                    QLineEdit m_edEndDate;
+                    Core::LineEdit m_edEndDate;
 
                     QPushButton m_btnAdd;
                     DBWrapper::PriestInfo m_Priest;

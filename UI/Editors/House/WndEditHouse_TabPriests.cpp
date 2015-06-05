@@ -1,4 +1,5 @@
 #include "UI/Core/WndFilterBase.h"
+#include "UI/Core/DateDialog.h"
 #include "WndEditHouse_TabPriests.h"
 
 using namespace UI::Editors::House;
@@ -48,9 +49,40 @@ WndEditHouse_TabPriests::onAddPriest()
 }
 
 void
+WndEditHouse_TabPriests::onSelectStart(QMouseEvent* ev)
+{
+    Q_UNUSED(ev)
+
+    UI::Core::DateDialog dlgDate(this);
+
+    int result = dlgDate.exec();
+    if(result == QDialog::Accepted){
+        QDate startDate = dlgDate.selectedDate();
+        m_edStartDate.setText(startDate.toString());
+        m_PriestTenure.setStart(startDate);
+    }
+}
+
+void
+WndEditHouse_TabPriests::onSelectEnd(QMouseEvent* ev)
+{
+    Q_UNUSED(ev)
+
+    UI::Core::DateDialog dlgDate(this);
+
+    int result = dlgDate.exec();
+    if(result == QDialog::Accepted){
+        QDate endDate = dlgDate.selectedDate();
+        m_edEndDate.setText(endDate.toString());
+        m_PriestTenure.setEnd(endDate);
+    }
+}
+
+void
 WndEditHouse_TabPriests::onFindPriest(QMouseEvent* ev)
 {
     Q_UNUSED(ev)
+
     Core::WndFilterBase filterPriests(DBWrapper::PriestInfo::STR_TABLE_NAME, this);
     filterPriests.exec();
 
@@ -83,6 +115,8 @@ WndEditHouse_TabPriests::initializeData()
 
     connect(&m_edFirstName, SIGNAL(doubleClick(QMouseEvent*)), SLOT(onFindPriest(QMouseEvent*)));
     connect(&m_edLastName, SIGNAL(doubleClick(QMouseEvent*)), SLOT(onFindPriest(QMouseEvent*)));
+    connect(&m_edStartDate, SIGNAL(doubleClick(QMouseEvent*)), SLOT(onSelectStart(QMouseEvent*)));
+    connect(&m_edEndDate, SIGNAL(doubleClick(QMouseEvent*)), SLOT(onSelectEnd(QMouseEvent*)));
     connect(&m_btnAdd, SIGNAL(clicked()), SLOT(onAddPriest()));
 
     QSqlQueryModel* model = new QSqlQueryModel();

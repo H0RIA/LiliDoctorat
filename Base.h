@@ -21,6 +21,8 @@
 #include <QMouseEvent>
 #include <QMainWindow>
 #include <QFocusEvent>
+#include <QCalendarWidget>
+#include <QDialogButtonBox>
 #include <QShowEvent>
 #include <QBitmap>
 #include <QSvgRenderer>

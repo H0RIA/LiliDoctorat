@@ -56,7 +56,8 @@ SOURCES += main.cpp \
     UI/WndConfig.cpp \
     UI/CentralWindow.cpp \
     UI/MainWindow.cpp \
-    DBWrapper/PriestTenure.cpp
+    DBWrapper/PriestTenure.cpp \
+    UI/Core/DateDialog.cpp
 
 HEADERS  += Base.h \
     DBWrapper/BuildingInfo.h \
@@ -102,7 +103,8 @@ HEADERS  += Base.h \
     UI/WndConfig.h \
     UI/CentralWindow.h \
     UI/MainWindow.h \
-    DBWrapper/PriestTenure.h
+    DBWrapper/PriestTenure.h \
+    UI/Core/DateDialog.h
 
 FORMS +=
 
