@@ -3,7 +3,7 @@
 #include "UI/Editors/House/WndEditHouse.h"
 #include "WndHouses.h"
 
-using namespace UI;
+using namespace UI::SideMenu;
 
 WndHouses::WndHouses(QWidget* parent)
     :   QWidget(parent),
@@ -19,7 +19,7 @@ WndHouses::~WndHouses()
 void
 WndHouses::onNewItem()
 {
-    WndEditHouse newEditor(this);
+    Editors::House::WndEditHouse newEditor(this);
     newEditor.exec();
     resetModel();
 }
@@ -87,7 +87,7 @@ WndHouses::onDoubleClicked(const QModelIndex& index)
     QModelIndex indexId = index.model()->index(index.row(), 0);
     QUuid idHouse = index.model()->data(indexId).toUuid();
     if(!idHouse.isNull()){
-        WndEditHouse dialog(idHouse, this);
+        Editors::House::WndEditHouse dialog(idHouse, this);
         dialog.exec();
         resetModel();
     }

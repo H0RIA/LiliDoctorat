@@ -10,6 +10,7 @@
 #include "WndEditHouse_TabPositioning.h"
 
 using namespace UI;
+using namespace UI::Editors::House;
 
 WndEditHouse::WndEditHouse(QWidget *parent)
     :   QDialog(parent),
@@ -635,7 +636,7 @@ WndEditHouse::on_edLocality_doubleClicked(QMouseEvent* ev)
 {
     Q_UNUSED(ev);
 
-    WndFilterBase filterLocality(DBWrapper::Locality::STR_TABLE_NAME, this);
+    Core::WndFilterBase filterLocality(DBWrapper::Locality::STR_TABLE_NAME, this);
     filterLocality.exec();
 
     QUuid idLocality = filterLocality.getSelectedId();

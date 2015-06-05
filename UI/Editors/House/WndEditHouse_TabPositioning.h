@@ -5,31 +5,37 @@
 
 namespace UI
 {
-    class WndEditHouse_TabPositioning : public QWidget
+    namespace Editors
     {
-        Q_OBJECT
+        namespace House
+        {
+            class WndEditHouse_TabPositioning : public QWidget
+            {
+                Q_OBJECT
 
-        public:
-            WndEditHouse_TabPositioning(const QUuid& houseId, bool newItem, QWidget* parent = nullptr);
+                public:
+                    WndEditHouse_TabPositioning(const QUuid& houseId, bool newItem, QWidget* parent = nullptr);
 
-            bool saveToDB();
-            bool loadFromDB(const QUuid& idPositioning);
+                    bool saveToDB();
+                    bool loadFromDB(const QUuid& idPositioning);
 
-        protected:
-            QLabel m_lblFromChurch;
-            QTextEdit m_edFromChurch;
+                protected:
+                    QLabel m_lblFromChurch;
+                    QTextEdit m_edFromChurch;
 
-            QLabel m_lblFromStreet;
-            QTextEdit m_edFromStreet;
+                    QLabel m_lblFromStreet;
+                    QTextEdit m_edFromStreet;
 
-            QLabel m_lblFromGarden;
-            QTextEdit m_edFromGarden;
+                    QLabel m_lblFromGarden;
+                    QTextEdit m_edFromGarden;
 
-            QLabel m_lblDeclivity;
-            QTextEdit m_edDeclivity;
+                    QLabel m_lblDeclivity;
+                    QTextEdit m_edDeclivity;
 
-            DBWrapper::HousePositioning m_Positioning;
-    };
+                    DBWrapper::HousePositioning m_Positioning;
+            };
+        }
+    }
 }
 
 #endif // WNDHOUSE_TABPOSITIONING

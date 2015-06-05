@@ -49,31 +49,31 @@ CentralWindow::onNewItem()
 void
 CentralWindow::initializeData()
 {
-    m_Windows[WindowType::Houses] = new UI::WndHouses();
+    m_Windows[WindowType::Houses] = new UI::SideMenu::WndHouses();
     m_WidgetContainer.addWidget(m_Windows[WindowType::Houses]);
 
-    m_Windows[WindowType::Priests] = new UI::WndPriests();
+    m_Windows[WindowType::Priests] = new UI::SideMenu::WndPriests();
     m_WidgetContainer.addWidget(m_Windows[WindowType::Priests]);
 
-    m_Windows[WindowType::Languages] = new UI::WndLanguages();
+    m_Windows[WindowType::Languages] = new UI::SideMenu::WndLanguages();
     m_WidgetContainer.addWidget(m_Windows[WindowType::Languages]);
 
-    m_Windows[WindowType::Comunes] = new UI::WndComunes();
+    m_Windows[WindowType::Comunes] = new UI::SideMenu::WndComunes();
     m_WidgetContainer.addWidget(m_Windows[WindowType::Comunes]);
 
-    m_Windows[WindowType::Counties] = new UI::WndCounties();
+    m_Windows[WindowType::Counties] = new UI::SideMenu::WndCounties();
     m_WidgetContainer.addWidget(m_Windows[WindowType::Counties]);
 
-    m_Windows[WindowType::Deaneries] = new UI::WndDeaneries();
+    m_Windows[WindowType::Deaneries] = new UI::SideMenu::WndDeaneries();
     m_WidgetContainer.addWidget(m_Windows[WindowType::Deaneries]);
 
-    m_Windows[WindowType::Localities] = new UI::WndLocalities();
+    m_Windows[WindowType::Localities] = new UI::SideMenu::WndLocalities();
     m_WidgetContainer.addWidget(m_Windows[WindowType::Localities]);
 
-    m_Windows[WindowType::Images] = new UI::WndImages();
+    m_Windows[WindowType::Images] = new UI::SideMenu::WndImages();
     m_WidgetContainer.addWidget(m_Windows[WindowType::Images]);
 
-    m_Windows[WindowType::Taxes] = new UI::WndTaxes();
+    m_Windows[WindowType::Taxes] = new UI::SideMenu::WndTaxes();
     m_WidgetContainer.addWidget(m_Windows[WindowType::Taxes]);
 
     m_WidgetContainer.setCurrentIndex((int)WindowType::Houses);

@@ -1,6 +1,6 @@
 #include "WndEditHouse_TabPositioning.h"
 
-using namespace UI;
+using namespace UI::Editors::House;
 
 WndEditHouse_TabPositioning::WndEditHouse_TabPositioning(const QUuid& houseId, bool newItem, QWidget* parent)
     :   QWidget(parent),

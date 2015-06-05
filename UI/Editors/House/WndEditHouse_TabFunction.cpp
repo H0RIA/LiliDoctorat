@@ -1,6 +1,6 @@
 #include "WndEditHouse_TabFunction.h"
 
-using namespace UI;
+using namespace UI::Editors::House;
 
 WndEditHouse_TabFunction::WndEditHouse_TabFunction(const QUuid& houseId, bool newItem, QWidget* parent)
     :   QWidget(parent)

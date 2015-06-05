@@ -1,7 +1,7 @@
 #include "UI/Core/WndFilterBase.h"
 #include "WndEditLocality.h"
 
-using namespace UI;
+using namespace UI::Editors;
 
 WndEditLocality::WndEditLocality(QWidget *parent)
     :   QDialog(parent),
@@ -294,7 +294,7 @@ WndEditLocality::on_edComune_doubleClicked(QMouseEvent* ev)
 {
     Q_UNUSED(ev);
 
-    WndFilterBase filter(DBWrapper::Comune::STR_TABLE_NAME, this);
+    Core::WndFilterBase filter(DBWrapper::Comune::STR_TABLE_NAME, this);
     filter.exec();
 
     QUuid idItem = filter.getSelectedId();

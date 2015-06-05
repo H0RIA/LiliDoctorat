@@ -2,7 +2,7 @@
 #include "DBWrapper/County.h"
 #include "WndEditComune.h"
 
-using namespace UI;
+using namespace UI::Editors;
 
 WndEditComune::WndEditComune(QWidget *parent)
     :   QDialog(parent),
@@ -298,7 +298,7 @@ WndEditComune::on_edCounty_doubleClicked(QMouseEvent* ev)
 {
     Q_UNUSED(ev);
 
-    WndFilterBase filter(DBWrapper::County::STR_TABLE_NAME, this);
+    Core::WndFilterBase filter(DBWrapper::County::STR_TABLE_NAME, this);
     filter.exec();
 
     QUuid idItem = filter.getSelectedId();

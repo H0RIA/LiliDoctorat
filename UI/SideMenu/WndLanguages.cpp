@@ -1,6 +1,6 @@
 #include "WndLanguages.h"
 
-using namespace UI;
+using namespace UI::SideMenu;
 
 WndLanguages::WndLanguages(QWidget* parent)
     :   QWidget(parent)

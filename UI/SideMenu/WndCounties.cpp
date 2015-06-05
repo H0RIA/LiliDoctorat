@@ -1,7 +1,7 @@
 #include "UI/Editors/WndEditCounty.h"
 #include "WndCounties.h"
 
-using namespace UI;
+using namespace UI::SideMenu;
 
 WndCounties::WndCounties(QWidget* parent)
     :   QWidget(parent),
@@ -17,7 +17,7 @@ WndCounties::~WndCounties()
 void
 WndCounties::onNewItem()
 {
-    WndEditCounty newEditor(this);
+    Editors::WndEditCounty newEditor(this);
     newEditor.exec();
     QSqlTableModel* model = qobject_cast<QSqlTableModel*>(m_View.model());
     if(model != nullptr)
@@ -33,7 +33,7 @@ WndCounties::onDoubleClicked(const QModelIndex& index)
     QModelIndex indexId = index.model()->index(index.row(), 0);
     QUuid id = index.model()->data(indexId).toUuid();
     if(!id.isNull()){
-        WndEditCounty dialog(id, this);
+        Editors::WndEditCounty dialog(id, this);
         dialog.exec();
 
         QSqlTableModel* model = qobject_cast<QSqlTableModel*>(m_View.model());

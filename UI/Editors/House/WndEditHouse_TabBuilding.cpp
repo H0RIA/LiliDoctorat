@@ -1,7 +1,7 @@
 #include "DBWrapper/House.h"
 #include "WndEditHouse_TabBuilding.h"
 
-using namespace UI;
+using namespace UI::Editors::House;
 
 #define CREATE_LABELEDIT_LAYOUT(name, label, edit)\
     QHBoxLayout* layout##name = new QHBoxLayout();\

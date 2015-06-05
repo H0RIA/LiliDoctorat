@@ -1,7 +1,7 @@
 #include "UI/Editors/WndEditImage.h"
 #include "WndImages.h"
 
-using namespace UI;
+using namespace UI::SideMenu;
 
 WndImages::WndImages(QWidget* parent)
     :   QWidget(parent),
@@ -15,7 +15,7 @@ WndImages::~WndImages(){}
 void
 WndImages::onNewItem()
 {
-    WndEditImage newEditor(this);
+    Editors::WndEditImage newEditor(this);
     newEditor.exec();
     QSqlTableModel* model = qobject_cast<QSqlTableModel*>(m_View.model());
     if(model != nullptr)
@@ -31,7 +31,7 @@ WndImages::onDoubleClicked(const QModelIndex& index)
     QModelIndex indexId = index.model()->index(index.row(), 0);
     QUuid id = index.model()->data(indexId).toUuid();
     if(!id.isNull()){
-        WndEditImage dialog(id, this);
+        Editors::WndEditImage dialog(id, this);
         dialog.exec();
 
         QSqlTableModel* model = qobject_cast<QSqlTableModel*>(m_View.model());

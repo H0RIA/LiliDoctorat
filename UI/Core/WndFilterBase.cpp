@@ -1,6 +1,6 @@
 #include "WndFilterBase.h"
 
-using namespace UI;
+using namespace UI::Core;
 
 WndFilterBase::WndFilterBase(QWidget *parent)
     :   QDialog(parent),

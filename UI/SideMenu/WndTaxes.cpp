@@ -2,7 +2,7 @@
 #include "UI/Editors/WndEditTax.h"
 #include "WndTaxes.h"
 
-using namespace UI;
+using namespace UI::SideMenu;
 
 WndTaxes::WndTaxes(QWidget* parent)
     :   QWidget(parent),
@@ -18,7 +18,7 @@ WndTaxes::~WndTaxes()
 void
 WndTaxes::onNewItem()
 {
-    WndEditTax newEditor(this);
+    Editors::WndEditTax newEditor(this);
     newEditor.exec();
     QSqlTableModel* model = qobject_cast<QSqlTableModel*>(m_View.model());
     if(model != nullptr)
@@ -34,7 +34,7 @@ WndTaxes::onDoubleClicked(const QModelIndex& index)
     QModelIndex indexId = index.model()->index(index.row(), 0);
     QUuid id = index.model()->data(indexId).toUuid();
     if(!id.isNull()){
-        WndEditTax dialog(id, this);
+        Editors::WndEditTax dialog(id, this);
         dialog.exec();
 
         QSqlTableModel* model = qobject_cast<QSqlTableModel*>(m_View.model());

@@ -5,31 +5,34 @@
 
 namespace UI
 {
-    class WndFilterBase : public QDialog
+    namespace Core
     {
-        Q_OBJECT
+        class WndFilterBase : public QDialog
+        {
+            Q_OBJECT
 
-        public:
-            explicit WndFilterBase(QWidget *parent = 0);
-            explicit WndFilterBase(const QString& table, QWidget *parent = 0);
-            ~WndFilterBase();
+            public:
+                explicit WndFilterBase(QWidget *parent = 0);
+                explicit WndFilterBase(const QString& table, QWidget *parent = 0);
+                ~WndFilterBase();
 
-            QUuid getSelectedId()const;
+                QUuid getSelectedId()const;
 
-        signals:
-            void itemSelected(const QUuid& id);
+            signals:
+                void itemSelected(const QUuid& id);
 
-        public slots:
-            void onItemSelected(const QModelIndex& index);
+            public slots:
+                void onItemSelected(const QModelIndex& index);
 
-        protected:
-            void initializeData();
+            protected:
+                void initializeData();
 
-        protected:
-            QString m_TableName;
-            QTableView m_View;
-            QUuid m_SelectedId;
-    };
+            protected:
+                QString m_TableName;
+                QTableView m_View;
+                QUuid m_SelectedId;
+        };
+    }
 }
 
 #endif // WNDFILTERBASE_H

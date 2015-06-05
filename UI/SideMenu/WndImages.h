@@ -5,25 +5,28 @@
 
 namespace UI
 {
-    class WndImages : public QWidget
+    namespace SideMenu
     {
-        Q_OBJECT
+        class WndImages : public QWidget
+        {
+            Q_OBJECT
 
-        public:
-            WndImages(QWidget* parent = nullptr);
-            ~WndImages();
+            public:
+                WndImages(QWidget* parent = nullptr);
+                ~WndImages();
 
-        public slots:
-            void onNewItem();
-            void onDoubleClicked(const QModelIndex& index);
+            public slots:
+                void onNewItem();
+                void onDoubleClicked(const QModelIndex& index);
 
-        protected:
-            void resetModel();
-            void initializeData();
+            protected:
+                void resetModel();
+                void initializeData();
 
-        protected:
-            QTableView m_View;
-    };
+            protected:
+                QTableView m_View;
+        };
+    }
 }
 
 #endif // WNDIMAGES

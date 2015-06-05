@@ -5,25 +5,28 @@
 
 namespace UI
 {
-    class WndPriests : public QWidget
+    namespace SideMenu
     {
-        Q_OBJECT
+        class WndPriests : public QWidget
+        {
+            Q_OBJECT
 
-        public:
-            WndPriests(QWidget* parent = nullptr);
-            ~WndPriests();
+            public:
+                WndPriests(QWidget* parent = nullptr);
+                ~WndPriests();
 
-        public slots:
-            void onNewItem();
-            void onDoubleClicked(const QModelIndex& index);
+            public slots:
+                void onNewItem();
+                void onDoubleClicked(const QModelIndex& index);
 
-        protected:
-            void resetModel();
-            void initializeData();
+            protected:
+                void resetModel();
+                void initializeData();
 
-        protected:
-            QTableView m_View;
-    };
+            protected:
+                QTableView m_View;
+        };
+    }
 }
 
 #endif // WNDPRIESTS

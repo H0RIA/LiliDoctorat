@@ -1,7 +1,7 @@
 #include "UI/Editors/WndEditDeanery.h"
 #include "WndDeaneries.h"
 
-using namespace UI;
+using namespace UI::SideMenu;
 
 WndDeaneries::WndDeaneries(QWidget* parent)
     :   QWidget(parent),
@@ -17,7 +17,7 @@ WndDeaneries::~WndDeaneries()
 void
 WndDeaneries::onNewItem()
 {
-    WndEditDeanery newEditor(this);
+    Editors::WndEditDeanery newEditor(this);
     newEditor.exec();
     QSqlTableModel* model = qobject_cast<QSqlTableModel*>(m_View.model());
     if(model != nullptr)
@@ -33,7 +33,7 @@ WndDeaneries::onDoubleClicked(const QModelIndex& index)
     QModelIndex indexId = index.model()->index(index.row(), 0);
     QUuid id = index.model()->data(indexId).toUuid();
     if(!id.isNull()){
-        WndEditDeanery dialog(id, this);
+        Editors::WndEditDeanery dialog(id, this);
         dialog.exec();
 
         QSqlTableModel* model = qobject_cast<QSqlTableModel*>(m_View.model());

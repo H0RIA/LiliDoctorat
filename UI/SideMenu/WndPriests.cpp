@@ -1,7 +1,7 @@
 #include "UI/Editors/WndEditPriest.h"
 #include "WndPriests.h"
 
-using namespace UI;
+using namespace UI::SideMenu;
 
 WndPriests::WndPriests(QWidget* parent)
     :   QWidget(parent),
@@ -15,7 +15,7 @@ WndPriests::~WndPriests(){}
 void
 WndPriests::onNewItem()
 {
-    WndEditPriest newEditor(this);
+    Editors::WndEditPriest newEditor(this);
     newEditor.exec();
     QSqlTableModel* model = qobject_cast<QSqlTableModel*>(m_View.model());
     if(model != nullptr)
@@ -31,7 +31,7 @@ WndPriests::onDoubleClicked(const QModelIndex& index)
     QModelIndex indexId = index.model()->index(index.row(), 0);
     QUuid id = index.model()->data(indexId).toUuid();
     if(!id.isNull()){
-        WndEditPriest dialog(id, this);
+        Editors::WndEditPriest dialog(id, this);
         dialog.exec();
 
         QSqlTableModel* model = qobject_cast<QSqlTableModel*>(m_View.model());

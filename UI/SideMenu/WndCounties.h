@@ -5,25 +5,28 @@
 
 namespace UI
 {
-    class WndCounties : public QWidget
+    namespace SideMenu
     {
-        Q_OBJECT
+        class WndCounties : public QWidget
+        {
+            Q_OBJECT
 
-        public:
-            WndCounties(QWidget* parent = nullptr);
-            ~WndCounties();
+            public:
+                WndCounties(QWidget* parent = nullptr);
+                ~WndCounties();
 
-        public slots:
-            void onNewItem();
-            void onDoubleClicked(const QModelIndex& index);
+            public slots:
+                void onNewItem();
+                void onDoubleClicked(const QModelIndex& index);
 
-        protected:
-            void resetModel();
-            void initializeData();
+            protected:
+                void resetModel();
+                void initializeData();
 
-        protected:
-            QTableView m_View;
-    };
+            protected:
+                QTableView m_View;
+        };
+    }
 }
 
 #endif // WNDCOUNTIES

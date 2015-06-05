@@ -5,17 +5,20 @@
 
 namespace UI
 {
-    class ThumbnailDelegate : public QStyledItemDelegate
+    namespace SideMenu
     {
-        Q_OBJECT
+        class ThumbnailDelegate : public QStyledItemDelegate
+        {
+            Q_OBJECT
 
-        public:
-            ThumbnailDelegate(QWidget *parent = nullptr);
-            void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const;
-            QSize sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const;
+            public:
+                ThumbnailDelegate(QWidget *parent = nullptr);
+                void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const;
+                QSize sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const;
 
-        protected:
-    };
+            protected:
+        };
+    }
 }
 
 #endif // THUMBNAILDELEGATE

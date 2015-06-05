@@ -1,6 +1,6 @@
 #include "WndEditPriest.h"
 
-using namespace UI;
+using namespace UI::Editors;
 
 WndEditPriest::WndEditPriest(QWidget *parent)
     :   QDialog(parent),

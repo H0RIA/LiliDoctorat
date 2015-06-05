@@ -1,7 +1,7 @@
 #include "DBWrapper/Language.h"
 #include "WndEditCounty.h"
 
-using namespace UI;
+using namespace UI::Editors;
 
 WndEditCounty::WndEditCounty(QWidget *parent)
     :   QDialog(parent),

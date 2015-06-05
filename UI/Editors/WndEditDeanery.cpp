@@ -1,6 +1,6 @@
 #include "WndEditDeanery.h"
 
-using namespace UI;
+using namespace UI::Editors;
 
 WndEditDeanery::WndEditDeanery(QWidget *parent)
     :   QDialog(parent),

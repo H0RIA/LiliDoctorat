@@ -1,6 +1,6 @@
 #include "WndEditImage.h"
 
-using namespace UI;
+using namespace UI::Editors;
 
 WndEditImage::WndEditImage(QWidget *parent)
     :   QDialog(parent),

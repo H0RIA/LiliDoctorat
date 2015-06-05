@@ -2,7 +2,7 @@
 #include "DBWrapper/Comune.h"
 #include "WndComunes.h"
 
-using namespace UI;
+using namespace UI::SideMenu;
 
 WndComunes::WndComunes(QWidget *parent)
     :   QWidget(parent)
@@ -17,7 +17,7 @@ WndComunes::~WndComunes()
 void
 WndComunes::onNewItem()
 {
-    WndEditComune newEditor(this);
+    Editors::WndEditComune newEditor(this);
     newEditor.exec();
     QSqlTableModel* model = qobject_cast<QSqlTableModel*>(m_View.model());
     if(model != nullptr)
@@ -33,7 +33,7 @@ WndComunes::onDoubleClicked(const QModelIndex& index)
     QModelIndex indexId = index.model()->index(index.row(), 0);
     QUuid id = index.model()->data(indexId).toUuid();
     if(!id.isNull()){
-        WndEditComune dialog(id, this);
+        Editors::WndEditComune dialog(id, this);
         dialog.exec();
 
         QSqlTableModel* model = qobject_cast<QSqlTableModel*>(m_View.model());

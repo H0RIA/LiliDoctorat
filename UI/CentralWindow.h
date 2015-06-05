@@ -56,32 +56,32 @@ namespace UI
         switch(type)
         {
         case WindowType::Comunes:
-            if(qobject_cast<UI::WndComunes*>(widget) != nullptr)
-                qobject_cast<UI::WndComunes*>(widget)->onNewItem();
+            if(qobject_cast<UI::SideMenu::WndComunes*>(widget) != nullptr)
+                qobject_cast<UI::SideMenu::WndComunes*>(widget)->onNewItem();
         case WindowType::Counties:
-            if(qobject_cast<UI::WndCounties*>(widget) != nullptr)
-                qobject_cast<UI::WndCounties*>(widget)->onNewItem();
+            if(qobject_cast<UI::SideMenu::WndCounties*>(widget) != nullptr)
+                qobject_cast<UI::SideMenu::WndCounties*>(widget)->onNewItem();
         case WindowType::Deaneries:
-            if(qobject_cast<UI::WndDeaneries*>(widget) != nullptr)
-                qobject_cast<UI::WndDeaneries*>(widget)->onNewItem();
+            if(qobject_cast<UI::SideMenu::WndDeaneries*>(widget) != nullptr)
+                qobject_cast<UI::SideMenu::WndDeaneries*>(widget)->onNewItem();
         case WindowType::Houses:
-            if(qobject_cast<UI::WndHouses*>(widget) != nullptr)
-                qobject_cast<UI::WndHouses*>(widget)->onNewItem();
+            if(qobject_cast<UI::SideMenu::WndHouses*>(widget) != nullptr)
+                qobject_cast<UI::SideMenu::WndHouses*>(widget)->onNewItem();
         case WindowType::Images:
-            if(qobject_cast<UI::WndImages*>(widget) != nullptr)
-                qobject_cast<UI::WndImages*>(widget)->onNewItem();
+            if(qobject_cast<UI::SideMenu::WndImages*>(widget) != nullptr)
+                qobject_cast<UI::SideMenu::WndImages*>(widget)->onNewItem();
         case WindowType::Languages:
-            if(qobject_cast<UI::WndLanguages*>(widget) != nullptr)
-                qobject_cast<UI::WndLanguages*>(widget)->onNewItem();
+            if(qobject_cast<UI::SideMenu::WndLanguages*>(widget) != nullptr)
+                qobject_cast<UI::SideMenu::WndLanguages*>(widget)->onNewItem();
         case WindowType::Localities:
-            if(qobject_cast<UI::WndLocalities*>(widget) != nullptr)
-                qobject_cast<UI::WndLocalities*>(widget)->onNewItem();
+            if(qobject_cast<UI::SideMenu::WndLocalities*>(widget) != nullptr)
+                qobject_cast<UI::SideMenu::WndLocalities*>(widget)->onNewItem();
         case WindowType::Priests:
-            if(qobject_cast<UI::WndPriests*>(widget) != nullptr)
-                qobject_cast<UI::WndPriests*>(widget)->onNewItem();
+            if(qobject_cast<UI::SideMenu::WndPriests*>(widget) != nullptr)
+                qobject_cast<UI::SideMenu::WndPriests*>(widget)->onNewItem();
         case WindowType::Taxes:
-            if(qobject_cast<UI::WndTaxes*>(widget) != nullptr)
-                qobject_cast<UI::WndTaxes*>(widget)->onNewItem();
+            if(qobject_cast<UI::SideMenu::WndTaxes*>(widget) != nullptr)
+                qobject_cast<UI::SideMenu::WndTaxes*>(widget)->onNewItem();
         default:
             return;
         }

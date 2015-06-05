@@ -3,7 +3,7 @@
 #include "UI/Editors/WndEditLocality.h"
 #include "WndLocalities.h"
 
-using namespace UI;
+using namespace UI::SideMenu;
 
 WndLocalities::WndLocalities(QWidget* parent)
     :   QWidget(parent),
@@ -17,7 +17,7 @@ WndLocalities::~WndLocalities(){}
 void
 WndLocalities::onNewItem()
 {
-    WndEditLocality newEditor(this);
+    Editors::WndEditLocality newEditor(this);
     newEditor.exec();
     resetModel();
 }
@@ -31,7 +31,7 @@ WndLocalities::onDoubleClicked(const QModelIndex& index)
     QModelIndex indexId = index.model()->index(index.row(), 0);
     QUuid id = index.model()->data(indexId).toUuid();
     if(!id.isNull()){
-        WndEditLocality dialog(id, this);
+        Editors::WndEditLocality dialog(id, this);
         dialog.exec();
 
         resetModel();

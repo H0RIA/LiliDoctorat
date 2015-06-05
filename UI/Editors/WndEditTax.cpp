@@ -2,7 +2,7 @@
 #include "DBWrapper/DBManager.h"
 #include "WndEditTax.h"
 
-using namespace UI;
+using namespace UI::Editors;
 
 WndEditTax::WndEditTax(QWidget* parent)
     :   QDialog(parent),
