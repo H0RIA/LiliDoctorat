@@ -99,6 +99,7 @@ namespace UI
                     QPushButton m_btnApply;
 
                     QUuid m_CurrentImageId;
+                    QMap<QString, int> m_TabItems;
             };
         }
     }

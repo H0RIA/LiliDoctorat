@@ -347,6 +347,7 @@ House::LoadFromDB()
         setOldStatus(query.value("OldStatus").toString());
         setHouseDating(query.value("HouseDating").toString());
         setBuildInfoId(QUuid(query.value("IdBuildingInfo").toString()));
+
         setHouseFunctionId(QUuid(query.value("IdHouseFunction").toString()));
         setHousePositioningId(QUuid(query.value("IdHousePositioning").toString()));
 

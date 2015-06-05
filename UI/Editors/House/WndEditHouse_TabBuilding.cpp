@@ -3,20 +3,10 @@
 
 using namespace UI::Editors::House;
 
-#define CREATE_LABELEDIT_LAYOUT(name, label, edit)\
-    QHBoxLayout* layout##name = new QHBoxLayout();\
-    layout##name->setContentsMargins(0, 0, 0, 0);\
-    layout##name->setSpacing(0);\
-    layout##name->addStretch();\
-    layout##name->addWidget(&label);\
-    layout##name->addSpacing(10);\
-    layout##name->addWidget(&edit);\
-    layout##name->addStretch();
-
-WndEditHouse_TabBuilding::WndEditHouse_TabBuilding(const QUuid& houseId, bool newItem, QWidget* parent)
+WndEditHouse_TabBuilding::WndEditHouse_TabBuilding(DBWrapper::House* pHouse, bool newItem, QWidget* parent)
     :   QWidget(parent),
         m_NewItem(newItem),
-        m_HouseId(houseId),
+        m_pHouse(pHouse),
         m_Building(),
         m_lblShape(this),
         m_edShape(this),
@@ -55,14 +45,11 @@ WndEditHouse_TabBuilding::~WndEditHouse_TabBuilding(){}
 void
 WndEditHouse_TabBuilding::loadFromDB()
 {
-    if(m_NewItem)
+    if(m_NewItem || m_pHouse == nullptr)
         return;
 
-    DBWrapper::House house;
-    house.setId(m_HouseId);
-    if(house.LoadFromDB()){
-        m_Building.setId(house.BuildInfoId());
-
+    m_Building.setId(m_pHouse->BuildInfoId());
+    if(m_Building.LoadFromDB()){
         m_edArchitecturalStyle.setText(m_Building.ArchitecturalStyle());
         m_edBackFloorCount.setText(QString("%1").arg(m_Building.BackFloorCount()));
         m_edBasementVault.setText(m_Building.BasementVault());
@@ -76,11 +63,21 @@ WndEditHouse_TabBuilding::loadFromDB()
     }
 }
 
-void
+bool
 WndEditHouse_TabBuilding::saveToDB()
 {
-    // TODO
-    m_Building;
+    m_Building.setArchitecturalStyle(m_edArchitecturalStyle.text());
+    m_Building.setBackFloorCount(m_edBackFloorCount.text().toInt());
+    m_Building.setBasementVault(m_edBasementVault.text());
+    m_Building.setBuildDate(QDate::fromString(m_edBuildDate.text()));
+    m_Building.setCeiling(m_edCeiling.text());
+    m_Building.setDoors(m_edDoors.text());
+    m_Building.setFrontBay(m_edFrontBay.text());
+    m_Building.setFrontFloorCount(m_edFrontFloorCount.text().toInt());
+    m_Building.setPinion(m_edPinion.text());
+    m_Building.setRoof(m_edRoof.text());
+
+    return m_Building.SaveToDB();
 }
 
 bool

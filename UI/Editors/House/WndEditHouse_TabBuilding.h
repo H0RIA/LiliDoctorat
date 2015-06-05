@@ -1,6 +1,7 @@
 #ifndef WNDHOUSE_TABBUILDING
 #define WNDHOUSE_TABBUILDING
 
+#include "DBWrapper/House.h"
 #include "DBWrapper/BuildingInfo.h"
 
 namespace UI
@@ -14,20 +15,20 @@ namespace UI
                 Q_OBJECT
 
                 public:
-                    WndEditHouse_TabBuilding(const QUuid& houseId, bool newItem, QWidget* parent = nullptr);
+                    WndEditHouse_TabBuilding(DBWrapper::House* pHouse, bool newItem, QWidget* parent = nullptr);
                     ~WndEditHouse_TabBuilding();
 
-                protected:
                     void loadFromDB();
-                    void saveToDB();
+                    bool saveToDB();
 
+            protected:
                     bool eventFilter(QObject* o, QEvent * ev);
 
                     void initializeData();
 
                 protected:
                     bool m_NewItem;
-                    QUuid m_HouseId;
+                    DBWrapper::House* m_pHouse;
                     DBWrapper::BuildingInfo m_Building;
 
                     QLabel m_lblShape;

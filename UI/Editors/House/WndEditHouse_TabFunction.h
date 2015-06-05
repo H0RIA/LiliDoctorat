@@ -2,6 +2,7 @@
 #define WNDHOUSE_TABFUNCTION
 
 #include "DBWrapper/HouseFunction.h"
+#include "DBWrapper/House.h"
 #include "Base.h"
 
 namespace UI
@@ -15,13 +16,25 @@ namespace UI
                 Q_OBJECT
 
                 public:
-                    WndEditHouse_TabFunction(const QUuid& houseId, bool newItem, QWidget* parent = nullptr);
+                    WndEditHouse_TabFunction(DBWrapper::House* pHouse, bool newItem, QWidget* parent = nullptr);
 
                     bool saveToDB();
                     bool loadFromDB(const QUuid& id);
 
                 protected:
+                    void initializeData();
+
+                protected:
                     DBWrapper::HouseFunction m_Function;
+
+                    QLabel m_lblOriginal;
+                    QLineEdit m_edOriginal;
+
+                    QLabel m_lblCurrent;
+                    QLineEdit m_edCurrent;
+
+                    QLabel m_lblLegalStatus;
+                    QComboBox m_cbLegal;
             };
         }
     }

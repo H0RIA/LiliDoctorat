@@ -25,6 +25,7 @@
 #include <QBitmap>
 #include <QSvgRenderer>
 #include <QHeaderView>
+#include <QGridLayout>
 #include <QPainter>
 #include <QTextEdit>
 #include <QFile>
@@ -311,6 +312,16 @@
     }
 
 #endif // !IMPLEMENT_SINGLETON
+
+#define CREATE_LABELEDIT_LAYOUT(name, label, edit)\
+    QHBoxLayout* layout##name = new QHBoxLayout();\
+    layout##name->setContentsMargins(0, 0, 0, 0);\
+    layout##name->setSpacing(0);\
+    layout##name->addStretch();\
+    layout##name->addWidget(&label);\
+    layout##name->addSpacing(10);\
+    layout##name->addWidget(&edit);\
+    layout##name->addStretch();
 
 ////typedef std::map<Language, QString> LocalizedName;
 //typedef QMap<QUuid /*LanguageId*/, QString> LocalizedName;

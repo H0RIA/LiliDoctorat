@@ -82,13 +82,18 @@ HouseFunction::loadFromDB(const QUuid& id)
     if(id.isNull())
         return result;
 
-    QSqlQuery query(QString("Select * From %1 Where Id = '%2'").arg(HouseFunction::STR_TABLE_NAME).arg(m_Id.toString()));
+    m_Id = id;
+
+    QString strQuery = QString("Select * From %1 Where Id = '%2'").arg(HouseFunction::STR_TABLE_NAME).arg(m_Id.toString());
+    QSqlQuery query(strQuery);
     if(query.next()){
         setCurrent(query.value("Current").toString());
         setLegalStatus((HouseLegalStatus)query.value("LegalStatus").toInt());
         setOriginal(query.value("Original").toString());
 
         result = true;
+    }else{
+        qDebug() << "Cannot read from DB: " << query.lastError().text();
     }
 
     return result;
