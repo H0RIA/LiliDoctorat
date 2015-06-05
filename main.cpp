@@ -1,5 +1,5 @@
-#include "MainWindow.h"
-#include "DBManager.h"
+#include "UI/MainWindow.h"
+#include "DBWrapper/DBManager.h"
 #include <QMessageBox>
 #include <QApplication>
 
@@ -7,9 +7,9 @@
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    DBManager::instance();
+    DBWrapper::DBManager::instance();
 
-    MainWindow w;
+    UI::MainWindow w;
     w.show();
 
     return a.exec();

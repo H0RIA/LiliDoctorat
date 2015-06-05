@@ -194,7 +194,7 @@ Source: "{#QtDir}\..\plugins\qmltooling\qmldbg_tcp.dll"; DestDir: "{app}\qmltool
 Source: "{#QtDir}\..\plugins\qtwebengine\ffmpegsumo.dll"; DestDir: "{app}\qmltooling"; Components: qt_plugins
 Source: "{#QtDir}\..\plugins\sensorgestures\qtsensorgestures_plugin.dll"; DestDir: "{app}\sensorgestures"; Components: qt_plugins
 Source: "{#QtDir}\..\plugins\sensorgestures\qtsensorgestures_shakeplugin.dll"; DestDir: "{app}\sensorgestures"; Components: qt_plugins
-Source: "{#QtDir}\..\plugins\sensors\qtsensors_dummy.dll"; DestDir: "{app}\sensors"; Components: qt_plugins
+;Source: "{#QtDir}\..\plugins\sensors\qtsensors_dummy.dll"; DestDir: "{app}\sensors"; Components: qt_plugins
 Source: "{#QtDir}\..\plugins\sensors\qtsensors_generic.dll"; DestDir: "{app}\sensors"; Components: qt_plugins
 Source: "{#QtDir}\..\plugins\sqldrivers\qsqlite.dll"; DestDir: "{app}\sqldrivers"; Components: qt_plugins
 Source: "{#QtDir}\..\plugins\sqldrivers\qsqlodbc.dll"; DestDir: "{app}\sqldrivers"; Components: qt_plugins
