@@ -28,6 +28,8 @@ WndEditHouse_TabBuilding::WndEditHouse_TabBuilding(DBWrapper::House* pHouse, boo
         m_edArchitecturalStyle(this),
         m_lblDoors(this),
         m_edDoors(this),
+        m_lblWindows(this),
+        m_edWindows(this),
         m_lblBasementVault(this),
         m_edBasementVault(this),
         m_lblRoof(this),
@@ -48,16 +50,29 @@ WndEditHouse_TabBuilding::loadFromDB()
     if(m_NewItem || m_pHouse == nullptr)
         return;
 
-    m_Building.setId(m_pHouse->BuildInfoId());
+    if(m_pHouse->BuildInfoId().isNull())
+        m_pHouse->setBuildInfoId(m_Building.Id());
+    else
+        m_Building.setId(m_pHouse->BuildInfoId());
+
     if(m_Building.LoadFromDB()){
-        m_edArchitecturalStyle.setText(m_Building.ArchitecturalStyle());
-        m_edBackFloorCount.setText(QString("%1").arg(m_Building.BackFloorCount()));
-        m_edBasementVault.setText(m_Building.BasementVault());
-        m_edBuildDate.setText(m_Building.BuildDate().toString());
-        m_edCeiling.setText(m_Building.Ceiling());
-        m_edDoors.setText(m_Building.Doors());
-        m_edFrontBay.setText(m_Building.FrontBay());
+        m_edShape.setText(m_Building.Shape());
+        m_edRoomPlacement.setText(m_Building.RoomPlacement());
+
+        m_edRoomCount.setText(QString("%1").arg(m_Building.RoomCount()));
         m_edFrontFloorCount.setText(QString("%1").arg(m_Building.FrontFloorCount()));
+        m_edBackFloorCount.setText(QString("%1").arg(m_Building.BackFloorCount()));
+
+        m_edFrontBay.setText(m_Building.FrontBay());
+        m_edSideBay.setText(m_Building.SideBay());
+        m_edBuildDate.setText(m_Building.BuildDate().toString());
+
+        m_edArchitecturalStyle.setText(m_Building.ArchitecturalStyle());
+        m_edDoors.setText(m_Building.Doors());
+        m_edWindows.setText(m_Building.Windows());
+
+        m_edBasementVault.setText(m_Building.BasementVault());
+        m_edCeiling.setText(m_Building.Ceiling());
         m_edPinion.setText(m_Building.Pinion());
         m_edRoof.setText(m_Building.Roof());
     }
@@ -66,14 +81,23 @@ WndEditHouse_TabBuilding::loadFromDB()
 bool
 WndEditHouse_TabBuilding::saveToDB()
 {
-    m_Building.setArchitecturalStyle(m_edArchitecturalStyle.text());
-    m_Building.setBackFloorCount(m_edBackFloorCount.text().toInt());
-    m_Building.setBasementVault(m_edBasementVault.text());
-    m_Building.setBuildDate(QDate::fromString(m_edBuildDate.text()));
-    m_Building.setCeiling(m_edCeiling.text());
-    m_Building.setDoors(m_edDoors.text());
-    m_Building.setFrontBay(m_edFrontBay.text());
+    m_Building.setShape(m_edShape.text());
+    m_Building.setRoomPlacement(m_edRoomPlacement.text());
+
+    m_Building.setRoomCount(m_edRoomCount.text().toInt());
     m_Building.setFrontFloorCount(m_edFrontFloorCount.text().toInt());
+    m_Building.setBackFloorCount(m_edBackFloorCount.text().toInt());
+
+    m_Building.setFrontBay(m_edFrontBay.text());
+    m_Building.setSideBay(m_edSideBay.text());
+    m_Building.setBuildDate(QDate::fromString(m_edBuildDate.text()));
+
+    m_Building.setArchitecturalStyle(m_edArchitecturalStyle.text());
+    m_Building.setDoors(m_edDoors.text());
+    m_Building.setWindows(m_edWindows.text());
+
+    m_Building.setBasementVault(m_edBasementVault.text());
+    m_Building.setCeiling(m_edCeiling.text());
     m_Building.setPinion(m_edPinion.text());
     m_Building.setRoof(m_edRoof.text());
 
@@ -103,6 +127,7 @@ WndEditHouse_TabBuilding::initializeData()
     m_lblBuildDate.setText(tr("Build date"));
     m_lblArchitecturalStyle.setText(tr("Architectural style"));
     m_lblDoors.setText(tr("Doors"));
+    m_lblWindows.setText(tr("Windows"));
     m_lblBasementVault.setText(tr("Basement vault"));
     m_lblRoof.setText(tr("Roof"));
     m_lblCeiling.setText(tr("Ceiling"));
@@ -121,6 +146,7 @@ WndEditHouse_TabBuilding::initializeData()
     m_lblBuildDate.setFixedWidth(labelWidth);
     m_lblArchitecturalStyle.setFixedWidth(labelWidth);
     m_lblDoors.setFixedWidth(labelWidth);
+    m_lblWindows.setFixedWidth(labelWidth);
     m_lblBasementVault.setFixedWidth(labelWidth);
     m_lblRoof.setFixedWidth(labelWidth);
     m_lblCeiling.setFixedWidth(labelWidth);
@@ -136,6 +162,7 @@ WndEditHouse_TabBuilding::initializeData()
     m_edBuildDate.setFixedWidth(editWidth);
     m_edArchitecturalStyle.setFixedWidth(editWidth);
     m_edDoors.setFixedWidth(editWidth);
+    m_edWindows.setFixedWidth(editWidth);
     m_edBasementVault.setFixedWidth(editWidth);
     m_edRoof.setFixedWidth(editWidth);
     m_edCeiling.setFixedWidth(editWidth);
@@ -152,6 +179,7 @@ WndEditHouse_TabBuilding::initializeData()
     CREATE_LABELEDIT_LAYOUT(BuildDate, m_lblBuildDate, m_edBuildDate);
     CREATE_LABELEDIT_LAYOUT(ArchitecturalStyle, m_lblArchitecturalStyle, m_edArchitecturalStyle);
     CREATE_LABELEDIT_LAYOUT(Doors, m_lblDoors, m_edDoors);
+    CREATE_LABELEDIT_LAYOUT(Windows, m_lblWindows, m_edWindows);
 
     CREATE_LABELEDIT_LAYOUT(BasementVault, m_lblBasementVault, m_edBasementVault);
     CREATE_LABELEDIT_LAYOUT(Roof, m_lblRoof, m_edRoof);
@@ -186,6 +214,8 @@ WndEditHouse_TabBuilding::initializeData()
     layoutLeft->addLayout(layoutArchitecturalStyle);
     layoutLeft->addSpacing(5);
     layoutLeft->addLayout(layoutDoors);
+    layoutLeft->addSpacing(5);
+    layoutLeft->addLayout(layoutWindows);
     layoutLeft->addStretch();
 
     QVBoxLayout* layoutRight = new QVBoxLayout();

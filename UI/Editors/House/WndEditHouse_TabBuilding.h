@@ -52,6 +52,8 @@ namespace UI
                     QLineEdit m_edArchitecturalStyle;
                     QLabel m_lblDoors;
                     QLineEdit m_edDoors;
+                    QLabel m_lblWindows;
+                    QLineEdit m_edWindows;
 
                     QLabel m_lblBasementVault;
                     QLineEdit m_edBasementVault;

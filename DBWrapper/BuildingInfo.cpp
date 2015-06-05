@@ -159,18 +159,37 @@ BuildingInfo::SaveToDB()const
 
     if(!ExistsInDB()){
         // We must insert the new data
-        strQuery = QString("Insert into %1 (Id, Shape, RoomPlacement, RoomCount, FrontFloorCount,\
-BakFloorCount, FrontBay, SideBay, BuildDate, ArchitecturalStyle, Doors, Windows, BasementVault, Roof, Ceiling, Pinion) \
-Values('%2', '%3', %4, %5, %6, '%7', '%8', %9, '%10', '%11', '%12', '%13', '%14', '%15', '%16')")
-                .arg(BuildingInfo::STR_TABLE_NAME).arg(m_Id.toString()).arg(Shape()).arg(RoomPlacement()).arg(RoomCount()).arg(FrontFloorCount())
-                .arg(BackFloorCount()).arg(FrontBay()).arg(SideBay()).arg(BuildDate().toJulianDay()).arg(ArchitecturalStyle()).arg(Doors())
-                .arg(Windows()).arg(BasementVault()).arg(Roof()).arg(Ceiling()).arg(Pinion());
+        strQuery = QString("Insert into %1 (\
+Id, Shape, RoomPlacement, \
+RoomCount, FrontFloorCount, BackFloorCount, \
+FrontBay, SideBay, BuildDate, \
+ArchitecturalStyle, Doors, Windows, \
+BasementVault, Roof, Ceiling, Pinion) \
+Values('%2', '%3', '%4', \
+%5, %6, %7, \
+'%8', '%9', %10, \
+'%11', '%12', '%13', \
+'%14', '%15', '%16', '%17')")
+                .arg(BuildingInfo::STR_TABLE_NAME)
+                .arg(m_Id.toString()).arg(Shape()).arg(RoomPlacement())
+                .arg(RoomCount()).arg(FrontFloorCount()).arg(BackFloorCount())
+                .arg(FrontBay()).arg(SideBay()).arg(BuildDate().toJulianDay())
+                .arg(ArchitecturalStyle()).arg(Doors()).arg(Windows())
+                .arg(BasementVault()).arg(Roof()).arg(Ceiling()).arg(Pinion());
     }else{
         // We must update the old data
-
-        // TODO
-//        strQuery = QString("Update %1 Set NameRO = '%2', NameDE = '%3', NameSX = '%4', NameHU = '%5' Where Id = '%6'")
-//                .arg(County::STR_TABLE_NAME).arg(NameRO()).arg(NameDE()).arg(NameSX()).arg(NameHU()).arg(m_Id.toString());
+         strQuery = QString("Update %1 Set \
+Shape = '%2', RoomPlacement = '%3', RoomCount = %4, \
+FrontFloorCount = %5, BackFloorCount = %6, FrontBay = '%7', \
+SideBay = '%8', BuildDate = %9, ArchitecturalStyle = '%10', \
+Doors = '%11', Windows = '%12', BasementVault = '%13', \
+Roof = '%14', Ceiling = '%15', Pinion = '%16' Where Id = '%17'")
+                 .arg(BuildingInfo::STR_TABLE_NAME)
+                 .arg(Shape()).arg(RoomPlacement()).arg(RoomCount())
+                 .arg(FrontFloorCount()).arg(BackFloorCount()).arg(FrontBay())
+                 .arg(SideBay()).arg(BuildDate().toJulianDay()).arg(ArchitecturalStyle())
+                 .arg(Doors()).arg(Windows()).arg(BasementVault())
+                 .arg(Roof()).arg(Ceiling()).arg(Pinion()).arg(m_Id.toString());
     }
 
     if(!query.exec(strQuery)){
