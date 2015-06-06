@@ -1,7 +1,7 @@
 #ifndef WNDEDITHOUSE_TABTAXES_H
 #define WNDEDITHOUSE_TABTAXES_H
 
-#include <QWidget>
+#include "DBWrapper/House.h"
 
 namespace UI
 {
@@ -18,6 +18,18 @@ namespace UI
                     ~WndEditHouse_TabTaxes();
 
                     void houseSaved();
+
+                protected:
+                    void initializeData();
+
+                protected:
+                    DBWrapper::House* m_pHouse;
+                    QTableView m_View;
+
+                    // Right side
+                    QPushButton m_btnAddTax;
+                    bool m_bNewHouseItem;
+                    bool m_bAutoAddPriest;
             };
         }
     }

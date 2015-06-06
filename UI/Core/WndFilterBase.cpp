@@ -1,33 +1,57 @@
+#include "UI/SideMenu/ThumbnailDelegate.h"
 #include "WndFilterBase.h"
 
 using namespace UI::Core;
 
 WndFilterBase::WndFilterBase(QWidget *parent)
-    :   QDialog(parent),
-        m_TableName(),
-        m_View(this),
-        m_SelectedId()
+    :   QDialog(parent)
+        ,m_TableName()
+        ,m_View(this)
+        ,m_SelectedId()
+        ,m_ImageColumns()
 {
     initializeData();
 }
 
 WndFilterBase::WndFilterBase(const QString& table, QWidget *parent)
-    :   QDialog(parent),
-        m_TableName(table),
-        m_View(this),
-        m_SelectedId()
+    :   QDialog(parent)
+        ,m_TableName(table)
+        ,m_View(this)
+        ,m_SelectedId()
+        ,m_ImageColumns()
 {
     initializeData();
 }
 
-WndFilterBase::~WndFilterBase()
-{
-}
+WndFilterBase::~WndFilterBase(){}
 
 QUuid
 WndFilterBase::getSelectedId()const
 {
     return m_SelectedId;
+}
+
+void
+WndFilterBase::setImageColumn(int index, bool image)
+{
+    if(!image){
+        m_ImageColumns.removeAll(index);
+    }else{
+        if(!m_ImageColumns.contains(index)){
+            m_ImageColumns.append(index);
+            m_View.setItemDelegateForColumn(index, new SideMenu::ThumbnailDelegate(this));
+        } else{
+            return;
+        }
+    }
+}
+
+void
+WndFilterBase::setImageColumn(const QString& name, bool image)
+{
+    QSqlTableModel* model = qobject_cast<QSqlTableModel*>(m_View.model());
+    if(model != nullptr)
+        setImageColumn(model->fieldIndex(name), image);
 }
 
 void
@@ -66,6 +90,9 @@ WndFilterBase::onItemSelected(const QModelIndex& index)
 void
 WndFilterBase::initializeData()
 {
+    m_View.setHorizontalScrollMode(QAbstractItemView::ScrollPerPixel);
+    m_View.setVerticalScrollMode(QAbstractItemView::ScrollPerPixel);
+
     QSqlTableModel* model = new QSqlTableModel(this, QSqlDatabase::database());
     model->setTable(m_TableName);
     model->setEditStrategy(QSqlTableModel::OnManualSubmit);

@@ -57,7 +57,9 @@ SOURCES += main.cpp \
     UI/CentralWindow.cpp \
     UI/MainWindow.cpp \
     DBWrapper/PriestTenure.cpp \
-    UI/Core/DateDialog.cpp
+    UI/Core/DateDialog.cpp \
+    PixmapCache.cpp \
+    PixmapCacheItem.cpp
 
 HEADERS  += Base.h \
     DBWrapper/BuildingInfo.h \
@@ -104,7 +106,9 @@ HEADERS  += Base.h \
     UI/CentralWindow.h \
     UI/MainWindow.h \
     DBWrapper/PriestTenure.h \
-    UI/Core/DateDialog.h
+    UI/Core/DateDialog.h \
+    PixmapCache.h \
+    PixmapCacheItem.h
 
 FORMS +=
 

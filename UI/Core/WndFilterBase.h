@@ -18,6 +18,9 @@ namespace UI
 
                 QUuid getSelectedId()const;
 
+                void setImageColumn(int index, bool image = true);
+                void setImageColumn(const QString& name, bool image = true);
+
             signals:
                 void itemSelected(const QUuid& id);
 
@@ -31,6 +34,8 @@ namespace UI
                 QString m_TableName;
                 QTableView m_View;
                 QUuid m_SelectedId;
+
+                QList<int> m_ImageColumns;
         };
     }
 }

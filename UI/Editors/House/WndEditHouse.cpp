@@ -680,6 +680,12 @@ WndEditHouse::on_btnAddNewImage_clicked()
 void
 WndEditHouse::on_btnAddDBImage_clicked()
 {
+    Core::WndFilterBase filterImages(DBWrapper::ImageInfo::STR_TABLE_NAME, this);
+    filterImages.setImageColumn("Path");
+    filterImages.exec();
+
+    QUuid idImage = filterImages.getSelectedId();
+//    updateLocality(idLocality);
 }
 
 void

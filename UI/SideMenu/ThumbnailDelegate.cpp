@@ -1,3 +1,4 @@
+#include "PixmapCache.h"
 #include "ThumbnailDelegate.h"
 
 using namespace UI::SideMenu;
@@ -14,15 +15,30 @@ ThumbnailDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
 
     QString path = index.data().toString();
     if(!path.isEmpty()){
-        QPixmap pixmap(path);
+        QFileInfo fi(path);
+        if(!fi.isFile() || !fi.exists())
+            return;
+
         int rectSide = qMin(option.rect.width(), option.rect.height());
         QRect ourRect = option.rect;
         ourRect.setWidth(rectSide);
         ourRect.setHeight(rectSide);
         ourRect.moveCenter(option.rect.center());
-        pixmap = pixmap.scaled(rectSide, rectSide);
-        if(!pixmap.isNull())
+        PixmapCacheItem* cacheItem = PixmapCache::instance()->findPixmapCacheItem(path, ourRect.size());
+        QPixmap pixmap;
+        if(cacheItem != nullptr)
+            pixmap = cacheItem->Pixmap();
+
+        if(!pixmap.isNull()){
             painter->drawPixmap(ourRect, pixmap);
+        }else{
+            pixmap = QPixmap(path);
+            pixmap = pixmap.scaled(rectSide, rectSide);
+            if(!pixmap.isNull()){
+                painter->drawPixmap(ourRect, pixmap);
+                PixmapCache::instance()->createPixmapCacheItem(pixmap, path, ourRect.size());
+            }
+        }
     }
 }
 
