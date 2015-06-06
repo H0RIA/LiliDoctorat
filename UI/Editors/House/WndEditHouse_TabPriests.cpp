@@ -17,6 +17,8 @@ WndEditHouse_TabPriests::WndEditHouse_TabPriests(DBWrapper::House* pHouse, bool 
         ,m_lblEndDate(this)
         ,m_edEndDate(this)
         ,m_btnAdd(this)
+        ,m_bNewHouseItem(newItem)
+        ,m_bAutoAddPriest(false)
 {
     initializeData();
 }
@@ -24,9 +26,35 @@ WndEditHouse_TabPriests::WndEditHouse_TabPriests(DBWrapper::House* pHouse, bool 
 WndEditHouse_TabPriests::~WndEditHouse_TabPriests(){}
 
 void
+WndEditHouse_TabPriests::houseSaved()
+{
+    m_bNewHouseItem = false;
+
+    if(m_bAutoAddPriest){
+        m_bAutoAddPriest = false;
+        onAddPriest();
+    }
+}
+
+void
 WndEditHouse_TabPriests::onAddPriest()
 {
     bool result = false;
+
+    if(m_bNewHouseItem){
+        QMessageBox msg;
+        msg.setWindowTitle(tr("Info"));
+        msg.setText(tr("You must first save the house info!\nContinue?"));
+        msg.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+        int result = msg.exec();
+
+        if(result == QMessageBox::Yes){
+            m_bAutoAddPriest = true;
+            emit saveHouse();
+        }else{
+            return;
+        }
+    }
 
     QString strInsert = QString("Select Count(*) As EntryExists From %1 Where IdHouse = '%2' And IdPriest = '%3' And StartDate = %4 And EndDate = %5")
             .arg(DBWrapper::PriestTenure::STR_TABLE_NAME).arg(m_PriestTenure.HouseId().toString()).arg(m_PriestTenure.PriestId().toString())
@@ -142,6 +170,11 @@ WndEditHouse_TabPriests::initializeData()
 {
     if(m_pHouse == nullptr)
         return;
+
+    m_edEndDate.setReadOnly(true);
+    m_edFirstName.setReadOnly(true);
+    m_edLastName.setReadOnly(true);
+    m_edStartDate.setReadOnly(true);
 
     m_btnAdd.setEnabled(false);
     m_lblEndDate.setText(tr("End date"));

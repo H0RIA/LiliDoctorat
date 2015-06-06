@@ -26,6 +26,7 @@ namespace UI
 
                     bool loadFromDB(const QUuid& id = QUuid());
                     bool saveToDB();
+                    void saveOnlyHouseData();
 
                     // For UI only
                     void updateLocality(const QUuid& idLocality);
@@ -34,6 +35,7 @@ namespace UI
                     bool eventFilter(QObject* o, QEvent * ev);
 
                 protected slots:
+                    void onSaveHouse();
                     void onCancel();
                     void onOK();
                     void onApply();

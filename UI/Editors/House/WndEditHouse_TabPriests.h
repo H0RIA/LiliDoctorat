@@ -18,6 +18,8 @@ namespace UI
                     explicit WndEditHouse_TabPriests(DBWrapper::House* pHouse, bool newItem, QWidget* parent = nullptr);
                     ~WndEditHouse_TabPriests();
 
+                    void houseSaved();
+
                 protected slots:
                     void onAddPriest();
                     void onSelectStart(QMouseEvent* ev);
@@ -28,6 +30,9 @@ namespace UI
                     void resetModel();
                     void updatePriest(const QUuid& id);
                     void initializeData();
+
+                signals:
+                    void saveHouse();
 
                 protected:
                     DBWrapper::House* m_pHouse;
@@ -49,6 +54,8 @@ namespace UI
                     QPushButton m_btnAdd;
                     DBWrapper::PriestInfo m_Priest;
                     DBWrapper::PriestTenure m_PriestTenure;
+                    bool m_bNewHouseItem;
+                    bool m_bAutoAddPriest;
             };
         }
     }

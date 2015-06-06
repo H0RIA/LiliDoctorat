@@ -3,6 +3,7 @@
 
 #include "DBWrapper/House.h"
 #include "DBWrapper/BuildingInfo.h"
+#include "UI/Core/LineEdit.h"
 
 namespace UI
 {
@@ -21,7 +22,10 @@ namespace UI
                     void loadFromDB();
                     bool saveToDB();
 
-            protected:
+                protected slots:
+                    void onSelectBuildDate(QMouseEvent* ev);
+
+                protected:
                     bool eventFilter(QObject* o, QEvent * ev);
 
                     void initializeData();
@@ -47,7 +51,7 @@ namespace UI
                     QLabel m_lblSideBay;
                     QLineEdit m_edSideBay;
                     QLabel m_lblBuildDate;
-                    QLineEdit m_edBuildDate;
+                    Core::LineEdit m_edBuildDate;
                     QLabel m_lblArchitecturalStyle;
                     QLineEdit m_edArchitecturalStyle;
                     QLabel m_lblDoors;

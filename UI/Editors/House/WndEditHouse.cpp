@@ -183,6 +183,8 @@ WndEditHouse::initializeData()
     WndEditHouse_TabPriests* tabPriests = new WndEditHouse_TabPriests(&m_House, m_NewItem, this);
     WndEditHouse_TabTaxes* tabTaxes = new WndEditHouse_TabTaxes(m_House.Id(), m_NewItem, this);
 
+    connect(tabPriests, SIGNAL(saveHouse()), SLOT(onSaveHouse()));
+
     m_TabItems[tr("Building")] = m_Tab.addTab(tabBuilding, tr("Building"));;
     m_TabItems[tr("Function")] = m_Tab.addTab(tabFunction, tr("Function"));
     m_TabItems[tr("Positioning")] = m_Tab.addTab(tabPositioning, tr("Positioning"));
@@ -485,6 +487,18 @@ WndEditHouse::saveToDB()
 }
 
 void
+WndEditHouse::saveOnlyHouseData()
+{
+    m_House.setNameRO(m_edNumeRomanesc.text());
+    m_House.setNameDE(m_edNumeGerman.text());
+    m_House.setNameSX(m_edNumeSasesc.text());
+    m_House.setNameHU(m_edNumeMaghiar.text());
+    m_House.setHouseDating(m_edDate.text());
+    m_House.setOldStatus(m_edOldStatus.text());
+    m_House.setIdLocality(m_Locality.Id());
+}
+
+void
 WndEditHouse::updateLocality(const QUuid& idLocality)
 {
     m_Locality.setId(idLocality);
@@ -526,6 +540,38 @@ WndEditHouse::eventFilter(QObject* o, QEvent * ev)
     }
 
     return false;
+}
+
+void
+WndEditHouse::onSaveHouse()
+{
+    QWidget* widget = qobject_cast<QWidget*>(sender());
+
+
+    WndEditHouse_TabBuilding* tabBuilding = qobject_cast<WndEditHouse_TabBuilding*>(m_Tab.widget(m_TabItems[tr("Building")]));
+    WndEditHouse_TabFunction* tabFunction = qobject_cast<WndEditHouse_TabFunction*>(m_Tab.widget(m_TabItems[tr("Function")]));
+    WndEditHouse_TabPositioning* tabPositioning = qobject_cast<WndEditHouse_TabPositioning*>(m_Tab.widget(m_TabItems[tr("Positioning")]));
+    WndEditHouse_TabPriests* tabPriests = qobject_cast<WndEditHouse_TabPriests*>(m_Tab.widget(m_TabItems[tr("Priests")]));
+    WndEditHouse_TabTaxes* tabTaxes = qobject_cast<WndEditHouse_TabTaxes*>(m_Tab.widget(m_TabItems[tr("Taxes")]));
+
+    if(tabBuilding != nullptr && widget != tabBuilding)
+        tabBuilding->saveToDB();
+
+    if(tabFunction != nullptr && widget != tabFunction)
+        tabFunction->saveToDB();
+
+    if(tabPositioning != nullptr && widget != tabPositioning)
+        tabPositioning->saveToDB();
+
+    saveOnlyHouseData();
+    if(m_House.SaveToDB())
+    {
+        if(tabPriests != nullptr)
+            tabPriests->houseSaved();
+
+        if(tabTaxes != nullptr)
+            tabTaxes->houseSaved();
+    }
 }
 
 void

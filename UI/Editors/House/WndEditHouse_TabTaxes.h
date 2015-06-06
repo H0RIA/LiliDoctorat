@@ -16,6 +16,8 @@ namespace UI
                 public:
                     WndEditHouse_TabTaxes(const QUuid& houseId, bool newItem, QWidget* parent = nullptr);
                     ~WndEditHouse_TabTaxes();
+
+                    void houseSaved();
             };
         }
     }

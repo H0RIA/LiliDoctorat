@@ -1,4 +1,5 @@
 #include "DBWrapper/House.h"
+#include "UI/Core/DateDialog.h"
 #include "WndEditHouse_TabBuilding.h"
 
 using namespace UI::Editors::House;
@@ -104,6 +105,21 @@ WndEditHouse_TabBuilding::saveToDB()
     return m_Building.SaveToDB();
 }
 
+void
+WndEditHouse_TabBuilding::onSelectBuildDate(QMouseEvent* ev)
+{
+    Q_UNUSED(ev)
+
+    UI::Core::DateDialog dlgDate(this);
+
+    int result = dlgDate.exec();
+    if(result == QDialog::Accepted){
+        QDate buildDate = dlgDate.selectedDate();
+        m_edBuildDate.setText(buildDate.toString());
+        m_Building.setBuildDate(buildDate);
+    }
+}
+
 bool
 WndEditHouse_TabBuilding::eventFilter(QObject* o, QEvent * ev)
 {
@@ -167,6 +183,9 @@ WndEditHouse_TabBuilding::initializeData()
     m_edRoof.setFixedWidth(editWidth);
     m_edCeiling.setFixedWidth(editWidth);
     m_edPinion.setFixedWidth(editWidth);
+
+    m_edBuildDate.setReadOnly(true);
+    connect(&m_edBuildDate, SIGNAL(doubleClick(QMouseEvent*)), SLOT(onSelectBuildDate(QMouseEvent*)));
 
     CREATE_LABELEDIT_LAYOUT(Shape, m_lblShape, m_edShape);
     CREATE_LABELEDIT_LAYOUT(RoomPlacement, m_lblRoomPlacement, m_edRoomPlacement);

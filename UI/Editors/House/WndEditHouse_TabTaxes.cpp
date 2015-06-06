@@ -8,8 +8,10 @@ WndEditHouse_TabTaxes::WndEditHouse_TabTaxes(const QUuid& houseId, bool newItem,
 
 }
 
-WndEditHouse_TabTaxes::~WndEditHouse_TabTaxes()
+WndEditHouse_TabTaxes::~WndEditHouse_TabTaxes(){}
+
+void
+WndEditHouse_TabTaxes::houseSaved()
 {
-
+    // TODO
 }
-
