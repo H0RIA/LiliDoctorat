@@ -37,6 +37,9 @@ PixmapCache::findPixmapCacheItem(const QString& path, const QSize& size)
 {
     PixmapCacheItem* item = nullptr;
 
+    if(path.isEmpty())
+        return item;
+
     foreach(PixmapCacheItem* currentItem, m_Pixmaps){
         if(currentItem != nullptr){
             if(currentItem->Path() == path && currentItem->Size() == size){

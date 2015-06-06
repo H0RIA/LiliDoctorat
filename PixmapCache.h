@@ -12,8 +12,8 @@ class PixmapCache : public QObject
 
     public:
         bool remPixmapCacheItem(const QString& path, const QSize& size);
-        PixmapCacheItem* findPixmapCacheItem(const QString& path, const QSize& size);
-        PixmapCacheItem* createPixmapCacheItem(const QPixmap& pix, const QString& path, const QSize& size);
+        PixmapCacheItem* findPixmapCacheItem(const QString& path, const QSize& size = QSize());
+        PixmapCacheItem* createPixmapCacheItem(const QPixmap& pix, const QString& path, const QSize& size = QSize());
 };
 
 #endif // PIXMAPCACHE

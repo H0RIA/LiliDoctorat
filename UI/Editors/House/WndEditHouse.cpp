@@ -1,3 +1,4 @@
+#include "PixmapCache.h"
 #include "DBWrapper/Locality.h"
 #include "DBWrapper/Language.h"
 #include "UI/Editors/WndEditImage.h"
@@ -471,6 +472,30 @@ WndEditHouse::saveToDB()
     m_House.setOldStatus(m_edOldStatus.text());
     m_House.setIdLocality(m_Locality.Id());
 
+    // Save images
+    foreach(DBWrapper::ImageInfo* image, m_House.getImages()){
+        if(image != nullptr){
+            image->SaveToDB();
+
+            bool exists = false;
+            // Check if image exists
+            QSqlQuery query(QString("Select Count(*) As EntryExists From HouseImages Where IdHouse = '%1' And IdImage = '%2'")
+                            .arg(m_House.Id().toString()).arg(image->Id().toString()));
+            while(query.next()){
+                int size = query.value("EntryExists").toInt();
+                if(size == 1)
+                    exists = true;
+            }
+
+            bool result = false;
+            if(!exists){
+                QString strQuery = QString("Insert Into HouseImages (IdHouse, IdImage) Values('%1', '%2')")
+                        .arg(m_House.Id().toString()).arg(image->Id().toString());
+                RunQuery(strQuery, result);
+            }
+        }
+    }
+
     WndEditHouse_TabBuilding* tabBuilding = qobject_cast<WndEditHouse_TabBuilding*>(m_Tab.widget(m_TabItems[tr("Building")]));
     if(tabBuilding != nullptr)
         tabBuilding->saveToDB();
@@ -632,8 +657,26 @@ WndEditHouse::setCurrentImage(const QUuid& idImage)
         DBWrapper::ImageInfo image;
         image.setId(idImage);
         if(image.LoadFromDB()){
-            m_Image.setPixmap(QPixmap(image.Path()));
-            updateImageSize();
+            PixmapCacheItem* item = PixmapCache::instance()->findPixmapCacheItem(image.Path());
+
+            if(item != nullptr){
+                PixmapCacheItem* scaledItem = PixmapCache::instance()->findPixmapCacheItem(image.Path(), m_Image.size());
+                if(scaledItem == nullptr)
+                    item = PixmapCache::instance()->createPixmapCacheItem(item->Pixmap().scaled(m_Image.size(), Qt::KeepAspectRatio), image.Path(), m_Image.size());
+                else
+                    item = scaledItem;
+            }
+            else{
+                QPixmap pix(image.Path());
+                item = PixmapCache::instance()->createPixmapCacheItem(pix, image.Path());
+                item = PixmapCache::instance()->createPixmapCacheItem(pix.scaled(m_Image.size(), Qt::KeepAspectRatio), image.Path(), m_Image.size());
+            }
+
+            qDebug() << "Setting image: " << image.Path() << " with size: " << item->Size();
+            if(item != nullptr){
+                m_Image.setPixmap(item->Pixmap());
+                m_CurrentImageId = idImage;
+            }
         }
     }else{
         m_Image.clear();
@@ -685,7 +728,16 @@ WndEditHouse::on_btnAddDBImage_clicked()
     filterImages.exec();
 
     QUuid idImage = filterImages.getSelectedId();
-//    updateLocality(idLocality);
+    bool setImage = m_House.getImages().size() == 0 ? true : false;
+
+    if(!m_House.findImageInfo(idImage)){
+        DBWrapper::ImageInfo* image = new DBWrapper::ImageInfo();
+        image->setId(idImage);
+        image->LoadFromDB();
+        m_House.addImageInfo(image);
+        if(setImage)
+            setCurrentImage(idImage);
+    }
 }
 
 void
