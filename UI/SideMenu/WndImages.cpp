@@ -1,3 +1,4 @@
+#include "UI/SideMenu/ThumbnailDelegate.h"
 #include "UI/Editors/WndEditImage.h"
 #include "WndImages.h"
 
@@ -55,6 +56,8 @@ WndImages::resetModel()
         model->setHeaderData(3, Qt::Horizontal, QObject::tr("Details"));
         m_View.setModel(model);
         m_View.setColumnHidden(0, true);
+
+        m_View.setItemDelegateForColumn(1, new SideMenu::ThumbnailDelegate(this));
     }
 }
 

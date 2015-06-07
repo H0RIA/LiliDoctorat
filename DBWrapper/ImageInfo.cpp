@@ -1,3 +1,4 @@
+#include "PixmapCache.h"
 #include "ImageInfo.h"
 
 using namespace DBWrapper;
@@ -32,8 +33,8 @@ ImageInfo::getPixmap()
 {
     if(m_pImage == nullptr){
         if(!m_Path.isEmpty()){
-            m_pImage = new QPixmap(m_Path);
-            *m_pImage = m_pImage->scaled(QSize(96, 96));
+            PixmapCacheItem* item = PixmapCache::instance()->createPixmapCacheItem(m_Path, QSize(96, 96));
+            m_pImage = &(item->Pixmap());
         }
     }
 
@@ -45,8 +46,8 @@ ImageInfo::getPixmap()const
 {
     if(m_pImage == nullptr){
         if(!m_Path.isEmpty()){
-            const_cast<QPixmap*>(m_pImage) = new QPixmap(m_Path);
-            *(const_cast<QPixmap*>(m_pImage)) = m_pImage->scaled(QSize(96, 96));
+            PixmapCacheItem* item = PixmapCache::instance()->createPixmapCacheItem(m_Path, QSize(96, 96));
+            const_cast<QPixmap*>(m_pImage) = &(item->Pixmap());
         }
     }
 
@@ -60,7 +61,7 @@ ImageInfo::operator=(const ImageInfo& ii)
     m_Path = ii.Path();
     m_Name = ii.Name();
     m_Details = ii.Details();
-    m_pImage = nullptr;
+    m_pImage = ii.m_pImage;
 
     return *this;
 }

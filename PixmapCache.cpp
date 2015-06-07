@@ -67,3 +67,19 @@ PixmapCache::createPixmapCacheItem(const QPixmap& pix, const QString& path, cons
 
     return item;
 }
+
+PixmapCacheItem*
+PixmapCache::createPixmapCacheItem(const QString& path, const QSize& size)
+{
+    PixmapCacheItem* item = findPixmapCacheItem(path, size);
+
+    if(item == nullptr){
+        item->setPath(path);
+        item->setPixmap(QPixmap(path));
+        item->setSize(item->Pixmap().size());
+
+        m_Pixmaps.append(item);
+    }
+
+    return item;
+}

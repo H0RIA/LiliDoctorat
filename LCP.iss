@@ -5,22 +5,22 @@
 
 ;#define AppName "LiliCP"
 #define AppName "LCP"
-#define ApplicationVersion "0.0.1"
+#define ApplicationVersion "0.1.2"
 #define VSRedist_Release "C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\redist\x64\Microsoft.VC120.CRT"
 #define VSRedist_Debug "C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\redist\Debug_NonRedist\x64\Microsoft.VC120.DebugCRT"
 #define QtDir "C:\Qt\5.4\msvc2013_64\bin"
 
 #ifdef Debug
-  #define ExePath  "..\build-LCP-Desktop_Qt_5_4_MSVC2013_64bit-Debug\debug"
+  #define ExePath  "..\build-LCP-Desktop_Qt_5_4_2_MSVC2013_64bit-Debug\debug"
 #else
-  #define ExePath  "..\build-LCP-Desktop_Qt_5_4_MSVC2013_64bit-Release\release"
+  #define ExePath  "..\build-LCP-Desktop_Qt_5_4_2_MSVC2013_64bit-Release\release"
 #endif
 
 [Setup]
 AppName={#AppName}
 AppPublisher=iColdo, Inc.
 AppPublisherURL=http://www.icoldo.com
-AppVersion=0.9
+AppVersion=0.1.2
 AppVerName={#AppName} version {#ApplicationVersion}
 DefaultDirName={pf32}\{#AppName}
 DefaultGroupName={#AppName}
@@ -206,6 +206,9 @@ Name: "{group}\{#AppName}"; Filename: "{app}\{#AppName}.exe"; IconFilename: "{ap
 Name: "{group}\Uninstall {#AppName}"; Filename: "{uninstallexe}"; IconFilename: "{app}\app-icon.ico"
 
 [Run]
-;Filename: "{tmp}\{#FlashInstaller}"; Description: "Install Flash Player"; Flags: postinstall unchecked
 ;Filename: "{app}\Readme.txt"; Description: "View the README file"; Flags: postinstall unchecked
 Filename: "{app}\{#AppName}.exe"; Flags: postinstall unchecked
+
+[UninstallDelete]
+Type: files; Name: "{userappdata}\LCP\LCP.sqlite"
+Type: filesandordirs; Name: "{localappdata}\LCP"
